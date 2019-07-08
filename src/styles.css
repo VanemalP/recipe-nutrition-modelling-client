@@ -1,0 +1,44 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	text-decoration: none;
+	list-style: none;
+	font-weight: 500;
+	font-family: "Montserrat", sans-serif;
+	color: #767779;
+}
+
+.toast-container .toast-success {
+	/* background-color: #5cdb95; */
+	font-family: "Montserrat", sans-serif;
+}
+.toast-container .toast-error {
+	/* background-color: #ff5722; */
+	font-family: "Montserrat", sans-serif;
+}
+
+html, body, material-app, mat-sidenav-container {
+  height: 100%;
+  width: 100%;
+}
+
+body .material-icons {
+	font-family: 'Material Icons';
+}
+
+.container {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a {
+	cursor: pointer;
+}
+
+a:active, a:visited, a:link {
+  color: #2E2E2E;
+}

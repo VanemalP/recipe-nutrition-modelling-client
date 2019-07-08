@@ -1,0 +1,39 @@
+<mat-toolbar [class.mat-elevation-z1]="true">
+  <div class="logo">
+    <a routerLink="/recipes">
+     <!-- Recipe nutrition modelling -->
+     <img src="../../../assets/logo-with-text.png" alt="Logo">
+    </a>
+  </div>
+  <div class="container">
+    <button mat-icon-button title="Search">
+      <mat-icon>search</mat-icon>
+    </button>
+    <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+      <ul fxLayout fxLayoutGap="8px">
+        <ng-template [ngIf]="loggedIn">
+          <li>
+            <button mat-icon-button routerLink="/add" title="Add recipe">
+              <mat-icon>add_circle</mat-icon>
+            </button>
+          </li>
+          <li>
+            <button mat-icon-button routerLink="/recipes" title="Recipes">
+              <mat-icon>library_books</mat-icon>
+            </button>
+          </li>
+          <li>
+            <button mat-icon-button [routerLink]="['/users', username]" title="Profile">
+              <mat-icon>account_circle</mat-icon>
+            </button>
+          </li>
+          <li>
+            <button mat-icon-button routerLink="/login" (click)="triggerLogout()" title="Logout">
+              <mat-icon>input</mat-icon>
+            </button>
+          </li>
+        </ng-template>
+      </ul>
+    </div>
+  </div>
+</mat-toolbar>

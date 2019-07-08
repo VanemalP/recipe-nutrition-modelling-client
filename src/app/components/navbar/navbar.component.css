@@ -1,0 +1,33 @@
+mat-toolbar {
+  position: relative;
+}
+
+button {
+  height: 50px;
+  width: 50px;
+  line-height: 50px;
+}
+
+button mat-icon {
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+
+.logo {
+  position: absolute;
+  height: 40px;
+  line-height: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+img {
+  height: 40px;
+}
+
+a {
+  font-weight: 600;
+  font-size: 30px;
+}
