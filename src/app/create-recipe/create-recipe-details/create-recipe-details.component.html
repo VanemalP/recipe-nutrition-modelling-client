@@ -1,0 +1,24 @@
+<div class="main-info" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="28px">
+  <div class="img-container">
+    <div class="center">
+        <mat-icon>add</mat-icon>
+    </div>
+    <img src="https://images.all-free-download.com/images/graphiclarge/healthy_meal_background_vegetables_eggs_bacon_icons_6836169.jpg" alt="Recipe image" class="recipe-img" title="Add image">
+  </div>
+  <div fxFlex>
+    <div fxLayout="column" fxLayoutAlign="start" class="info-container">
+      <mat-form-field class="titleInput">
+        <input matInput type="text" placeholder="Title" [(ngModel)]="titleInputValue" name="title-input">
+        <button mat-button *ngIf="titleInputValue" matSuffix mat-icon-button aria-label="Clear" (click)="titleInputValue=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Notes" [(ngModel)]="notesInputValue" name="notes-input" rows="3"></textarea>
+        <button mat-button *ngIf="notesInputValue" matSuffix mat-icon-button aria-label="Clear" (click)="notesInputValue=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>      
+    </div>
+  </div>
+</div>

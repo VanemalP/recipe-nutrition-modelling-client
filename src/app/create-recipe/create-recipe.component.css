@@ -1,0 +1,9 @@
+.container {
+  padding: 10px 0;
+  min-height: calc(100vh - 64px);
+}
+
+.recipe {
+  padding-top: 14px;
+  padding-left: 28px;
+}

@@ -16,6 +16,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ServerErrorComponent } from './components/server-error/server-error.component';
 import { SharedModule } from './shared/shared.module';
 import { UsersModule } from './users/users.module';
+import { CreateRecipeModule } from './create-recipe/create-recipe.module';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { UsersModule } from './users/users.module';
     CoreModule,
     AuthModule,
     UsersModule,
+    CreateRecipeModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {

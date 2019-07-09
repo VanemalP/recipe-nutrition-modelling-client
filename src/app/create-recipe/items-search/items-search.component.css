@@ -1,0 +1,7 @@
+mat-tab-group {
+  margin-right: 28px;
+}
+
+::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label {
+  min-width: 124px;
+}

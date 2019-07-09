@@ -1,4 +1,4 @@
-import { User } from './../../common/models/user';
+import { User } from '../../common/models/user/user';
 import { ActivityData } from './../../common/models/activity-data';
 import { Activity } from './../../common/models/activity';
 import { TestBed } from '@angular/core/testing';

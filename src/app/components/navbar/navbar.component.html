@@ -9,11 +9,11 @@
     <button mat-icon-button title="Search" class="nav-btn">
       <mat-icon>search</mat-icon>
     </button>
-    <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+    <div fxFlex fxLayout fxLayoutAlign="flex-end">
       <ul fxLayout fxLayoutGap="8px">
         <ng-template [ngIf]="loggedIn">
           <li>
-            <button mat-icon-button routerLink="/add" title="Add recipe" class="nav-btn">
+            <button mat-icon-button routerLink="/recipes/create" title="Add recipe" class="nav-btn">
               <mat-icon>add_circle</mat-icon>
             </button>
           </li>

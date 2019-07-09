@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'users', loadChildren: './users/users.module#UsersModule' },
+  { path: 'recipes/create', loadChildren: './create-recipe/create-recipe.module#CreateRecipeModule' },
   { path: 'not-found' , component: NotFoundComponent },
   { path: 'server-error' , component: ServerErrorComponent },
   { path: '**', redirectTo: '/not-found' }
