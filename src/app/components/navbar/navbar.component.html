@@ -6,29 +6,29 @@
     </a>
   </div>
   <div class="container">
-    <button mat-icon-button title="Search">
+    <button mat-icon-button title="Search" class="nav-btn">
       <mat-icon>search</mat-icon>
     </button>
     <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
       <ul fxLayout fxLayoutGap="8px">
         <ng-template [ngIf]="loggedIn">
           <li>
-            <button mat-icon-button routerLink="/add" title="Add recipe">
+            <button mat-icon-button routerLink="/add" title="Add recipe" class="nav-btn">
               <mat-icon>add_circle</mat-icon>
             </button>
           </li>
           <li>
-            <button mat-icon-button routerLink="/recipes" title="Recipes">
+            <button mat-icon-button routerLink="/recipes" title="Recipes" class="nav-btn">
               <mat-icon>library_books</mat-icon>
             </button>
           </li>
           <li>
-            <button mat-icon-button [routerLink]="['/users', username]" title="Profile">
+            <button mat-icon-button [routerLink]="['/users', username]" title="Profile" class="nav-btn">
               <mat-icon>account_circle</mat-icon>
             </button>
           </li>
           <li>
-            <button mat-icon-button routerLink="/login" (click)="triggerLogout()" title="Logout">
+            <button mat-icon-button routerLink="/login" (click)="triggerLogout()" title="Logout" class="nav-btn">
               <mat-icon>input</mat-icon>
             </button>
           </li>
