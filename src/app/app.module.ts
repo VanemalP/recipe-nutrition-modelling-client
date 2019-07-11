@@ -17,6 +17,7 @@ import { ServerErrorComponent } from './components/server-error/server-error.com
 import { SharedModule } from './shared/shared.module';
 import { UsersModule } from './users/users.module';
 import { CreateRecipeModule } from './create-recipe/create-recipe.module';
+import { TokenInterceptorService } from './interceptors/token-interceptor';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,11 @@ import { CreateRecipeModule } from './create-recipe/create-recipe.module';
   providers: [
     // AuthGuard,
     NoAuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
