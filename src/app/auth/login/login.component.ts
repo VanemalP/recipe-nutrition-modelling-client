@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 import { AuthService } from './../../core/services/auth.service';
 import { NotificatorService } from './../../core/services/notificator.service';
-import { UserLogin } from 'src/app/common/models/user-login';
+import { UserLogin } from 'src/app/common/models/user/user-login';
 import { Subscription } from 'rxjs';
 
 @Component({
