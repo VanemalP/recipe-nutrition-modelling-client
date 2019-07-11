@@ -7,3 +7,15 @@
   padding-top: 14px;
   padding-left: 28px;
 }
+
+.search {
+  position: relative;
+}
+
+.search-details {
+  position: fixed;
+  top: 64px;
+  left: 5%;
+  width: 27%;
+}
+

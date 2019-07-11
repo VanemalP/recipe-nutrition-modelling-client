@@ -1,3 +1,4 @@
+import { RecipesService } from './services/recipes.service';
 
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -19,6 +20,7 @@ import { UsersService } from './services/users.service';
     StorageService,
     NotificatorService,
     UsersService,
+    RecipesService,
   ]
 })
 export class CoreModule {

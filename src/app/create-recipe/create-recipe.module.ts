@@ -7,6 +7,7 @@ import { ItemsSearchComponent } from './items-search/items-search.component';
 import { ItemsSearchDetailsComponent } from './items-search-details/items-search-details.component';
 import { CreateSearchResultComponent } from './create-search-result/create-search-result.component';
 import { CreateRecipeDetailsComponent } from './create-recipe-details/create-recipe-details.component';
+import { ProductsService } from './services/products.service';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { CreateRecipeDetailsComponent } from './create-recipe-details/create-rec
   imports: [
     SharedModule,
     CreateRecipeRoutingModule
-  ]
+  ],
+  providers: [ProductsService],
 })
 export class CreateRecipeModule { }

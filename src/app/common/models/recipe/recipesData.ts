@@ -1,7 +1,7 @@
 import { Recipe } from './recipe';
 
 export interface RecipesData {
-  items: Recipe[];
+  recipes: Recipe[];
   page: number;
   itemCount: number;
   totalItems: number;

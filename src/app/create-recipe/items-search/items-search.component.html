@@ -1,16 +1,9 @@
-<mat-tab-group>
-  <mat-tab>
+<mat-tab-group (selectedIndexChange)="getSelectedTabIndex($event)">
+  <mat-tab *ngFor="let tab of tabs">
     <ng-template mat-tab-label>
-      Products
+      {{tab | titlecase}}
     </ng-template>
-    <app-items-search-details [inputPlaceholder]="productDescription" [selectLabel]="productSelectLabel" [options]="productFoodGroups" [foundItems]="foundItems"></app-items-search-details>
-  </mat-tab>
-  
-  <mat-tab>
-    <ng-template mat-tab-label>
-      Recipes
-    </ng-template>
-    <app-items-search-details [inputPlaceholder]="recipeTitle" [selectLabel]="recipeSelectLabel" [options]="recipeCategories" [foundItems]="foundItems"></app-items-search-details>
+    <app-items-search-details [inputPlaceholder]="setInputPlacehlder(tab)" [selectLabel]="setSelectedLabel(tab)" [options]="productFoodGroups" (searchItems)="triggerSearchItems($event)"></app-items-search-details>
   </mat-tab>
 </mat-tab-group>
-<app-create-search-result></app-create-search-result>
+<app-create-search-result [foundItems]="foundItems" [searchedItem]="getSelectedTabName()"></app-create-search-result>

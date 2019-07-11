@@ -1,24 +1,72 @@
-<div class="main-info" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="28px">
-  <div class="img-container">
-    <div class="center">
+<form action="" class="form-container" [formGroup]="recipeForm" (ngSubmit)="create(recipeForm.value)">
+  <div class="main-info" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="28px">
+    <div class="img-container">
+      <div class="center">
         <mat-icon>add</mat-icon>
+      </div>
+      <img
+        src="https://images.all-free-download.com/images/graphiclarge/healthy_meal_background_vegetables_eggs_bacon_icons_6836169.jpg"
+        alt="Recipe image"
+        class="recipe-img"
+        title="Add image"
+      />
     </div>
-    <img src="https://images.all-free-download.com/images/graphiclarge/healthy_meal_background_vegetables_eggs_bacon_icons_6836169.jpg" alt="Recipe image" class="recipe-img" title="Add image">
+    <div fxFlex>
+      <div fxLayout="column" fxLayoutAlign="start" class="info-container">
+        <mat-form-field>
+          <input matInput type="text" placeholder="Title" formControlName="title" #title class="title-input" />
+          <button mat-button type="button" *ngIf="title.value" matSuffix mat-icon-button aria-label="Clear" (click)="title.value = ''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="category" #category class="category">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let category of recipeCategories" [value]="category">{{ category }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <textarea matInput placeholder="Notes" formControlName="notes" #notes rows="2" class="notes"></textarea>
+          <button mat-button type="button" *ngIf="notes.value" matSuffix mat-icon-button aria-label="Clear" (click)="notes.value = ''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </div>
   </div>
-  <div fxFlex>
-    <div fxLayout="column" fxLayoutAlign="start" class="info-container">
-      <mat-form-field class="titleInput">
-        <input matInput type="text" placeholder="Title" [(ngModel)]="titleInputValue" name="title-input">
-        <button mat-button *ngIf="titleInputValue" matSuffix mat-icon-button aria-label="Clear" (click)="titleInputValue=''">
+
+  <mat-list>
+    <mat-list-item>
+      <div fxLayout="row" fxLayoutAlign="start center" class="title-tbl">
+        <span class="ingr-name">Ingredient</span>
+        <span class="unit">Unit</span>
+        <span class="quantity">Qty</span>
+        <div class="fill"></div>
+      </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item class="ingredientsData" *ngFor="let product of addedProcuts">
+      <div fxLayout="row" fxLayoutAlign="start center" class="ingredient">
+        <span class="ingr-name">{{ product.description }}</span>
+        <mat-form-field class="unit">
+          <mat-select formControlName="unit" #unit>
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let unit of product.measures" [value]="unit.measure">{{ unit.measure }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="quantity">
+          <input matInput type="number" formControlName="quantity" #quantity/>
+        </mat-form-field>
+        <button mat-icon-button type="button" color="warn" class="itm-delete">
           <mat-icon>close</mat-icon>
         </button>
-      </mat-form-field>
-      <mat-form-field>
-        <textarea matInput placeholder="Notes" [(ngModel)]="notesInputValue" name="notes-input" rows="3"></textarea>
-        <button mat-button *ngIf="notesInputValue" matSuffix mat-icon-button aria-label="Clear" (click)="notesInputValue=''">
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>      
-    </div>
-  </div>
-</div>
+      </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <!-- <mat-list-item class="subrecipesData" *ngFor="let recipe of addedRecipes">
+      {{recipe.title-tbl}}
+    </mat-list-item> -->
+  </mat-list>
+  <button mat-raised-button color="primary">Save</button>
+</form>

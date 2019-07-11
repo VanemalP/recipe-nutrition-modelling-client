@@ -1,7 +1,7 @@
 import { Product } from './product';
 
 export interface ProductsData {
-  items: Product[];
+  products: Product[];
   page: number;
   itemCount: number;
   totalItems: number;

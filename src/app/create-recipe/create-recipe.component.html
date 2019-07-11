@@ -1,9 +1,9 @@
 <div class="container" fxLayout="row" fxLayoutAlign="center stretch">
   <aside fxFlex="30" class="search">
-    <app-items-search></app-items-search>
+    <app-items-search class="search-details" [recipeCategories]="recipeCategories" [productFoodGroups]="productFoodGroups" (searchItems)="getItems($event)" [foundItems]="getFoundItems()"></app-items-search>
   </aside>
   <mat-divider [vertical]="true"></mat-divider>
   <main fxFlex="70" class='recipe'>
-    <app-create-recipe-details></app-create-recipe-details>
+    <app-create-recipe-details [recipeCategories]="recipeCategories"></app-create-recipe-details>
   </main>
 </div>

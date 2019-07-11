@@ -1,5 +1,5 @@
 cdk-virtual-scroll-viewport {
-  height: calc(100vh - 320px);
+  height: calc(100vh - 302px);
 }
 
 cdk-virtual-scroll-viewport::-webkit-scrollbar {
@@ -35,7 +35,6 @@ mat-list .mat-list-item {
   height: auto;
   padding: 8px 0;
   font-size: 14px;
-  margin-top: 10px;
 }
 
 ::ng-deep .mat-list.mat-list-base .mat-list-item .mat-list-item-content {

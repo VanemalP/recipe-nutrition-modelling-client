@@ -1,7 +1,8 @@
+import { ProductQuery } from './../../common/models/product/product-query';
 import { ProductsData } from './../../common/models/product/productsData';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { RecipesData } from '../../common/models/recipe/recipesData';
-import { PageEvent } from '@angular/material';
+import { RecipeQuery } from '../../common/models/recipe/recipe-query';
 
 @Component({
   selector: 'app-items-search-details',
@@ -13,9 +14,6 @@ export class ItemsSearchDetailsComponent implements OnInit {
   selectedValue: string;
 
   @Input()
-  foundItems: ProductsData | RecipesData;
-
-  @Input()
   inputPlaceholder: string;
 
   @Input()
@@ -24,9 +22,15 @@ export class ItemsSearchDetailsComponent implements OnInit {
   @Input()
   options: string[];
 
+  @Output()
+  searchItems: EventEmitter<{inputValue: string, selectedValue: string}> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  triggerSearchItems(): void {
+    this.searchItems.emit({inputValue: this.inputValue, selectedValue: this.selectedValue});
+  }
 }

@@ -1,7 +1,7 @@
 <form [style.fontSize.px]="14">
   <mat-form-field class="input">
     <input matInput type="text" [placeholder]="inputPlaceholder" [(ngModel)]="inputValue" name="input">
-    <button mat-button *ngIf="inputValue" matSuffix mat-icon-button aria-label="Clear" (click)="inputValue=''">
+    <button mat-button type="button" *ngIf="inputValue" matSuffix mat-icon-button aria-label="Clear" (click)="inputValue=''">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
@@ -15,5 +15,5 @@
   </mat-form-field>
 </form>
 <div  fxLayout="row" fxLayoutAlign="end center">
-  <button mat-raised-button color="primary" class="search-btn">Search</button>
+  <button mat-raised-button color="primary" class="search-btn" [disabled]="!inputValue && !selectedValue" (click)="triggerSearchItems()">Search</button>
 </div>

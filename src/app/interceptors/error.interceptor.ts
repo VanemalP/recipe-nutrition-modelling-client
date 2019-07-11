@@ -19,9 +19,9 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: any) => {
         if (error.status === 401) {
-          this.router.navigate(['/users/login']);
+          this.router.navigate(['/login']);
           this.notificator.error(
-            'You would be logged in to access this resourse'
+            'You should be logged in to access this resourse'
           );
         } else if (error.status === 403) {
           this.notificator.error(error.error.message);

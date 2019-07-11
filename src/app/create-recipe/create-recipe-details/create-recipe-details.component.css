@@ -1,7 +1,7 @@
 .img-container {
   position: relative;
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
 }
 
 .center {
@@ -24,10 +24,51 @@
   opacity: 0.5;
 }
 
-.titleInput {
-  width: 100%;
+.notes {
+  resize: none;
 }
 
 .info-container {
-  height: 150px;
+  height: 200px;
+}
+
+.title-tbl {
+  width: 100%;
+  height: 100%;
+  text-transform: uppercase;
+  font-size: 12px;
+  background-color: whitesmoke;
+}
+
+.title-tbl span {
+  display: inline-block;
+  text-align: center;
+}
+
+.ingredient, .title-tbl {
+  width: 100%;
+}
+
+.ingr-name {
+  width: 60%;
+  margin-right: 4%;
+}
+
+.ingredient .ingr-name {
+padding-left: 8px;
+}
+
+.unit {
+  width: 15%;
+  margin-right: 4%;
+}
+
+.quantity {
+  width: 10%;
+  margin-right: 4%;
+}
+
+.fill {
+  width: 40px;
+  height: 40px;
 }

@@ -1,0 +1,11 @@
+app-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+}
+
+main {
+  padding-top: 64px;
+}
