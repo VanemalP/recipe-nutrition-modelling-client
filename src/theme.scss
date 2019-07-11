@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+@import '~@angular/material/theming';
+
+$custom-typography: mat-typography-config(
+  $font-family: '"Montserrat", sans-serif',
+);
+
+@include mat-core($custom-typography);
+@include mat-toolbar-typography($custom-typography);
+@include mat-base-typography($custom-typography);
+@include mat-checkbox-typography($custom-typography);
+@include angular-material-typography($custom-typography);
+
+$custom-primay-color: (
+  50 : #f0f8e9,
+  100 : #daedc8,
+  200 : #c2e2a3,
+  300 : #aad67e,
+  400 : #97cd62,
+  500 : #85c446,
+  600 : #7dbe3f,
+  700 : #72b637,
+  800 : #68af2f,
+  900 : #55a220,
+  A100 : #e9ffdc,
+  A200 : #caffa9,
+  A400 : #aaff76,
+  A700 : #9bff5d,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #ffffff,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
+  )
+  // 50 : #e0f6fb,
+  // 100 : #b3e7f4,
+  // 200 : #80d8ed,
+  // 300 : #4dc8e6,
+  // 400 : #26bce0,
+  // 500 : #00b0db,
+  // 600 : #00a9d7,
+  // 700 : #00a0d2,
+  // 800 : #0097cd,
+  // 900 : #0087c4,
+  // A100 : #ecf8ff,
+  // A200 : #b9e6ff,
+  // A400 : #86d4ff,
+  // A700 : #6dcbff,
+  // contrast: (
+  //     50 : #000000,
+  //     100 : #000000,
+  //     200 : #000000,
+  //     300 : #ffffff,
+  //     400 : #ffffff,
+  //     500 : #ffffff,
+  //     600 : #ffffff,
+  //     700 : #ffffff,
+  //     800 : #ffffff,
+  //     900 : #ffffff,
+  //     A100 : #000000,
+  //     A200 : #000000,
+  //     A400 : #000000,
+  //     A700 : #000000,
+  // )
+);
+
+// $custom-accent-color: (
+//   50 : #e1e7ed,
+//   100 : #b4c3d3,
+//   200 : #829cb5,
+//   300 : #507497,
+//   400 : #2b5681,
+//   500 : #05386b,
+//   600 : #043263,
+//   700 : #042b58,
+//   800 : #03244e,
+//   900 : #01173c,
+//   A100 : #7298ff,
+//   A200 : #3f73ff,
+//   A400 : #0c4eff,
+//   A700 : #0042f1,
+//   contrast: (
+//       50 : #000000,
+//       100 : #000000,
+//       200 : #000000,
+//       300 : #ffffff,
+//       400 : #ffffff,
+//       500 : #ffffff,
+//       600 : #ffffff,
+//       700 : #ffffff,
+//       800 : #ffffff,
+//       900 : #ffffff,
+//       A100 : #000000,
+//       A200 : #ffffff,
+//       A400 : #ffffff,
+//       A700 : #ffffff,
+//   )
+// );
+
+
+$custom-theme-primary: mat-palette($custom-primay-color);
+// $custom-theme-accent: mat-palette($custom-accent-color);
+$custom-theme-warn: mat-palette($mat-deep-orange);
+
+$custom-theme: mat-light-theme($custom-theme-primary, $custom-theme-warn);
+
+@include angular-material-theme($custom-theme);
+
+  h1, h2, h3, h4, h5, h6, mat-dialog-container {
+    font-family: "Montserrat", sans-serif;
+  }

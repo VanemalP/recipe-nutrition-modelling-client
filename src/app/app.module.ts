@@ -16,6 +16,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ServerErrorComponent } from './components/server-error/server-error.component';
 import { SharedModule } from './shared/shared.module';
 import { UsersModule } from './users/users.module';
+import { TokenInterceptorService } from './interceptors/token-interceptor';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,11 @@ import { UsersModule } from './users/users.module';
   providers: [
     // AuthGuard,
     NoAuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,

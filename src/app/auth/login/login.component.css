@@ -1,0 +1,58 @@
+mat-card {
+  width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 80px;
+}
+
+mat-card-content {
+  margin: 25px;
+  font-size: 18px;
+}
+
+.mat-card-action {
+  margin-bottom: 0;
+}
+
+.mat-form-field {
+  margin: 16px 0;
+}
+
+p {
+  margin: 32px 0;
+  display: block;
+  font-size: 14px;
+}
+
+#login-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("../../../assets/img/pineapple3.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
+
+#login-container .login-btn {
+  height: 48px;
+  display: block;
+  margin: 20px auto;
+  text-transform: uppercase;
+  width: 200px;
+  font-size: 16px;
+}
+
+img {
+  width: 120px;
+  height: 48px;
+  margin: 20px 0;
+}
+
+.img-logo {
+  display: flex;
+  justify-content: center;
+}
+

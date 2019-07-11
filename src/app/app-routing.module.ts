@@ -5,11 +5,12 @@ import { LoginComponent } from './auth/login/login.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ServerErrorComponent } from './components/server-error/server-error.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { NoAuthGuard } from './auth/no-auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
+  { path: 'register', component: RegisterComponent, canActivate: [NoAuthGuard] },
   { path: 'users', loadChildren: './users/users.module#UsersModule' },
   { path: 'not-found' , component: NotFoundComponent },
   { path: 'server-error' , component: ServerErrorComponent },
