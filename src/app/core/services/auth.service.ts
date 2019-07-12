@@ -8,6 +8,7 @@ import { tap } from 'rxjs/operators';
 
 import { StorageService } from './storage.service';
 import { UserLogin } from '../../common/models/user/user-login';
+import { UserRegister } from './../../common/models/user/user-register';
 
 
 
@@ -56,6 +57,10 @@ export class AuthService {
       return this.jwtHelper.isTokenExpired();
     }
     return false;
+  }
+
+  register(newUser: UserRegister): Observable<any> {
+    return this.http.post('http://localhost:3000/api/register', newUser);
   }
 
   login(user: UserLogin): Observable<any> {
