@@ -1,8 +1,12 @@
+import { RecipeItem } from './../common/models/recipe-item';
 import { ProductsData } from './../common/models/product/productsData';
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from './services/products.service';
-import { RecipesService } from '../core/services/recipes.service';
 import { RecipesData } from '../common/models/recipe/recipesData';
+import { Product } from '../common/models/product/product';
+import { Recipe } from '../common/models/recipe/recipe';
+import { RecipeHelperService } from './services/recipe-helper.service';
+import { RecipesService } from '../core/services/recipes.service';
 
 @Component({
   selector: 'app-create-recipe',
@@ -42,16 +46,22 @@ export class CreateRecipeComponent implements OnInit {
   searchedItems: string;
   foundProducts: ProductsData;
   foundRecipes: RecipesData;
+  addedProducts: Product[] = [];
+  addedRecipes: Recipe[] = [];
+
+  allItems: RecipeItem[] = [];
 
   constructor(
     private readonly productsService: ProductsService,
     private readonly recipesService: RecipesService,
+    private readonly recipeHelperService: RecipeHelperService,
   ) { }
 
   ngOnInit() {
+
   }
 
-  getItems(search: {items: string, inputValue: string, selectedValue: string}) {
+  findItems(search: {items: string, inputValue: string, selectedValue: string}) {
     let query;
     if (search.items === 'products') {
       query = {
@@ -86,12 +96,37 @@ export class CreateRecipeComponent implements OnInit {
     }
   }
 
-  getFoundItems() {
-    if (this.searchedItems === 'products') {
-      return this.foundProducts;
+  getFoundProducts() {
+    return this.foundProducts;
+  }
+
+  getFoundRecipes() {
+    return this.foundRecipes;
+  }
+
+  addToRecipe(item) {
+    if (item.itemType === 'products') {
+      this.addedProducts.push(item.item);
+      this.allItems.push(item.item);
     }
-    if (this.searchedItems === 'recipes') {
-      return this.foundRecipes;
+    if (item.itemType === 'recipes') {
+      this.addedRecipes.push(item.item);
+      this.allItems.push(item.item);
+    }
+  }
+
+  delete(item) {
+    let itemIndex = this.addedProducts.indexOf(item);
+    const allItemsIndex = this.allItems.indexOf(item);
+    if (itemIndex > -1) {
+      this.addedProducts.splice(itemIndex, 1);
+      this.allItems.splice(allItemsIndex, 1);
+    } else {
+      itemIndex = this.addedRecipes.indexOf(item);
+      if (itemIndex > -1) {
+        this.addedRecipes.splice(itemIndex, 1);
+        this.allItems.splice(allItemsIndex, 1);
+      }
     }
   }
 }

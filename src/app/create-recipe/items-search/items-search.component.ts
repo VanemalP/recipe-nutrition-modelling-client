@@ -9,9 +9,13 @@ import { RecipesData } from '../../common/models/recipe/recipesData';
 })
 export class ItemsSearchComponent implements OnInit {
   @Input()
-  foundItems: ProductsData;
+  foundProducts: ProductsData;
 
-  selectedTabIndex: number;
+  @Input()
+  foundRecipes: RecipesData;
+
+  selectedTabIndex = 0;
+  selectedTabName = 'products';
   tabs: string[] = ['products', 'recipes'];
 
   @Input()
@@ -19,45 +23,77 @@ export class ItemsSearchComponent implements OnInit {
 
   @Input()
   recipeCategories: string[];
-  constructor() { }
 
   @Output()
   searchItems: EventEmitter<{inputValue: string, selectedValue: string}> = new EventEmitter();
+
+  @Output()
+  add: EventEmitter<any> = new EventEmitter();
+
+  constructor() { }
+
   ngOnInit() {
-    this.selectedTabIndex = 0;
+
   }
 
-  triggerSearchItems(search: {inputValue: string, selectedValue: string}): void {
-    const items = this.tabs[this.selectedTabIndex];
-    const itemsSearch = {items, ...search};
-    this.searchItems.emit(itemsSearch);
-  }
-
-  getSelectedTabIndex(index: number): void {
+  getSelectedTabIndexAndName(index: number): void {
     this.selectedTabIndex = index;
+    this.selectedTabName = this.tabs[index];
   }
 
-  getSelectedTabName() {
-    return this.tabs[this.selectedTabIndex];
+  isProduct(value: string) {
+    return value === 'products';
+  }
+
+  isRecipe(value: string) {
+    return value === 'recipes';
   }
 
   setInputPlacehlder(tabName: string) {
-    if (tabName === 'products') {
+    if (this.isProduct(tabName)) {
       return 'Description';
     }
 
-    if (tabName === 'recipes') {
+    if (this.isRecipe(tabName)) {
       return 'Title';
     }
   }
 
-  setSelectedLabel(tabName: string) {
-    if (tabName === 'products') {
+  setSelectLabel(tabName: string) {
+    if (this.isProduct(tabName)) {
       return 'Food group';
     }
 
-    if (tabName === 'recipes') {
+    if (this.isRecipe(tabName)) {
       return 'Category';
     }
+  }
+
+  setSelectOptions(tabName: string) {
+    if (this.isProduct(tabName)) {
+      return this.productFoodGroups;
+    }
+
+    if (this.isRecipe(tabName)) {
+      return this.recipeCategories;
+    }
+  }
+
+  getFoundItems() {
+    if (this.isProduct(this.selectedTabName)) {
+      return this.foundProducts;
+    }
+    if (this.isRecipe(this.selectedTabName)) {
+      return this.foundRecipes;
+    }
+  }
+
+  triggerSearchItems(search: {inputValue: string, selectedValue: string}): void {
+    const itemsSearch = {items: this.selectedTabName, ...search};
+    this.searchItems.emit(itemsSearch);
+  }
+
+  triggerAddItem(item) {
+    this.add.emit(item);
   }
 }

@@ -19,7 +19,6 @@ export class AuthGuard implements CanActivate {
     return this.authService.user$.pipe(
       map(user => user !== null),
       tap(user => {
-        console.log('no auth g:' + user)
         if (!user) {
           this.notificator.error('You are not authorized to access this page!');
         }

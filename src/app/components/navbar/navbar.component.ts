@@ -25,6 +25,10 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
   }
 
+  toggleSidenav() {
+    return this.toggle.emit();
+  }
+
   triggerLogout() {
     return this.logout.emit();
   }

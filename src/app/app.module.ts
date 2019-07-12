@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth/auth.guard';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -7,7 +8,6 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
-// import { AuthGuard } from './auth/auth.guard';
 import { NoAuthGuard } from './auth/no-auth.guard';
 import { CoreModule } from './core/core.module';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
@@ -46,7 +46,7 @@ import { TokenInterceptorService } from './interceptors/token-interceptor';
     })
   ],
   providers: [
-    // AuthGuard,
+    AuthGuard,
     NoAuthGuard,
     {
       provide: HTTP_INTERCEPTORS,

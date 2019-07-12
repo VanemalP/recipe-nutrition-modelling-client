@@ -1,6 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ProductsData } from '../../common/models/product/productsData';
-import { RecipesData } from '../../common/models/recipe/recipesData';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { RecipeHelperService } from '../services/recipe-helper.service';
 
 @Component({
   selector: 'app-create-search-result',
@@ -14,10 +13,17 @@ export class CreateSearchResultComponent implements OnInit {
   @Input()
   searchedItem: string;
 
-  constructor() { }
+  @Output()
+  add: EventEmitter<any> = new EventEmitter();
 
-  ngOnInit() {
+  constructor(
+    private readonly recipeHelperService: RecipeHelperService,
+  ) { }
 
+  ngOnInit() { }
+
+  triggerAddItem(item: any) {
+    this.recipeHelperService.addItem(item);
+    this.add.emit({itemType: this.searchedItem, item});
   }
-
 }

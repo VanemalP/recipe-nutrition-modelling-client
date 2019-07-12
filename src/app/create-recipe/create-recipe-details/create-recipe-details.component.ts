@@ -1,7 +1,11 @@
 import { Product } from './../../common/models/product/product';
-import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, Input, Output, EventEmitter, AfterContentInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Recipe } from '../../common/models/recipe/recipe';
+import { Subscription } from 'rxjs';
+import { isArray } from 'util';
+import { RecipeHelperService } from '../services/recipe-helper.service';
+import { RecipeItem } from '../../common/models/recipe-item';
 
 @Component({
   selector: 'app-create-recipe-details',
@@ -18,149 +22,83 @@ export class CreateRecipeDetailsComponent implements OnInit {
   recipeCategories: string[];
 
   @Input()
-  addedProcuts: Product[] = [{
-    code: 1001,
-    description: 'Butter',
-    foodGroup: 'Fats and Oils',
-    measures: [{measure: '1 g', gramsPerMeasure: 1}],
-    nutrition: {
-      PROCNT: {
-        desciption: 'nutrDescr',
-        unit: 'g',
-        value: 1,
-      },
-      FAT: {
-        desciption: 'nutrDescr',
-        unit: 'g',
-        value: 1,
-      },
-      CHOCDF: {
-        desciption: 'nutrDescr',
-        unit: 'g',
-        value: 1,
-      },
-      ENERC_KCAL: {
-        desciption: 'nutrDescr',
-        unit: 'g',
-        value: 1,
-      },
-      SUGAR: {
-        desciption: 'nutrDescr',
-        unit: 'g',
-        value: 1,
-      },
-      FIBTG: {
-        desciption: 'nutrDescr',
-        unit: 'g',
-        value: 1,
-      },
-      CA: {
-        desciption: 'nutrDescr',
-        unit: 'g',
-        value: 1,
-      },
-      FE: {
-        desciption: 'nutrDescr',
-        unit: 'g',
-        value: 1,
-      },
-      P: {
-        desciption: 'nutrDescr',
-        unit: 'g',
-        value: 1,
-      },
-      K: {
-        desciption: 'nutrDescr',
-        unit: 'g',
-        value: 1,
-      },
-      NA: {
-        desciption: 'nutrDescr',
-        unit: 'g',
-        value: 1,
-      },
-      VITA_IU: {
-        desciption: 'nutrDescr',
-        unit: 'g',
-        value: 1,
-      },
-      TOCPHA: {
-        desciption: 'nutrDescr',
-        unit: 'g',
-        value: 1,
-      },
-      VITD: {
-        desciption: 'nutrDescr',
-        unit: 'g',
-        value: 1,
-      },
-      VITC: {
-        desciption: 'nutrDescr',
-        unit: 'g',
-        value: 1,
-      },
-      VITB12: {
-        desciption: 'nutrDescr',
-        unit: 'g',
-        value: 1,
-      },
-      FOLAC: {
-        desciption: 'nutrDescr',
-        unit: 'g',
-        value: 1,
-      },
-      CHOLE: {
-        desciption: 'nutrDescr',
-        unit: 'g',
-        value: 1,
-      },
-      FATRN: {
-        desciption: 'nutrDescr',
-        unit: 'g',
-        value: 1,
-      },
-      FASAT: {
-        desciption: 'nutrDescr',
-        unit: 'g',
-        value: 1,
-      },
-      FAMS: {
-        desciption: 'nutrDescr',
-        unit: 'g',
-        value: 1,
-      },
-      FAPU: {
-        desciption: 'nutrDescr',
-        unit: 'g',
-        value: 1,
-      },
-    }
-  }];
-  @Input()
-  addedRecipes: Recipe[];
+  allItems: RecipeItem[] = [];
+
+  @Output()
+  delete: EventEmitter<any> = new EventEmitter();
+
+  private addItemSubscription: Subscription;
 
   constructor(
     private readonly formBuilder: FormBuilder,
-    ) { }
+    private readonly recipeHelperService: RecipeHelperService,
+  ) { }
 
   ngOnInit() {
+    this.addItemSubscription = this.recipeHelperService.obs$.subscribe(
+      (item) => {
+        setTimeout(() => {
+          this.addItemToFormArray(this.allItems);
+        }, 0);
+        // this.addItemToFormArray(this.allItems);
+      },
+    );
     this.recipeForm = this.formBuilder.group({
       title: [this.recipeToEdit ? this.recipeToEdit.title : '', [Validators.required, Validators.minLength(5)]],
       category: [this.recipeToEdit ? this.recipeToEdit.category : '', [Validators.required]],
       notes: [this.recipeToEdit ? this.recipeToEdit.notes : ''],
-      // ingredients: this.formBuilder.array([this.createIngredient()])
+      items: this.formBuilder.array([]),
     });
   }
 
-  // createIngqredient(): FormGroup {
-  //   return this.formBuilder.group({
-  //     description: '',
-  //     unit: '',
-  //     quantity: ''
-  //   });
-  // }
+  get itemsArr() {
+    return this.recipeForm.get('items') as FormArray;
+  }
+
+  addItemToFormArray(itmArr): void {
+    this.recipeForm.setControl('items', this.setItems(itmArr));
+  }
+
+  setItems(itmArr: RecipeItem[]): FormArray {
+    const formArray = new FormArray([]);
+    itmArr.forEach((itm) => {
+      formArray.push(this.formBuilder.group({
+        recipeItem: [itm.code || itm.id],
+        unit: [itm.measures || itm.measure, [Validators.required]],
+        quantity: ['', [Validators.required, Validators.min(0.1)]],
+      }));
+    });
+    console.log(formArray);
+    return formArray;
+  }
+
+  getIngrName(index: number) {
+    const ingredientName = this.allItems[index].title || this.allItems[index].description;
+
+    return ingredientName;
+  }
 
   create(recipe) {
-    // console.log(recipe);
+    console.log(recipe);
+  }
+
+  triggerDelete(itemsGroupIndex) {
+    this.itemsArr.removeAt(itemsGroupIndex);
+    this.itemsArr.markAsDirty();
+    this.itemsArr.markAsTouched();
+    const item = this.allItems[itemsGroupIndex];
+    this.delete.emit(item);
+  }
+
+  // triggerProductDelete(item) {
+  //   this.delete.emit(item);
+  // }
+
+  // triggerRecipeDelete(item) {
+  //   this.delete.emit(item);
+  // }
+
+  isUnitArr(unit) {
+    return isArray(unit);
   }
 }

@@ -1,4 +1,4 @@
-<app-navbar (logout)="logout()"></app-navbar>
+<app-navbar *ngIf="isLogged" (logout)="logout()"></app-navbar>
 <main>
   <router-outlet></router-outlet>
 </main>

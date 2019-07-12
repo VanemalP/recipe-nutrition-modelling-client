@@ -1,3 +1,4 @@
+import { RecipeHelperService } from './services/recipe-helper.service';
 import { NgModule } from '@angular/core';
 
 import { CreateRecipeComponent } from './create-recipe.component';
@@ -21,6 +22,6 @@ import { ProductsService } from './services/products.service';
     SharedModule,
     CreateRecipeRoutingModule
   ],
-  providers: [ProductsService],
+  providers: [ProductsService, RecipeHelperService],
 })
 export class CreateRecipeModule { }

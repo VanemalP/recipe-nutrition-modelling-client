@@ -3,7 +3,6 @@ import { RecipesData } from './../../common/models/recipe/recipesData';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ProductQuery } from '../../common/models/product/product-query';
 import { RecipeQuery } from '../../common/models/recipe/recipe-query';
 import { Recipe } from '../../common/models/recipe/recipe';
 

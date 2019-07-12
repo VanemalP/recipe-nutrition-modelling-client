@@ -1,11 +1,11 @@
 <mat-list>
   <cdk-virtual-scroll-viewport itemSize="autosize">
     <div *ngIf="searchedItem === 'products'">
-      <div *ngFor="let product of foundItems.products">
+      <div *ngFor="let product of foundItems?.products">
         <mat-list-item>
           <div fxLayout="row" fxLayoutAlign="space-between center" class="item">
             <span>{{product.description}}</span>
-            <button mat-icon-button color="primary" title="Add to recipe" class="add-btn">
+            <button mat-icon-button color="primary" title="Add to recipe" class="add-btn" (click)="triggerAddItem(product)">
               <mat-icon>add_box</mat-icon>
             </button>
           </div>
@@ -14,11 +14,11 @@
       </div>
     </div>
     <div *ngIf="searchedItem === 'recipes'">
-      <div *ngFor="let recipe of foundItems.recipes">
+      <div *ngFor="let recipe of foundItems?.recipes">
         <mat-list-item>
           <div fxLayout="row" fxLayoutAlign="space-between center" class="item">
             <span>{{recipe.title}}</span>
-            <button mat-icon-button color="primary" title="Add to recipe" class="add-btn">
+            <button mat-icon-button color="primary" title="Add to recipe" class="add-btn" (click)="triggerAddItem(recipe)">
               <mat-icon>add_box</mat-icon>
             </button>
           </div>
