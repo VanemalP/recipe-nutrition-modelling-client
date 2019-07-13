@@ -35,4 +35,8 @@ export class RecipesService {
   getRecipe(recipeId: string): Observable<Recipe> {
     return this.http.get<Recipe>(`http://localhost:3000/api/recipes/${recipeId}`);
   }
+
+  createRecipe(data) {
+    return this.http.post(`http://localhost:3000/api/recipes`, data);
+  }
 }

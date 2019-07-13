@@ -1,3 +1,4 @@
+import { CategoriesService } from './services/categories.service';
 import { RecipesService } from './services/recipes.service';
 
 import { NgModule, Optional, SkipSelf } from '@angular/core';
@@ -7,6 +8,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NotificatorService } from './services/notificator.service';
 import { StorageService } from './services/storage.service';
 import { UsersService } from './services/users.service';
+import { CategoriesResolverService } from './services/categories.resolver.service';
 
 @NgModule({
   imports: [
@@ -21,6 +23,8 @@ import { UsersService } from './services/users.service';
     NotificatorService,
     UsersService,
     RecipesService,
+    CategoriesService,
+    CategoriesResolverService,
   ]
 })
 export class CoreModule {

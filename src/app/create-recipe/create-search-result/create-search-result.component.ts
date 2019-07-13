@@ -23,7 +23,7 @@ export class CreateSearchResultComponent implements OnInit {
   ngOnInit() { }
 
   triggerAddItem(item: any) {
-    this.recipeHelperService.addItem(item);
+    this.recipeHelperService.addItemToRecipe(item);
     this.add.emit({itemType: this.searchedItem, item});
   }
 }
