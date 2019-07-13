@@ -1,5 +1,4 @@
-import { Product } from './../../common/models/product/product';
-import { Component, OnInit, Input, Output, EventEmitter, AfterContentInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Recipe } from '../../common/models/recipe/recipe';
 import { Subscription } from 'rxjs';
@@ -21,8 +20,8 @@ export class CreateRecipeDetailsComponent implements OnInit {
   @Input()
   recipeCategories: string[];
 
-  @Input()
-  allItems: RecipeItem[] = [];
+  @Output()
+  create: EventEmitter<any> = new EventEmitter();
 
   @Output()
   delete: EventEmitter<any> = new EventEmitter();
@@ -36,11 +35,8 @@ export class CreateRecipeDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.addItemSubscription = this.recipeHelperService.obs$.subscribe(
-      (item) => {
-        setTimeout(() => {
-          this.addItemToFormArray(this.allItems);
-        }, 0);
-        // this.addItemToFormArray(this.allItems);
+      (item: RecipeItem) => {
+        this.addItemToFormArray(item);
       },
     );
     this.recipeForm = this.formBuilder.group({
@@ -55,38 +51,38 @@ export class CreateRecipeDetailsComponent implements OnInit {
     return this.recipeForm.get('items') as FormArray;
   }
 
-  addItemToFormArray(itmArr): void {
-    this.recipeForm.setControl('items', this.setItems(itmArr));
+  addItemToFormArray(item: RecipeItem): void {
+    this.recipeForm.setControl('items', this.setItems(item));
   }
 
-  setItems(itmArr: RecipeItem[]): FormArray {
-    const formArray = new FormArray([]);
-    itmArr.forEach((itm) => {
-      formArray.push(this.formBuilder.group({
-        recipeItem: [itm.code || itm.id],
-        unit: [itm.measures || itm.measure, [Validators.required]],
-        quantity: ['', [Validators.required, Validators.min(0.1)]],
-      }));
-    });
-    console.log(formArray);
-    return formArray;
+  setItems(item: RecipeItem): FormArray {
+    this.itemsArr.push(this.formBuilder.group({
+      recipeItem: [item.code || item.id],
+      unit: [item.measures || item.measure, [Validators.required]],
+      quantity: ['', [Validators.required, Validators.min(0.1)]],
+    }));
+
+    return this.itemsArr;
   }
 
   getIngrName(index: number) {
-    const ingredientName = this.allItems[index].title || this.allItems[index].description;
+    const ingredientName = this.recipeHelperService.recipeItems[index].title || this.recipeHelperService.recipeItems[index].description;
 
     return ingredientName;
   }
 
-  create(recipe) {
+  createRecipe(recipe) {
+    // this.recipeHelperService.clearRecipeItems();
     console.log(recipe);
+    this.create.emit(recipe);
   }
 
   triggerDelete(itemsGroupIndex) {
     this.itemsArr.removeAt(itemsGroupIndex);
     this.itemsArr.markAsDirty();
     this.itemsArr.markAsTouched();
-    const item = this.allItems[itemsGroupIndex];
+    const item = this.recipeHelperService.recipeItems[itemsGroupIndex];
+    this.recipeHelperService.removeItemFromRecipe(itemsGroupIndex);
     this.delete.emit(item);
   }
 
