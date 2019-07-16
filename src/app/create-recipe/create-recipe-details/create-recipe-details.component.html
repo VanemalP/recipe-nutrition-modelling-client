@@ -44,7 +44,7 @@
     </div>
   </div>
 
-  <mat-list>
+  <mat-list class="recipe-items">
     <mat-list-item>
       <div fxLayout="row" fxLayoutAlign="start center" class="title-tbl">
         <span class="ingr-name">Ingredient</span>
@@ -52,9 +52,6 @@
         <span class="quantity">Qty</span>
         <div class="fill"></div>
       </div>
-    </mat-list-item>
-    <mat-list-item>
-      Products
     </mat-list-item>
     <mat-list-item>
       <span *ngIf="productsArr.value.length === 0" class="no-ingr">
@@ -86,8 +83,15 @@
         <mat-divider></mat-divider>
       </div>
     </div>
+  </mat-list>
+  <mat-list class="recipe-items">
     <mat-list-item>
-      Recipes
+      <div fxLayout="row" fxLayoutAlign="start center" class="title-tbl">
+        <span class="ingr-name">Subrecipe</span>
+        <span class="unit">Unit</span>
+        <span class="quantity">Qty</span>
+        <div class="fill"></div>
+      </div>
     </mat-list-item>
     <mat-list-item>
       <span *ngIf="recipesArr.value.length === 0" class="no-ingr">

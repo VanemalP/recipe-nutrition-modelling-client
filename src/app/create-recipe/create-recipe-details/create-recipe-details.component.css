@@ -97,5 +97,9 @@ mat-list .mat-list-item {
 }
 
 .save-btn {
-  margin: 24px 14px;
+  margin: 0 14px;
+}
+
+.recipe-items {
+  margin-bottom: 24px;
 }
