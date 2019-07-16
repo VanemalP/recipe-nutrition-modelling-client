@@ -6,4 +6,5 @@ export interface Subrecipe {
   unit: string;
   quantity: number;
   nutrition: Nutrition;
+  isDeleted?: boolean;
 }
