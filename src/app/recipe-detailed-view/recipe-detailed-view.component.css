@@ -2,6 +2,7 @@ section.container {
   width: 70%;
   height: 100%;
   margin: 6px auto;
+  padding: 28px;
 }
 
 .header-container {
@@ -11,40 +12,28 @@ section.container {
 
 .recipe-img {
   position: relative;
+  border-radius: 4px;
   width: 200px;
   height: 200px;
-  margin: 8px 14px 4px 8px;
+  margin: 0 14px 4px 0;
 }
 
 .title-tbl {
   width: 100%;
   height: 100%;
   text-transform: uppercase;
-  font-size: 15px;
-  font-weight: 500;
   background-color: whitesmoke;
+  pointer-events: none;
+  font-size: 12px;
 }
 
-.title-tbl span {
-  display: inline-block;
-  justify-content: space-between;
-  text-align: center;
+.title-tbl p {
+  font-weight: 600;
+
 }
 
-.ingr-name {
-  width: 50%;
-}
-
-.unit {
-  width: 32%;
-}
-
-.quantity {
-  width: 32%;
-}
-
-.fill {
-  height: 40px;
+.title-section {
+  width: 100%;
 }
 
 .mat-expansion-panel-header-description {
@@ -52,7 +41,7 @@ section.container {
   display: flex;
   flex-grow: 0;
   justify-content: space-between;
-  width: 15%;
+  width: 20%;
 }
 
 .mat-expansion-panel-header-title {
@@ -60,7 +49,7 @@ section.container {
   display: flex;
   flex-grow: 0;
   justify-content: space-between;
-  width: 75%;
+  width: 65%;
 }
 
 .mat-expansion-panel-header {
@@ -68,27 +57,9 @@ section.container {
   padding: 8px 20px 8px 14px;
 }
 
-.title-ingr {
-  height: auto;
-}
-
-.recipe-nutrition-data {
-  display: flex;
-}
-
-.recipe-nutrition-data> :first-child {
-  margin-left: 0;
-}
-
-
-h1.title {
+h2.title {
   letter-spacing: 0.2px;
-  margin: 8px 0;
-}
-
-.creation-date {
-  margin: 8px 0;
-  font-size: 13px;
+  margin-right: 4px;
 }
 
 .cat {
@@ -98,14 +69,11 @@ h1.title {
 
 .ingr-section {
   margin-top: 24px;
-  padding: 0 8px 8px 8px;
-
 }
 
 .subrecipes {
   margin-top: 24px;
 }
-
 
 .notes {
   width: 100%;
@@ -116,11 +84,7 @@ h1.title {
   font-size: 18px;
 }
 
-
-@media screen and (min-width: 1023px) {
-  .notes {
-    /* float: right; */
-    height: 80px;
-    padding: 6px;
-  }
+h2,
+h3 {
+  display: inline-block;
 }

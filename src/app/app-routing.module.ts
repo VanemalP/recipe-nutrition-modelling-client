@@ -12,8 +12,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [NoAuthGuard] },
   { path: 'users', loadChildren: './users/users.module#UsersModule' },
-  { path: 'recipes/:id', loadChildren: './recipe-detailed-view/recipe-detailed-view.module#RecipeDetailedViewModule' },
   { path: 'recipes/create', loadChildren: './create-recipe/create-recipe.module#CreateRecipeModule' },
+  { path: 'recipes/:id', loadChildren: './recipe-detailed-view/recipe-detailed-view.module#RecipeDetailedViewModule' },
   { path: 'not-found', component: NotFoundComponent },
   { path: 'server-error', component: ServerErrorComponent },
   { path: '**', redirectTo: '/not-found' }
