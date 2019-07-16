@@ -1,13 +1,16 @@
 mat-card {
-  width: 480px;
+  width: 360px;
+  height: 380px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 80px;
+  margin-top: 60px;
+  padding: 12px;
 }
 
 mat-card-content {
-  margin: 25px;
-  font-size: 18px;
+  max-width: 300px;
+  margin: 0 auto;
+  font-size: 14px;
 }
 
 .mat-card-action {
@@ -15,13 +18,19 @@ mat-card-content {
 }
 
 .mat-form-field {
-  margin: 16px 0;
+  width: 100%;
+  margin: 8px 0;
+}
+
+.material-icons {
+  font-size: 20px;
+  padding-top: 3px;
 }
 
 p {
-  margin: 32px 0;
+  margin-top: 8px;
   display: block;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 #login-container {
@@ -37,18 +46,19 @@ p {
 }
 
 #login-container .login-btn {
-  height: 48px;
+  height: 46px;
   display: block;
-  margin: 20px auto;
+  margin: 20px auto 4px auto;
   text-transform: uppercase;
-  width: 200px;
-  font-size: 16px;
+  width: 300px;
+  font-size: 14px;
 }
 
 img {
-  width: 120px;
-  height: 48px;
-  margin: 20px 0;
+  width: 112px;
+  height: 42px;
+  margin-top: 4px;
+  margin-bottom: 25px;
 }
 
 .img-logo {
@@ -56,3 +66,6 @@ img {
   justify-content: center;
 }
 
+.mat-icon {
+  margin-bottom: 8px;
+}

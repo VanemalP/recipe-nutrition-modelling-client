@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public loggedUser: LoggedUser;
   public loggedUserSubscripton: Subscription;
   public hide = true;
+  isActive = true;
 
   constructor(
     private readonly formBuilder: FormBuilder,

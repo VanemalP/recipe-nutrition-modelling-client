@@ -18,6 +18,7 @@ import { SharedModule } from './shared/shared.module';
 import { UsersModule } from './users/users.module';
 import { CreateRecipeModule } from './create-recipe/create-recipe.module';
 import { TokenInterceptorService } from './interceptors/token-interceptor';
+import { RecipeDetailedViewModule } from './recipe-detailed-view/recipe-detailed-view.module';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { TokenInterceptorService } from './interceptors/token-interceptor';
     AuthModule,
     UsersModule,
     CreateRecipeModule,
+    RecipeDetailedViewModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -43,7 +45,7 @@ import { TokenInterceptorService } from './interceptors/token-interceptor';
         whitelistedDomains: ['http://localhost:3000'],
         blacklistedRoutes: ['http://localhost:3000/login']
       }
-    })
+    }),
   ],
   providers: [
     AuthGuard,
