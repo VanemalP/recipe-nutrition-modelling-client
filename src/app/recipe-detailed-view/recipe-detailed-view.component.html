@@ -1,0 +1,64 @@
+<section class="container" [class.mat-elevation-z3]="isActive">
+  <div class="header-container">
+    <div class="img-recipe" fxLayout="row">
+      <img fxFlexAlign="center" mat-card-image
+        src="https://images.all-free-download.com/images/graphiclarge/healthy_meal_background_vegetables_eggs_bacon_icons_6836169.jpg"
+        alt="Recipe image" class="recipe-img" [class.mat-elevation-z3]="isActive" />
+    </div>
+    <div fxLayout="row">
+      <div>
+        <h1 class="title">{{recipe.title}} {{recipe.measure}}</h1>
+        <h4 class="cat">Category: {{recipe.category}}</h4>
+
+        <div class="notes">
+          <p><span class="notes-txt">Notes:</span> {{recipe.notes}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ingr-section">
+    <mat-accordion multi="true">
+
+      <div fxLayout="row" fxLayoutAlign="start center" class="title-tbl" [class.mat-elevation-z1]="isActive">
+        <span class="ingr-name">Ingredients</span>
+        <span class="unit">Unit</span>
+        <span class="quantity">Qty</span>
+        <div class="fill"></div>
+      </div>
+
+
+        <mat-expansion-panel *ngFor="let ingredient of recipe.ingredients">
+          <mat-expansion-panel-header class="ingr-tbl">
+            <mat-panel-title class="title-ingr">
+              <p>{{ingredient.product}}</p>
+            </mat-panel-title>
+            <mat-panel-description>
+              <p class="unit-ingr">{{ingredient.unit}}</p>
+              <p class="quantity-ingr">{{ingredient.quantity}}</p>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+        </mat-expansion-panel>
+
+
+  <div fxLayout="row" fxLayoutAlign="start center" class="title-tbl subrecipes" [class.mat-elevation-z1]="isActive">
+    <span class="ingr-name">Subrecipes</span>
+    <span class="unit">Unit</span>
+    <span class="quantity">Qty</span>
+    <div class="fill"></div>
+  </div>
+
+  
+    <mat-expansion-panel *ngFor="let subrecipe of recipe.subrecipes" >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <p>{{subrecipe.recipe}}</p>
+        </mat-panel-title>
+        <mat-panel-description>
+          <p class="unit-ingr">{{subrecipe.unit}}</p>
+          <p class="quantity-ingr">{{subrecipe.quantity}}</p>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+</mat-accordion>
+</div>
+</section>
