@@ -1,0 +1,136 @@
+<section class="nutrition-facts">
+  <header class="nutrition-facts__header">
+    <h1 class="nutrition-facts__title">Nutrition Facts</h1>
+    <p>Weight {{measure}}</p>
+  </header>
+  <table class="nutrition-facts__table">
+    <thead>
+      <tr>
+        <th colspan="3" class="small-info">
+          Amount Per 100g
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <span class="bold">Calories</span>
+        </th>
+        <td>
+          <span class="bold">{{nutrition.ENERC_KCAL.value}} {{nutrition.ENERC_KCAL.unit}}</span>
+        </td>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <span class="bold">Total Fat</span>
+        </th>
+        <td>
+          <span class="bold">{{nutrition.FAT.value}} {{nutrition.FAT.unit}}</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="blank-cell"></td>
+        <th>
+          Saturated Fat
+        </th>
+        <td>
+          <span>{{nutrition.FASAT.value}} {{nutrition.FASAT.unit}}</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="blank-cell"></td>
+        <th>
+          Trans Fat
+        </th>
+        <td>
+          <span>{{nutrition.FASAT.value}} {{nutrition.FASAT.unit}}</span>
+        </td>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <span class="bold">Cholesterol</span>
+        </th>
+        <td>
+          <span class="bold">{{nutrition.CHOLE.value}} {{nutrition.CHOLE.unit}}</span>
+        </td>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <span class="bold">Sodium</span>
+        </th>
+        <td>
+          <span class="bold">{{nutrition.NA.value}} {{nutrition.NA.unit}}</span>
+        </td>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <span class="bold">Total Carbohydrate</span>
+        </th>
+        <td>
+          <span class="bold">{{nutrition.CHOCDF.value}} {{nutrition.CHOCDF.unit}}</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="blank-cell"></td>
+        <th>
+          Dietary Fiber
+        </th>
+        <td>
+          <span class="bold">{{nutrition.FIBTG.value}} {{nutrition.FIBTG.unit}}</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="blank-cell"></td>
+        <th>
+          Sugars
+        </th>
+        <td>
+          <span class="bold">{{nutrition.SUGAR.value}} {{nutrition.SUGAR.unit}}</span>
+        </td>
+      </tr>
+      <tr class="thick-end">
+        <th colspan="2">
+          <span class="bold">Protein</span>
+        </th>
+        <td>
+          <span class="bold">{{nutrition.PROCNT.value}} {{nutrition.PROCNT.unit}}</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="nutrition-facts__table--grid">
+    <tbody>
+      <tr>
+        <td colspan="2">
+          Vitamin A
+          {{nutrition.VITA_IU.value}} {{nutrition.VITA_IU.unit}}
+        </td>
+        <td>
+          Vitamin C
+          {{nutrition.VITC.value}} {{nutrition.VITC.unit}}
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          Vitamin E
+          {{nutrition.TOCPHA.value}} {{nutrition.TOCPHA.unit}}
+        </td>
+        <td>
+          Vitamin D
+          {{nutrition.VITD.value}} {{nutrition.VITD.unit}}
+        </td>
+      </tr>
+      <tr class="thin-end">
+        <td colspan="2">
+          Calcium
+          {{nutrition.CA.value}} {{nutrition.CA.unit}}
+        </td>
+        <td>
+          Iron
+          {{nutrition.FE.value}} {{nutrition.FE.unit}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
