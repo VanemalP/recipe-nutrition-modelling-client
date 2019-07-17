@@ -6,6 +6,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ServerErrorComponent } from './components/server-error/server-error.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { NoAuthGuard } from './auth/no-auth.guard';
+import { CategoriesResolverService } from './core/services/categories.resolver.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent, canActivate: [NoAuthGuard] },
   { path: 'users', loadChildren: './users/users.module#UsersModule' },
   { path: 'recipes/create', loadChildren: './create-recipe/create-recipe.module#CreateRecipeModule' },
+  // { path: 'recipes/search', resolve: {categories: CategoriesResolverService} },
   { path: 'recipes/:id', loadChildren: './recipe-detailed-view/recipe-detailed-view.module#RecipeDetailedViewModule' },
   { path: 'not-found', component: NotFoundComponent },
   { path: 'server-error', component: ServerErrorComponent },

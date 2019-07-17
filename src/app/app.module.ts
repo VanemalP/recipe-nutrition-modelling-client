@@ -19,6 +19,7 @@ import { UsersModule } from './users/users.module';
 import { CreateRecipeModule } from './create-recipe/create-recipe.module';
 import { TokenInterceptorService } from './interceptors/token-interceptor';
 import { RecipeDetailedViewModule } from './recipe-detailed-view/recipe-detailed-view.module';
+import { SearchbarComponent } from './searchbar/searchbar.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { RecipeDetailedViewModule } from './recipe-detailed-view/recipe-detailed
     NavbarComponent,
     NotFoundComponent,
     ServerErrorComponent,
+    SearchbarComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,16 @@
+.container {
+  width: 100%;
+  background: wheat;
+  position: relative;
+  top: 0;
+  z-index: 999;
+  padding: 25px;
+}
+
+.search {
+  width: 250px;
+}
+
+td {
+  padding-right: 8px;
+}
