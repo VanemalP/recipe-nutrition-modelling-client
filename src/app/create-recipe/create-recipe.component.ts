@@ -5,7 +5,7 @@ import { ProductsService } from './services/products.service';
 import { RecipesData } from '../common/models/recipe/recipesData';
 import { Product } from '../common/models/product/product';
 import { Recipe } from '../common/models/recipe/recipe';
-import { RecipeHelperService } from './services/recipe-helper.service';
+import { RecipeHelperService } from '../core/services/recipe-helper.service';
 import { RecipesService } from '../core/services/recipes.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificatorService } from '../core/services/notificator.service';
@@ -30,6 +30,8 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
   oldProducts: Ingredient[] = [];
   oldRecipes: Subrecipe[] = [];
   recipeToEdit: Recipe;
+  ingredientsNutrition: Nutrition;
+  subrecipesNutrition: Nutrition;
   nutrition: Nutrition;
   measure: string;
 
@@ -67,6 +69,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.recipeHelperService.clearRecipeItems();
     this.nutritionSubscription.unsubscribe();
   }
 
@@ -125,21 +128,27 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
   }
 
   deleteItem(index: any) {
-    const itemToDelete = this.recipeHelperService.recipeProducts[index];
-    this.recipeHelperService.removeProductFromRecipe(index);
-    let itemIndex = this.addedProducts.findIndex((itm) => itm.code === itemToDelete.code);
+    const productToDelete = this.recipeHelperService.recipeProducts[index];
+    if (productToDelete) {
+      this.recipeHelperService.removeProductFromRecipe(index);
+    }
+    const recipeToDelete = this.recipeHelperService.recipeRecipes[index];
+    if (recipeToDelete) {
+      this.recipeHelperService.removeRecipeFromRecipe(index);
+    }
+    let itemIndex = this.addedProducts.findIndex((itm) => itm.code === productToDelete.code);
     if (itemIndex > -1) {
       this.addedProducts.splice(itemIndex, 1);
     } else {
-      itemIndex = this.addedRecipes.findIndex((itm) => itm.id === itemToDelete.id);
+      itemIndex = this.addedRecipes.findIndex((itm) => itm.id === recipeToDelete.id);
       if (itemIndex > -1) {
         this.addedRecipes.splice(itemIndex, 1);
       } else {
-        itemIndex = this.oldProducts.findIndex((itm) => itm.id === itemToDelete.id);
+        itemIndex = this.oldProducts.findIndex((itm) => itm.id === productToDelete.id);
         if (itemIndex > -1) {
           this.oldProducts[itemIndex].isDeleted = true;
         } else {
-          itemIndex = this.oldRecipes.findIndex((itm) => itm.id === itemToDelete.id);
+          itemIndex = this.oldRecipes.findIndex((itm) => itm.id === recipeToDelete.id);
           if (itemIndex > -1) {
             this.oldRecipes[itemIndex].isDeleted = true;
           }
@@ -149,6 +158,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
   }
 
   createRecipe(recipe) {
+    console.log('create rec', recipe)
     const title = recipe.title;
     const imageUrl = recipe.imageUrl;
     const category = recipe.category;
@@ -156,11 +166,11 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     const newIngredientsData = [];
     const newSubrecipesData = [];
 
-    recipe.products.forEach(item => {
+    recipe.ingredients.forEach(item => {
       newIngredientsData.push({productCode: +item.recipeItem, quantity: item.quantity, unit: item.unit});
     });
 
-    recipe.recipes.forEach(item => {
+    recipe.subrecipes.forEach(item => {
       newSubrecipesData.push({recipeId: item.recipeItem, quantity: +item.quantity, unit: item.unit});
     });
 
@@ -184,7 +194,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     const updateSubrecipesData = [];
 
     recipe.products.forEach(item => {
-      console.log('recipe product foreach', item);
       const newIngredient = this.addedProducts.find((prod) => prod.code === item.recipeItem);
       if (newIngredient) {
         newIngredientsData.push({productCode: +item.recipeItem, quantity: item.quantity, unit: item.unit});
@@ -222,8 +231,380 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
       (res: any) => {
         this.notificator.success('Recipe successfully updated');
         this.recipeHelperService.clearRecipeItems();
+        this.recipeHelperService.recipeToEdit = null;
         this.router.navigate([`/recipes/${res.id}`]);
       },
     );
+  }
+
+  changedValue(recipeData) {
+    const nutrArr = [];
+    let weight = 0;
+    recipeData.ingredients.forEach((ingr) => {
+      const product = this.addedProducts.find((prod) => ingr.recipeItem === prod.code) ||
+        this.oldProducts.find((prod) => ingr.recipeItem === prod.id);
+      const gramsPerMeasure = +ingr.unitOptions.find((unit) => unit.measure === ingr.unit).gramsPerMeasure;
+      weight += gramsPerMeasure * ingr.quantity;
+      const nutrientNames = Object.keys(product.nutrition);
+      const totalProductNutr = {
+        PROCNT: {
+          description: 'Protein',
+          unit: 'g',
+          value: 0,
+        },
+        FAT: {
+          description: 'Total lipid (fat)',
+          unit: 'g',
+          value: 0,
+        },
+        CHOCDF: {
+          description: 'Carbohydrate, by difference',
+          unit: 'g',
+          value: 0,
+        },
+        ENERC_KCAL: {
+          description: 'Energy',
+          unit: 'kcal',
+          value: 0,
+        },
+        SUGAR: {
+          description: 'Sugars, total',
+          unit: 'g',
+          value: 0,
+        },
+        FIBTG: {
+          description: 'Fiber, total dietary',
+          unit: 'g',
+          value: 0,
+        },
+        CA: {
+          description: 'Calcium, Ca',
+          unit: 'mg',
+          value: 0,
+        },
+        FE: {
+          description: 'Iron, Fe',
+          unit: 'mg',
+          value: 0,
+        },
+        P: {
+          description: 'Phosphorus, P',
+          unit: 'mg',
+          value: 0,
+        },
+        K: {
+          description: 'Potassium, K',
+          unit: 'mg',
+          value: 0,
+        },
+        NA: {
+          description: 'Sodium, Na',
+          unit: 'mg',
+          value: 0,
+        },
+        VITA_IU: {
+          description: 'Vitamin A, IU',
+          unit: 'IU',
+          value: 0,
+        },
+        TOCPHA: {
+          description: 'Vitamin E (alpha-tocopherol)',
+          unit: 'mg',
+          value: 0,
+        },
+        VITD: {
+          description: 'Vitamin D',
+          unit: 'IU',
+          value: 0,
+        },
+        VITC: {
+          description: 'Vitamin C, total ascorbic acid',
+          unit: 'mg',
+          value: 0,
+        },
+        VITB12: {
+          description: 'Vitamin B-12',
+          unit: 'µg',
+          value: 0,
+        },
+        FOLAC: {
+          description: 'Folic acid',
+          unit: 'µg',
+          value: 0,
+        },
+        CHOLE: {
+          description: 'Cholesterol',
+          unit: 'mg',
+          value: 0,
+        },
+        FATRN: {
+          description: 'Fatty acids, total trans',
+          unit: 'g',
+          value: 0,
+        },
+        FASAT: {
+          description: 'Fatty acids, total saturated',
+          unit: 'g',
+          value: 0,
+        },
+        FAMS: {
+          description: 'Fatty acids, total monounsaturated',
+          unit: 'g',
+          value: 0,
+        },
+        FAPU: {
+          description: 'Fatty acids, total polyunsaturated',
+          unit: 'g',
+          value: 0,
+        },
+      };
+      nutrientNames.forEach((nutrientName: string) => {
+        const nutrValue = product.nutrition[nutrientName].value / 100 * ingr.quantity * gramsPerMeasure;
+        totalProductNutr[nutrientName].value = nutrValue;
+      });
+      nutrArr.push(totalProductNutr);
+    });
+    recipeData.subrecipes.forEach((subrec) => {
+      const recipe = this.addedRecipes.find((rec) => subrec.recipeItem === rec.id) ||
+        this.oldRecipes.find((rec) => subrec.recipeItem === rec.id);
+      weight += recipe.gramsPerMeasure * subrec.quantity;
+      const nutrientNames = Object.keys(recipe.nutrition);
+      const totalRecipeNutr = {
+        PROCNT: {
+          description: 'Protein',
+          unit: 'g',
+          value: 0,
+        },
+        FAT: {
+          description: 'Total lipid (fat)',
+          unit: 'g',
+          value: 0,
+        },
+        CHOCDF: {
+          description: 'Carbohydrate, by difference',
+          unit: 'g',
+          value: 0,
+        },
+        ENERC_KCAL: {
+          description: 'Energy',
+          unit: 'kcal',
+          value: 0,
+        },
+        SUGAR: {
+          description: 'Sugars, total',
+          unit: 'g',
+          value: 0,
+        },
+        FIBTG: {
+          description: 'Fiber, total dietary',
+          unit: 'g',
+          value: 0,
+        },
+        CA: {
+          description: 'Calcium, Ca',
+          unit: 'mg',
+          value: 0,
+        },
+        FE: {
+          description: 'Iron, Fe',
+          unit: 'mg',
+          value: 0,
+        },
+        P: {
+          description: 'Phosphorus, P',
+          unit: 'mg',
+          value: 0,
+        },
+        K: {
+          description: 'Potassium, K',
+          unit: 'mg',
+          value: 0,
+        },
+        NA: {
+          description: 'Sodium, Na',
+          unit: 'mg',
+          value: 0,
+        },
+        VITA_IU: {
+          description: 'Vitamin A, IU',
+          unit: 'IU',
+          value: 0,
+        },
+        TOCPHA: {
+          description: 'Vitamin E (alpha-tocopherol)',
+          unit: 'mg',
+          value: 0,
+        },
+        VITD: {
+          description: 'Vitamin D',
+          unit: 'IU',
+          value: 0,
+        },
+        VITC: {
+          description: 'Vitamin C, total ascorbic acid',
+          unit: 'mg',
+          value: 0,
+        },
+        VITB12: {
+          description: 'Vitamin B-12',
+          unit: 'µg',
+          value: 0,
+        },
+        FOLAC: {
+          description: 'Folic acid',
+          unit: 'µg',
+          value: 0,
+        },
+        CHOLE: {
+          description: 'Cholesterol',
+          unit: 'mg',
+          value: 0,
+        },
+        FATRN: {
+          description: 'Fatty acids, total trans',
+          unit: 'g',
+          value: 0,
+        },
+        FASAT: {
+          description: 'Fatty acids, total saturated',
+          unit: 'g',
+          value: 0,
+        },
+        FAMS: {
+          description: 'Fatty acids, total monounsaturated',
+          unit: 'g',
+          value: 0,
+        },
+        FAPU: {
+          description: 'Fatty acids, total polyunsaturated',
+          unit: 'g',
+          value: 0,
+        },
+      };
+      nutrientNames.forEach((nutrientName: string) => {
+        const nutrValue = recipe.nutrition[nutrientName].value / 100 * subrec.quantity * recipe.gramsPerMeasure;
+        totalRecipeNutr[nutrientName].value = nutrValue;
+      });
+      nutrArr.push(totalRecipeNutr);
+    });
+    const totalNutr = nutrArr.reduce((acc, curr) => {
+      const nutrientNames = Object.keys(acc);
+      nutrientNames.forEach((nutrientName: string) => {
+        acc[nutrientName].value = +(acc[nutrientName].value + curr[nutrientName].value).toFixed(3);
+        });
+      return acc;
+    }, {
+      PROCNT: {
+        description: 'Protein',
+        unit: 'g',
+        value: 0,
+      },
+      FAT: {
+        description: 'Total lipid (fat)',
+        unit: 'g',
+        value: 0,
+      },
+      CHOCDF: {
+        description: 'Carbohydrate, by difference',
+        unit: 'g',
+        value: 0,
+      },
+      ENERC_KCAL: {
+        description: 'Energy',
+        unit: 'kcal',
+        value: 0,
+      },
+      SUGAR: {
+        description: 'Sugars, total',
+        unit: 'g',
+        value: 0,
+      },
+      FIBTG: {
+        description: 'Fiber, total dietary',
+        unit: 'g',
+        value: 0,
+      },
+      CA: {
+        description: 'Calcium, Ca',
+        unit: 'mg',
+        value: 0,
+      },
+      FE: {
+        description: 'Iron, Fe',
+        unit: 'mg',
+        value: 0,
+      },
+      P: {
+        description: 'Phosphorus, P',
+        unit: 'mg',
+        value: 0,
+      },
+      K: {
+        description: 'Potassium, K',
+        unit: 'mg',
+        value: 0,
+      },
+      NA: {
+        description: 'Sodium, Na',
+        unit: 'mg',
+        value: 0,
+      },
+      VITA_IU: {
+        description: 'Vitamin A, IU',
+        unit: 'IU',
+        value: 0,
+      },
+      TOCPHA: {
+        description: 'Vitamin E (alpha-tocopherol)',
+        unit: 'mg',
+        value: 0,
+      },
+      VITD: {
+        description: 'Vitamin D',
+        unit: 'IU',
+        value: 0,
+      },
+      VITC: {
+        description: 'Vitamin C, total ascorbic acid',
+        unit: 'mg',
+        value: 0,
+      },
+      VITB12: {
+        description: 'Vitamin B-12',
+        unit: 'µg',
+        value: 0,
+      },
+      FOLAC: {
+        description: 'Folic acid',
+        unit: 'µg',
+        value: 0,
+      },
+      CHOLE: {
+        description: 'Cholesterol',
+        unit: 'mg',
+        value: 0,
+      },
+      FATRN: {
+        description: 'Fatty acids, total trans',
+        unit: 'g',
+        value: 0,
+      },
+      FASAT: {
+        description: 'Fatty acids, total saturated',
+        unit: 'g',
+        value: 0,
+      },
+      FAMS: {
+        description: 'Fatty acids, total monounsaturated',
+        unit: 'g',
+        value: 0,
+      },
+      FAPU: {
+        description: 'Fatty acids, total polyunsaturated',
+        unit: 'g',
+        value: 0,
+      },
+    });
+    this.recipeHelperService.changedNutritionValue(totalNutr, `${weight.toFixed(1)} g`);
   }
 }

@@ -6,6 +6,7 @@ export interface Ingredient {
   product: string;
   measures: Measure[];
   unit: string;
+  gramsPerMeasure: number;
   quantity: number;
   nutrition: Nutrition;
   isDeleted?: boolean;

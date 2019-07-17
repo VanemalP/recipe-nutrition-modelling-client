@@ -46,7 +46,7 @@
   font-weight: bold;
 }
 
-.ingredient, .title-tbl {
+.ingredient, .subrecipe, .title-tbl {
   width: 100%;
 }
 
@@ -64,7 +64,7 @@
   padding-left: 28px;
 }
 
-.ingredient .ingr-name {
+.ingredient .ingr-name, .subrecipe .ingr-name {
 padding-left: 14px;
 }
 

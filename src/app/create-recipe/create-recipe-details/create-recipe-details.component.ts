@@ -1,12 +1,8 @@
-import { Subrecipe } from './../../common/models/subrecipe';
-import { Ingredient } from './../../common/models/ingredient';
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormGroupDirective } from '@angular/forms';
 import { Recipe } from '../../common/models/recipe/recipe';
 import { Subscription } from 'rxjs';
-import { isArray } from 'util';
-import { RecipeHelperService } from '../services/recipe-helper.service';
-import { Product } from '../../common/models/product/product';
+import { RecipeHelperService } from '../../core/services/recipe-helper.service';
 import { Nutrition } from '../../common/models/nutrition';
 
 @Component({
@@ -38,9 +34,13 @@ export class CreateRecipeDetailsComponent implements OnInit, OnDestroy {
   @Output()
   delete: EventEmitter<any> = new EventEmitter();
 
+  @Output()
+  changeRecipeItemValue: EventEmitter<any> = new EventEmitter();
+
   selected = '1 g';
 
   private addProductSubscription: Subscription;
+  private changeItemValueSubscription: Subscription;
   private addRecipeSubscription: Subscription;
 
   constructor(
@@ -53,20 +53,28 @@ export class CreateRecipeDetailsComponent implements OnInit, OnDestroy {
       title: ['', [Validators.required, Validators.minLength(5)]],
       category: ['', [Validators.required]],
       notes: [''],
-      products: this.formBuilder.array([]),
-      recipes: this.formBuilder.array([]),
+      ingredients: this.formBuilder.array([]),
+      subrecipes: this.formBuilder.array([]),
     });
+
     if (this.recipeToEdit) {
       this.populateRecipe(this.recipeToEdit);
     }
+
     this.addProductSubscription = this.recipeHelperService.productObs$.subscribe(
       (item) => {
-        this.setProduct(item);
+        this.setIngredient(item);
       },
     );
     this.addRecipeSubscription = this.recipeHelperService.recipeObs$.subscribe(
       (item) => {
-        this.setRecipe(item);
+        this.setSubrecipe(item);
+      },
+    );
+
+    this.changeItemValueSubscription = this.recipeForm.valueChanges.subscribe(
+      (changedData) => {
+        this.changeRecipeItemValue.emit(changedData);
       },
     );
   }
@@ -74,46 +82,48 @@ export class CreateRecipeDetailsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.addProductSubscription.unsubscribe();
     this.addRecipeSubscription.unsubscribe();
+    this.changeItemValueSubscription.unsubscribe();
   }
 
-  get productsArr() {
-    return this.recipeForm.get('products') as FormArray;
+  get ingredientsArr() {
+    return this.recipeForm.get('ingredients') as FormArray;
   }
 
-  setProduct(item: any): FormArray {
-    this.productsArr.push(this.formBuilder.group({
+  setIngredient(item: any): FormArray {
+    this.ingredientsArr.push(this.formBuilder.group({
       name: [item.product || item.description],
       recipeItem: [item.code || item.id],
       unit: [item.unit || this.selected, [Validators.required]],
       unitOptions: [item.measures],
-      quantity: [item.quantity || '', [Validators.required, Validators.min(0.1)]],
+      quantity: [item.quantity || 0, [Validators.required, Validators.min(0.1)]],
     }));
-    return this.productsArr;
+    return this.ingredientsArr;
   }
 
-  get recipesArr() {
-    return this.recipeForm.get('recipes') as FormArray;
+  get subrecipesArr() {
+    return this.recipeForm.get('subrecipes') as FormArray;
   }
 
-  setRecipe(item: any): FormArray {
-    this.recipesArr.push(this.formBuilder.group({
+  setSubrecipe(item: any): FormArray {
+    this.subrecipesArr.push(this.formBuilder.group({
       name: [item.recipe || item.title],
       recipeItem: [item.id],
-      unit: [item.measure, [Validators.required]],
-      unitOptions: [item.measure],
-      quantity: [item.quantity || '', [Validators.required, Validators.min(0.1)]],
+      unit: [item.unit || item.measure, [Validators.required]],
+      unitOptions: [item.unit || item.measure],
+      gramsPerMeasure: [item.gramsPerMeasure],
+      quantity: [item.quantity || 0, [Validators.required, Validators.min(0.1)]],
     }));
 
-    return this.recipesArr;
+    return this.subrecipesArr;
   }
 
   populateRecipe(recipe: Recipe): void {
     this.recipeForm.patchValue({title: recipe.title, category: recipe.category, notes: recipe.notes});
     recipe.ingredients.forEach((ingr) => {
-      this.setProduct(ingr);
+      this.setIngredient(ingr);
     });
     recipe.subrecipes.forEach((subrec) => {
-      this.setRecipe(subrec);
+      this.setSubrecipe(subrec);
     });
   }
 
@@ -126,20 +136,12 @@ export class CreateRecipeDetailsComponent implements OnInit, OnDestroy {
   }
 
   triggerDeleteProduct(itemsGroupIndex: number) {
-    this.productsArr.removeAt(itemsGroupIndex);
-    this.productsArr.markAsDirty();
-    this.productsArr.markAsTouched();
-    // const item = this.recipeHelperService.recipeProducts[itemsGroupIndex];
-    // this.recipeHelperService.removeProductFromRecipe(itemsGroupIndex);
+    this.ingredientsArr.removeAt(itemsGroupIndex);
     this.delete.emit(itemsGroupIndex);
   }
 
   triggerDeleteRecipe(itemsGroupIndex: number) {
-    this.productsArr.removeAt(itemsGroupIndex);
-    this.productsArr.markAsDirty();
-    this.productsArr.markAsTouched();
-    const item = this.recipeHelperService.recipeProducts[itemsGroupIndex];
-    this.recipeHelperService.removeRecipeFromRecipe(itemsGroupIndex);
-    this.delete.emit(item);
+    this.subrecipesArr.removeAt(itemsGroupIndex);
+    this.delete.emit(itemsGroupIndex);
   }
 }

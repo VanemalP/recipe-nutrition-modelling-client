@@ -47,18 +47,18 @@
   <mat-list class="recipe-items">
     <mat-list-item>
       <div fxLayout="row" fxLayoutAlign="start center" class="title-tbl">
-        <span class="ingr-name">Ingredient</span>
+        <span class="ingr-name">Ingredients</span>
         <span class="unit">Unit</span>
         <span class="quantity">Qty</span>
         <div class="fill"></div>
       </div>
     </mat-list-item>
     <mat-list-item>
-      <span *ngIf="productsArr.value.length === 0" class="no-ingr">
-        You haven't added any products yet...
+      <span *ngIf="ingredientsArr.value.length === 0" class="no-ingr">
+        You haven't added any ingredients yet...
       </span>
     </mat-list-item>
-    <div formArrayName="products" *ngFor="let item of recipeForm.get('products').controls; let i = index">
+    <div formArrayName="ingredients" *ngFor="let item of recipeForm.get('ingredients').controls; let i = index">
       <div [formGroupName]="i">
         <mat-list-item class="ingredientsData">
           <div fxLayout="row" fxLayoutAlign="start center" class="ingredient">
@@ -87,21 +87,21 @@
   <mat-list class="recipe-items">
     <mat-list-item>
       <div fxLayout="row" fxLayoutAlign="start center" class="title-tbl">
-        <span class="ingr-name">Subrecipe</span>
+        <span class="ingr-name">Subrecipes</span>
         <span class="unit">Unit</span>
         <span class="quantity">Qty</span>
         <div class="fill"></div>
       </div>
     </mat-list-item>
     <mat-list-item>
-      <span *ngIf="recipesArr.value.length === 0" class="no-ingr">
-        You haven't added any recipes yet...
+      <span *ngIf="subrecipesArr.value.length === 0" class="no-ingr">
+        You haven't added any subrecipes yet...
       </span>
     </mat-list-item>
-    <div formArrayName="recipes" *ngFor="let item of recipeForm.get('recipes').controls; let i = index">
+    <div formArrayName="subrecipes" *ngFor="let item of recipeForm.get('subrecipes').controls; let i = index">
       <div [formGroupName]="i">
         <mat-list-item class="ingredientsData">
-          <div fxLayout="row" fxLayoutAlign="start center" class="ingredient">
+          <div fxLayout="row" fxLayoutAlign="start center" class="subrecipe">
             <span class="ingr-name">{{ item.value.name }}</span>
             <!-- <input type="text" hidden matInput formControlName="recipeItem" #recipeItem /> -->
             <mat-form-field class="unit">
@@ -129,7 +129,7 @@
       mat-raised-button
       color="primary"
       class="save-btn"
-      [disabled]="(productsArr.value.length === 0 && recipesArr.value.length === 0) || !recipeForm.valid"
+      [disabled]="(ingredientsArr.value.length === 0 && subrecipesArr.value.length === 0) || !recipeForm.valid"
     >
       Save
     </button>

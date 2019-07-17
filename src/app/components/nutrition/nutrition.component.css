@@ -80,7 +80,7 @@ p {
 .nutrition-facts__table--grid td:last-child {
   text-align: left;
 }
-.nutrition-facts__table--grid td:last-child::before {
+.nutrition-facts__table--grid td::before {
   content: "•";
   font-weight: bold;
   margin: 0 0.25rem 0 0;

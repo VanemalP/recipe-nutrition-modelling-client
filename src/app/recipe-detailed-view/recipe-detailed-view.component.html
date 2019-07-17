@@ -16,9 +16,7 @@
         </div>
       </div>
       <div fxFlex="30" fxLayout="row" fxLayoutAlign="end start" class="button-container">
-        <button mat-raised-button>
-          <mat-icon>edit</mat-icon> Edit
-        </button>
+        <a mat-raised-button (click)="updateRecipe()" [routerLink]="['/recipes/create']"><mat-icon>edit</mat-icon> Edit</a>
       </div>
     </div>
   </div>

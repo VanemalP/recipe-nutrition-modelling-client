@@ -9,6 +9,7 @@ import { NotificatorService } from './services/notificator.service';
 import { StorageService } from './services/storage.service';
 import { UsersService } from './services/users.service';
 import { CategoriesResolverService } from './services/categories.resolver.service';
+import { RecipeHelperService } from './services/recipe-helper.service';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { CategoriesResolverService } from './services/categories.resolver.servic
     RecipesService,
     CategoriesService,
     CategoriesResolverService,
+    RecipeHelperService
   ]
 })
 export class CoreModule {

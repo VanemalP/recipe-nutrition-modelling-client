@@ -8,7 +8,7 @@ export interface Recipe {
   imageUrl: string;
   notes: string;
   measure: string;
-  amount: number;
+  gramsPerMeasure: number;
   created: Date;
   category: string;
   ingredients?: Ingredient[];
