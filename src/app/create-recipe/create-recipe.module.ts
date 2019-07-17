@@ -1,6 +1,5 @@
 import { FoodGroupsResolverService } from './services/foodGroups.resolver.service';
 import { FoodGroupsService } from './services/foodGroups.service';
-import { RecipeHelperService } from './services/recipe-helper.service';
 import { NgModule } from '@angular/core';
 
 import { CreateRecipeComponent } from './create-recipe.component';
@@ -11,6 +10,7 @@ import { ItemsSearchDetailsComponent } from './items-search-details/items-search
 import { CreateSearchResultComponent } from './create-search-result/create-search-result.component';
 import { CreateRecipeDetailsComponent } from './create-recipe-details/create-recipe-details.component';
 import { ProductsService } from './services/products.service';
+import { NutritionComponent } from '../components/nutrition/nutrition.component';
 
 @NgModule({
   declarations: [
@@ -18,12 +18,13 @@ import { ProductsService } from './services/products.service';
     ItemsSearchComponent,
     ItemsSearchDetailsComponent,
     CreateSearchResultComponent,
-    CreateRecipeDetailsComponent
+    CreateRecipeDetailsComponent,
+    NutritionComponent
   ],
   imports: [
     SharedModule,
     CreateRecipeRoutingModule
   ],
-  providers: [ProductsService, RecipeHelperService, FoodGroupsService, FoodGroupsResolverService],
+  providers: [ProductsService, FoodGroupsService, FoodGroupsResolverService],
 })
 export class CreateRecipeModule { }

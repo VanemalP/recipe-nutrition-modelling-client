@@ -39,4 +39,8 @@ export class RecipesService {
   createRecipe(data) {
     return this.http.post(`http://localhost:3000/api/recipes`, data);
   }
+
+  updateRecipe(recipeId: string, data) {
+    return this.http.put(`http://localhost:3000/api/recipes/${recipeId}`, data);
+  }
 }

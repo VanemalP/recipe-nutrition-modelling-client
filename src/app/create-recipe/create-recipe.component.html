@@ -12,6 +12,6 @@
   </aside>
   <mat-divider [vertical]="true"></mat-divider>
   <main fxFlex="70" class="recipe">
-    <app-create-recipe-details [recipeCategories]="recipeCategories" (delete)="deleteItem($event)" (create)="createRecipe($event)"></app-create-recipe-details>
+    <app-create-recipe-details [recipeCategories]="recipeCategories" [recipeToEdit]="recipeToEdit" [nutrition]="nutrition" [measure]="measure" (delete)="deleteItem($event)" (create)="createRecipe($event)" (update)="updateRecipe($event)" (changeRecipeItemValue)="changedValue($event)"></app-create-recipe-details>
   </main>
 </div>

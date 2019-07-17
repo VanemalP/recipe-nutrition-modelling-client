@@ -1,5 +1,5 @@
 export interface Nutrient {
-  desciption: string;
+  description: string;
   unit: string;
   value: number;
 }

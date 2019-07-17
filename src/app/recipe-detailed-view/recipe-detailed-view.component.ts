@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../common/models/recipe/recipe';
 import { ActivatedRoute } from '@angular/router';
+import { RecipeHelperService } from '../core/services/recipe-helper.service';
 
 @Component({
   selector: 'app-recipe-detailed-view',
@@ -13,11 +14,16 @@ export class RecipeDetailedViewComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private readonly recipeHelperService: RecipeHelperService,
   ) { }
 
   ngOnInit() {
     this.route.data.subscribe((res: any ) => {
       this.recipe = res.recipe;
     });
+  }
+
+  updateRecipe() {
+    this.recipeHelperService.editRecipe(this.recipe);
   }
 }
