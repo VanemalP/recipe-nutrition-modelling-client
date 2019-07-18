@@ -6,6 +6,8 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  isActive = true;
+
   @Input()
   username: string;
 
