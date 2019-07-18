@@ -10,3 +10,21 @@
 main {
   padding-top: 64px;
 }
+
+.search-field {
+  display: none;
+}
+
+.show {
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: 64px;
+  left: 0;
+  z-index: 999;
+}
+
+.fade {
+  opacity: 0.6;
+  pointer-events: none;
+}

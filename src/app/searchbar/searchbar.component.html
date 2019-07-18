@@ -1,6 +1,6 @@
-<section [class.mat-elevation-z1]="isActive">
+<section>
   <div class="search-container">
-    <form action="" [formGroup]="searchForm" (ngSubmit)="searchRecipe(searchForm.value)">
+    <form action="" [formGroup]="searchForm" (ngSubmit)="searchRecipe(searchForm.value, formDirective)" #formDirective="ngForm">
       <div class="r-selector" fxLayout="row" fxLayoutAlign="space-between center">
         <mat-form-field class="search">
           <input matInput type="text" placeholder="Search recipe..." #title formControlName="title">
@@ -62,7 +62,7 @@
         </mat-form-field>
       </div>
       <div class="buttons" fxLayout="row" fxLayoutAlign="end center">
-        <button mat-stroked-button color="primary" type="reset" class="cancel">Cancel</button>
+        <button mat-raised-button type="reset" class="clear">Clear</button>
         <button mat-raised-button color="primary">Search</button>
       </div>
     </form>

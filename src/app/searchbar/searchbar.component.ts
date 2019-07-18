@@ -1,5 +1,5 @@
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { CategoriesService } from './../core/services/categories.service';
 import { RecipesService } from '../core/services/recipes.service';
 
@@ -9,8 +9,10 @@ import { RecipesService } from '../core/services/recipes.service';
   styleUrls: ['./searchbar.component.css']
 })
 export class SearchbarComponent implements OnInit {
+  @Output()
+  search: EventEmitter<any> = new EventEmitter();
+
   searchForm: FormGroup;
-  isActive = true;
   inputValue = '';
   selectedValue: string;
   recipeCategories: string[] = [];
@@ -72,10 +74,9 @@ export class SearchbarComponent implements OnInit {
     this.setSearchValidator();
   }
 
-  searchRecipe(searchQuery) {
-    this.recipeService.getRecipes(searchQuery).subscribe((res) => {
-      console.log(res);
-    });
+  searchRecipe(searchQuery, formDirective: FormGroupDirective) {
+    formDirective.resetForm();
+    this.search.emit(searchQuery);
   }
 
   private setSearchValidator() {

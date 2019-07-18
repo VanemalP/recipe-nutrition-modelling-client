@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class AppComponent implements OnInit, OnDestroy {
   public isLogged: boolean;
+  isVisible = false;
   private loggedUserSubscripton: Subscription;
 
   constructor(
@@ -39,5 +40,14 @@ export class AppComponent implements OnInit, OnDestroy {
       this.notificator.error(err.message);
     }
     );
+  }
+
+  toggleSearchField() {
+    this.isVisible = !this.isVisible;
+  }
+
+  searchRecipe(searchQuery) {
+    this.router.navigate(['/recipes'], {queryParams: searchQuery});
+    this.isVisible = false;
   }
 }

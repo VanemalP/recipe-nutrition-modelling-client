@@ -11,8 +11,6 @@ export class NavbarComponent implements OnInit {
   @Input()
   username: string;
 
-  // @Input()
-  // loggedIn: boolean;
   @Input()
   loggedIn = true;
 
@@ -27,7 +25,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
   }
 
-  toggleSidenav() {
+  toggleSearchField() {
     return this.toggle.emit();
   }
 
