@@ -158,7 +158,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
   }
 
   createRecipe(recipe) {
-    console.log('create rec', recipe)
     const title = recipe.title;
     const imageUrl = recipe.imageUrl;
     const category = recipe.category;
@@ -193,7 +192,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     const updateIngredientsData = [];
     const updateSubrecipesData = [];
 
-    recipe.products.forEach(item => {
+    recipe.ingredients.forEach(item => {
       const newIngredient = this.addedProducts.find((prod) => prod.code === item.recipeItem);
       if (newIngredient) {
         newIngredientsData.push({productCode: +item.recipeItem, quantity: item.quantity, unit: item.unit});
@@ -210,7 +209,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
       }
     });
 
-    recipe.recipes.forEach(item => {
+    recipe.subrecipes.forEach(item => {
       const newSubrecipe = this.addedRecipes.find((rec) => rec.id === item.recipeItem);
       if (newSubrecipe) {
         newSubrecipesData.push({recipeId: item.recipeItem, quantity: item.quantity, unit: item.unit});
