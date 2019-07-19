@@ -13,8 +13,8 @@ section.container {
 .recipe-img {
   position: relative;
   border-radius: 4px;
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 250px;
   margin: 0 14px 4px 0;
 }
 
@@ -86,4 +86,9 @@ h2.title {
 h2,
 h3 {
   display: inline-block;
+}
+
+.chart{
+  margin-right: auto;
+  padding-top: 16px;
 }

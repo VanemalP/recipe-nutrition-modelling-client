@@ -7,10 +7,6 @@
   z-index: 999;
 }
 
-main {
-  padding-top: 64px;
-}
-
 .search-field {
   display: none;
 }

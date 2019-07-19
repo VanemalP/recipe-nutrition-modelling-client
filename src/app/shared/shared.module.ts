@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { LayoutModule } from '@angular/cdk/layout';
+import { ChartsModule } from 'ng2-charts';
 
 import { MaterialModule } from './modules/material.module';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
@@ -31,7 +32,8 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     MaterialModule,
     ScrollingModule,
     RouterModule,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    ChartsModule
   ],
   entryComponents: [ConfirmDialogComponent],
 })
