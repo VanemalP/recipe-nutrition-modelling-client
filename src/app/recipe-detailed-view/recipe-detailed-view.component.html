@@ -11,12 +11,15 @@
         <h3>({{recipe.measure}})</h3>
         <h4 class="cat">Category: {{recipe.category}}</h4>
 
-        <div *ngIf="recipe.notes.length > 0"class="notes">
-          <span class="notes-txt">Notes:</span> {{recipe.notes}}
-        </div>
       </div>
       <div fxFlex="30" fxLayout="row" fxLayoutAlign="end start" class="button-container">
-        <a mat-raised-button (click)="updateRecipe()" [routerLink]="['/recipes/create']"><mat-icon>edit</mat-icon> Edit</a>
+        <a mat-icon-button color="primary" title="Edit recipe" (click)="updateRecipe()"
+          [routerLink]="['/recipes/create']">
+          <mat-icon>edit</mat-icon>
+        </a>
+        <a mat-icon-button color="warn" title="Delete recipe" (click)="deleteRecipe()" [routerLink]="['/recipes']">
+          <mat-icon>delete</mat-icon>
+        </a>
       </div>
     </div>
   </div>
@@ -74,5 +77,8 @@
         </mat-expansion-panel-header>
       </mat-expansion-panel>
     </mat-accordion>
+    <div *ngIf="recipe.notes.length > 0" class="notes">
+      <span class="notes-txt">Notes:</span> {{recipe.notes}}
+    </div>
   </div>
 </section>
