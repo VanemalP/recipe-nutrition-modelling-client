@@ -102,33 +102,51 @@
   <table class="nutrition-facts__table--grid">
     <tbody>
       <tr>
-        <td colspan="2">
-          Vitamin A
-          {{nutrition.VITA_IU.value}} {{nutrition.VITA_IU.unit}}
-        </td>
+        <th colspan="2">
+          <span>Vitamin A</span>
+        </th>
         <td>
-          Vitamin C
-          {{nutrition.VITC.value}} {{nutrition.VITC.unit}}
+          <span>{{nutrition.VITA_IU.value}} {{nutrition.VITA_IU.unit}}</span>
         </td>
       </tr>
       <tr>
-        <td colspan="2">
-          Vitamin E
-          {{nutrition.TOCPHA.value}} {{nutrition.TOCPHA.unit}}
-        </td>
+        <th colspan="2">
+          <span>Vitamin C</span>
+        </th>
         <td>
-          Vitamin D
-          {{nutrition.VITD.value}} {{nutrition.VITD.unit}}
+          <span> {{nutrition.VITC.value}} {{nutrition.VITC.unit}}</span>
+        </td>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <span>Vitamin D</span>
+        </th>
+        <td>
+          <span> {{nutrition.VITD.value}} {{nutrition.VITD.unit}}</span>
+        </td>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <span>Vitamin E</span>
+        </th>
+        <td>
+          <span> {{nutrition.TOCPHA.value}} {{nutrition.TOCPHA.unit}}</span>
+        </td>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <span>Calcium</span>
+        </th>
+        <td>
+          <span> {{nutrition.CA.value}} {{nutrition.CA.unit}}</span>
         </td>
       </tr>
       <tr class="thin-end">
-        <td colspan="2">
-          Calcium
-          {{nutrition.CA.value}} {{nutrition.CA.unit}}
-        </td>
+        <th colspan="2">
+          <span>Iron</span>
+        </th>
         <td>
-          Iron
-          {{nutrition.FE.value}} {{nutrition.FE.unit}}
+          <span> {{nutrition.FE.value}} {{nutrition.FE.unit}}</span>
         </td>
       </tr>
     </tbody>

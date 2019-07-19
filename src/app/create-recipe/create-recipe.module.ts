@@ -10,7 +10,6 @@ import { ItemsSearchDetailsComponent } from './items-search-details/items-search
 import { CreateSearchResultComponent } from './create-search-result/create-search-result.component';
 import { CreateRecipeDetailsComponent } from './create-recipe-details/create-recipe-details.component';
 import { ProductsService } from './services/products.service';
-import { NutritionComponent } from '../components/nutrition/nutrition.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,6 @@ import { NutritionComponent } from '../components/nutrition/nutrition.component'
     ItemsSearchDetailsComponent,
     CreateSearchResultComponent,
     CreateRecipeDetailsComponent,
-    NutritionComponent
   ],
   imports: [
     SharedModule,

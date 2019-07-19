@@ -73,10 +73,9 @@ export class NutritionChartComponent implements OnInit {
               return data.labels[tooltipItems.index] + ': ' + data.datasets[0].data[tooltipItems.index] + ' cal';
           }
       }
-
     },
     legend: {
-      position: 'right',
+      position: 'bottom',
     },
     center: {
       text: `${this.data.calories}`,

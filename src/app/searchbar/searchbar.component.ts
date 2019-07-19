@@ -55,8 +55,7 @@ export class SearchbarComponent implements OnInit {
 
   constructor(private readonly categoriesService: CategoriesService,
               private readonly formBuilder: FormBuilder,
-              private readonly recipeService: RecipesService
-              ) { }
+  ) { }
 
   ngOnInit() {
     this.categoriesService.getCategories().subscribe(

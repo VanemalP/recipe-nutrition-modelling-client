@@ -9,9 +9,10 @@ import { ChartsModule } from 'ng2-charts';
 
 import { MaterialModule } from './modules/material.module';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { NutritionComponent } from '../components/nutrition/nutrition.component';
 
 @NgModule({
-  declarations: [ConfirmDialogComponent],
+  declarations: [ConfirmDialogComponent, NutritionComponent],
   imports: [
     CommonModule,
     LayoutModule,
@@ -33,7 +34,8 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     ScrollingModule,
     RouterModule,
     ConfirmDialogComponent,
-    ChartsModule
+    ChartsModule,
+    NutritionComponent
   ],
   entryComponents: [ConfirmDialogComponent],
 })
