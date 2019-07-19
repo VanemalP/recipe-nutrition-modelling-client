@@ -1,4 +1,4 @@
-<app-navbar *ngIf="isLogged" (logout)="logout()" (toggle)="toggleSearchField()"></app-navbar>
+<app-navbar *ngIf="isLogged" (logout)="logout()" (toggle)="toggleSearchField()" class="navbar"></app-navbar>
 <app-searchbar [ngClass]="{'search-field': true, 'show': isVisible}" (search)="searchRecipe($event)"></app-searchbar>
 <main [ngClass]="{'fade': isVisible}">
   <router-outlet></router-outlet>
