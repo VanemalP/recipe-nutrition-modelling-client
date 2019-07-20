@@ -1,0 +1,11 @@
+<div class="container">
+  <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="28px grid">
+      <app-single-recipe *ngFor="let recipe of allRecipes" [recipe]="recipe" fxFlex="30"></app-single-recipe>
+  </div>
+  <!-- <mat-grid-list cols="3" rowHeight="1:2">
+    <mat-grid-tile *ngFor="let recipe of allRecipes">
+      <app-single-recipe [recipe]="recipe"></app-single-recipe>
+    </mat-grid-tile>
+  </mat-grid-list> -->
+  <mat-paginator [length]="totalRecipes" [pageSize]="limit" [pageSizeOptions]="itemsPerPage" (page)="changePagination($event)"> </mat-paginator>
+</div>

@@ -4,7 +4,7 @@ export interface RecipesData {
   recipes: Recipe[];
   page: number;
   itemCount: number;
-  totalItems: number;
+  totalRecipes: number;
   next?: string;
   previous?: string;
 }
