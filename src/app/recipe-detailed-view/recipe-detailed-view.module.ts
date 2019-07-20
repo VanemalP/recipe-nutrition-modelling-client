@@ -5,10 +5,10 @@ import { RecipeDetailedViewRoutingModule } from './recipe-detailed-view-routing.
 import { RecipeDetailedViewComponent } from './recipe-detailed-view.component';
 import { RecipeDetailedViewService } from './services/recipe-detailed-view.service';
 import { RecipeDetailedViewResolverService } from './services/recipe-detailed-view.resolver.service';
-import { NutritionChartComponent } from '../components/nutrition-chart/nutrition-chart.component';
+import { NutritionTableComponent } from '../components/nutrition-table/nutrition-table.component';
 
 @NgModule({
-  declarations: [RecipeDetailedViewComponent, NutritionChartComponent],
+  declarations: [RecipeDetailedViewComponent, NutritionTableComponent],
   imports: [
     SharedModule,
     RecipeDetailedViewRoutingModule

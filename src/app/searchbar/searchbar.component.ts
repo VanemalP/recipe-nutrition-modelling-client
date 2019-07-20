@@ -1,7 +1,6 @@
 import { FormGroup, FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { CategoriesService } from './../core/services/categories.service';
-import { RecipesService } from '../core/services/recipes.service';
 
 @Component({
   selector: 'app-searchbar',
