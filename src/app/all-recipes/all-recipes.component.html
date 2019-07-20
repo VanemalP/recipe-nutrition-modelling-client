@@ -1,6 +1,6 @@
 <div class="container">
-  <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="28px grid">
-      <app-single-recipe *ngFor="let recipe of allRecipes" [recipe]="recipe" fxFlex="30"></app-single-recipe>
+  <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="30px grid">
+      <app-single-recipe *ngFor="let recipe of allRecipes" [recipe]="recipe" class="recipe-card"></app-single-recipe>
   </div>
   <!-- <mat-grid-list cols="3" rowHeight="1:2">
     <mat-grid-tile *ngFor="let recipe of allRecipes">
