@@ -37,7 +37,6 @@ export class RecipesService {
   }
 
   createRecipe(data) {
-    console.log(data);
     return this.http.post(`http://localhost:3000/api/recipes`, data);
   }
 

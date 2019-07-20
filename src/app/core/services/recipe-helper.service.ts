@@ -146,9 +146,7 @@ export class RecipeHelperService {
   }
 
   removeProductFromRecipe(index: number): void {
-    console.log(this.ingredientsArr);
     this.ingredientsArr.splice(index, 1);
-    console.log(this.ingredientsArr)
   }
 
   removeRecipeFromRecipe(index: number): void {
@@ -306,7 +304,6 @@ export class RecipeHelperService {
 
     // const nutr = totalRecipeNutr;
     const nutr = this.calculateTotalRecipeNutrition(this.recipeToEdit);
-    console.log(nutr);
     const measure = this.recipeToEdit.measure;
     this.nutritionObs.next({nutr, measure});
   }

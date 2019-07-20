@@ -243,7 +243,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
   changedValue(recipeData) {
     const nutrArr = [];
     let weight = 0;
-    if (recipeData.ingredients.lenght > 0) {
+    if (recipeData.ingredients.length > 0) {
       recipeData.ingredients.forEach((ingr) => {
         const product = this.addedProducts.find((prod) => ingr.recipeItem === prod.code) ||
           this.oldProducts.find((prod) => ingr.recipeItem === prod.id);
@@ -369,7 +369,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         nutrArr.push(totalProductNutr);
       });
     }
-    if (recipeData.subrecipes.lenght > 0) {
+    if (recipeData.subrecipes.length > 0) {
       recipeData.subrecipes.forEach((subrec) => {
         const recipe = this.addedRecipes.find((rec) => subrec.recipeItem === rec.id) ||
           this.oldRecipes.find((rec) => subrec.recipeItem === rec.id);
