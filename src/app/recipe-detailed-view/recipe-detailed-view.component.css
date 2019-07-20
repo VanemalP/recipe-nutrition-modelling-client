@@ -13,8 +13,8 @@ section.container {
   position: relative;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 250px;
   margin: 0 14px 4px 0;
 }
 
@@ -58,7 +58,7 @@ p.unit-ingr {
 
 .mat-expansion-panel-header {
   height: auto !important;
-  padding: 8px 20px 8px 14px;
+  padding: 8px 20px 8px 20px;
 }
 
 h2.title {
@@ -96,6 +96,10 @@ h2 span {
 .all-nutrition {
   width: 250px;
   margin-right: 14px; 
+}
+
+.panelOpen {
+ font-weight: 700;
 }
 
 @media screen and (min-width: 1440px) {

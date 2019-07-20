@@ -11,15 +11,15 @@ import { NotificatorService } from '../../core/services/notificator.service';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-public registerForm: FormGroup;
-isActive = true;
+  public registerForm: FormGroup;
+  isActive = true;
 
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
     private readonly notificator: NotificatorService,
     private readonly authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -34,13 +34,17 @@ isActive = true;
   register() {
     const newUserData = this.registerForm.value;
     const { username, password } = newUserData;
-    this.authService.register(newUserData).subscribe(
-      (res) => {
-        this.authService.login({username, password}).subscribe(() => {
-          this.notificator.success(`You have successfully registered and logged in, Chef ${res.user.lastName}!`);
-          this.router.navigate(['/recipes']);
-        });
-      }
-    );
+    if (this.registerForm.valid) {
+      this.authService.register(newUserData).subscribe(
+        (res) => {
+          this.authService.login({ username, password }).subscribe(() => {
+            this.notificator.success(`You have successfully registered and logged in, Chef ${res.user.lastName}!`);
+            this.router.navigate(['/recipes']);
+          });
+        }
+      );
+    } else {
+      this.notificator.error('Please, fill the required fields');
+    }
   }
 }

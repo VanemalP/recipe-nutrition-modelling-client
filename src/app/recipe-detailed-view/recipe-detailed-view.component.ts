@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { RecipeHelperService } from '../core/services/recipe-helper.service';
 import { Nutrition } from '../common/models/nutrition';
 import { Ingredient } from '../common/models/ingredient';
+import { RecipesService } from '../core/services/recipes.service';
+import { NotificatorService } from '../core/services/notificator.service';
 
 @Component({
   selector: 'app-recipe-detailed-view',
@@ -19,10 +21,12 @@ export class RecipeDetailedViewComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private readonly recipeHelperService: RecipeHelperService,
+    private readonly recipeService: RecipesService,
+    private readonly notificator: NotificatorService
   ) { }
 
   ngOnInit() {
-    this.route.data.subscribe((res: any ) => {
+    this.route.data.subscribe((res: any) => {
       this.recipe = res.recipe;
       this.totalRecipeNutrition = this.calcRecNutrition(this.recipe);
     });
@@ -32,14 +36,14 @@ export class RecipeDetailedViewComponent implements OnInit {
     this.recipeHelperService.editRecipe(this.recipe);
   }
 
-  
-  
   calcRecNutrition(item) {
     return this.recipeHelperService.calculateTotalRecipeNutrition(item);
   }
+
   calcSubrecNutrition(item) {
     return this.recipeHelperService.calculateSubreciepTotalNutrition(item);
   }
+
   calcIngrNutrition(item) {
     return this.recipeHelperService.calculateIngredientTotalNutrition(item);
   }
@@ -54,6 +58,9 @@ export class RecipeDetailedViewComponent implements OnInit {
   }
 
   deleteRecipe() {
-    
+    const id = this.route.snapshot.paramMap.get('id');
+    return this.recipeService.deleteRecipe(id).subscribe(() => {
+      this.notificator.success('Recipe successfully deleted');
+    });
   }
 }

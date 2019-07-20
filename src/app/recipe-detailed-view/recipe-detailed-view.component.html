@@ -46,17 +46,17 @@
         </mat-expansion-panel-header>
       </mat-expansion-panel>
 
-      <mat-expansion-panel *ngFor="let ingredient of recipe.ingredients">
+      <mat-expansion-panel *ngFor="let ingredient of recipe.ingredients;" #exp>
         <mat-expansion-panel-header class="ingr-tbl">
-          <mat-panel-title class="title-ingr">
-            <p>{{ ingredient.product }}</p>
+          <mat-panel-title class="title-ingr" >
+            <p [ngClass]="{'panelOpen': exp._expanded}">{{ ingredient.product }}</p>
           </mat-panel-title>
           <mat-panel-description>
             <p class="unit-ingr">{{ ingredient.unit }}</p>
             <p class="quantity-ingr">{{ ingredient.quantity }}</p>
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <app-nutrition [nutrition]="calcIngrNutrition(ingredient)" [measure]="calcIngrMeasure(ingredient)"></app-nutrition>
+        <app-nutrition-table [nutrition]="calcIngrNutrition(ingredient)" [measure]="calcIngrMeasure(ingredient)"></app-nutrition-table>
       </mat-expansion-panel>
     </mat-accordion>
 
@@ -73,17 +73,17 @@
         </mat-expansion-panel-header>
       </mat-expansion-panel>
 
-      <mat-expansion-panel *ngFor="let subrecipe of recipe.subrecipes">
+      <mat-expansion-panel *ngFor="let subrecipe of recipe.subrecipes" #exp>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <p>{{ subrecipe.recipe }}</p>
+            <p [ngClass]="{'panelOpen': exp._expanded}">{{ subrecipe.recipe }}</p>
           </mat-panel-title>
           <mat-panel-description>
             <p class="unit-ingr">{{ subrecipe.unit }}</p>
             <p class="quantity-ingr">{{ subrecipe.quantity }}</p>
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <app-nutrition [nutrition]="calcSubrecNutrition(subrecipe)" [measure]="calcSubrecMeasure(subrecipe)"></app-nutrition>
+        <app-nutrition-table [nutrition]="calcSubrecNutrition(subrecipe)" [measure]="calcSubrecMeasure(subrecipe)"></app-nutrition-table>
       </mat-expansion-panel>
     </mat-accordion>
   </div>

@@ -43,4 +43,8 @@ export class RecipesService {
   updateRecipe(recipeId: string, data) {
     return this.http.put(`http://localhost:3000/api/recipes/${recipeId}`, data);
   }
+
+  deleteRecipe(recipeId: string): Observable<Recipe> {
+    return this.http.delete<Recipe>(`http://localhost:3000/api/recipes/${recipeId}`);
+  }
 }
