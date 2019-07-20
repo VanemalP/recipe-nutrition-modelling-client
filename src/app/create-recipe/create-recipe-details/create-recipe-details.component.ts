@@ -33,7 +33,7 @@ export class CreateRecipeDetailsComponent implements OnInit, OnDestroy {
   changeRecipeItemValue: EventEmitter<any> = new EventEmitter();
 
   selected = '1 g';
-  imageUrl: string;
+  imageUrl = 'https://images.all-free-download.com/images/graphiclarge/healthy_meal_background_vegetables_eggs_bacon_icons_6836169.jpg';
 
   private addProductSubscription: Subscription;
   private changeItemValueSubscription: Subscription;

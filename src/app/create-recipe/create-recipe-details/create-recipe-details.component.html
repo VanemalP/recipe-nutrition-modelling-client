@@ -1,15 +1,11 @@
 <form action="" class="form-container" [formGroup]="recipeForm" (ngSubmit)="saveRecipe(recipeForm.value)" [style.fontSize.px]="14">
   <div class="main-info" fxLayout="row" fxLayoutAlign="start center">
-    <div class="img-container" (click)="openImgDialog()" fxFlex="125px">
+    <div class="img-container">
       <div class="center">
         <mat-icon>add</mat-icon>
       </div>
-      <img
-        src="https://images.all-free-download.com/images/graphiclarge/healthy_meal_background_vegetables_eggs_bacon_icons_6836169.jpg"
-        alt="Recipe image"
-        class="recipe-img"
-        title="Add image"
-      />
+      <div class="recipe-img" (click)="openImgDialog()" fxFlex="125px" [ngStyle]="{'background-image':'url('+imageUrl+')'}">
+      </div>
     </div>
     <div class="input-container" fxFlex>
       <div fxLayout="column" fxLayoutAlign="start stretch" class="info-container">
