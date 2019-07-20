@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>
+  Add image URL
+</h1>
+ 
+<div mat-dialog-content class="img-input">
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.imageUrl">
+  </mat-form-field>
+</div>
+ 
+<div mat-dialog-actions align="end">
+  <button mat-raised-button (click)="onDismiss()" type="button">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onConfirm()" type="button">Add</button>
+</div>

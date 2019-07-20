@@ -24,7 +24,6 @@ export class RecipeDetailedViewComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe((res: any ) => {
       this.recipe = res.recipe;
-      console.log(this.recipe)
       this.totalRecipeNutrition = this.calcRecNutrition(this.recipe);
     });
   }

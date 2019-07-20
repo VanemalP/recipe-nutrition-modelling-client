@@ -1,9 +1,10 @@
+import { ImgDialogComponent } from './../img-dialog/img-dialog.component';
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormGroupDirective } from '@angular/forms';
 import { Recipe } from '../../common/models/recipe/recipe';
 import { Subscription } from 'rxjs';
 import { RecipeHelperService } from '../../core/services/recipe-helper.service';
-import { Nutrition } from '../../common/models/nutrition';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-create-recipe-details',
@@ -19,12 +20,6 @@ export class CreateRecipeDetailsComponent implements OnInit, OnDestroy {
   @Input()
   recipeCategories: string[];
 
-  @Input()
-  nutrition: Nutrition;
-
-  @Input()
-  measure: string;
-
   @Output()
   create: EventEmitter<any> = new EventEmitter();
 
@@ -38,6 +33,7 @@ export class CreateRecipeDetailsComponent implements OnInit, OnDestroy {
   changeRecipeItemValue: EventEmitter<any> = new EventEmitter();
 
   selected = '1 g';
+  imageUrl: string;
 
   private addProductSubscription: Subscription;
   private changeItemValueSubscription: Subscription;
@@ -46,10 +42,12 @@ export class CreateRecipeDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly recipeHelperService: RecipeHelperService,
+    private readonly dialog: MatDialog,
   ) { }
 
    ngOnInit() {
     this.recipeForm = this.formBuilder.group({
+      imageUrl: [null],
       title: ['', [Validators.required, Validators.minLength(5)]],
       category: ['', [Validators.required]],
       notes: [''],
@@ -118,7 +116,8 @@ export class CreateRecipeDetailsComponent implements OnInit, OnDestroy {
   }
 
   populateRecipe(recipe: Recipe): void {
-    this.recipeForm.patchValue({title: recipe.title, category: recipe.category, notes: recipe.notes});
+    this.imageUrl = recipe.imageUrl;
+    this.recipeForm.patchValue({imageUrl: recipe.imageUrl, title: recipe.title, category: recipe.category, notes: recipe.notes});
     recipe.ingredients.forEach((ingr) => {
       this.setIngredient(ingr);
     });
@@ -135,13 +134,31 @@ export class CreateRecipeDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  triggerDeleteProduct(itemsGroupIndex: number) {
-    this.ingredientsArr.removeAt(itemsGroupIndex);
-    this.delete.emit(itemsGroupIndex);
+  triggerDeleteProduct(data) {
+    this.ingredientsArr.removeAt(data.index);
+    this.delete.emit(data);
   }
 
-  triggerDeleteRecipe(itemsGroupIndex: number) {
-    this.subrecipesArr.removeAt(itemsGroupIndex);
-    this.delete.emit(itemsGroupIndex);
+  triggerDeleteRecipe(data) {
+    this.subrecipesArr.removeAt(data.index);
+    this.delete.emit(data);
+  }
+
+  openImgDialog(): void {
+    const dialogRef = this.dialog.open(ImgDialogComponent, {
+      minWidth: '400px',
+      autoFocus: false,
+      disableClose: true,
+      data: {imageUrl: this.imageUrl}
+    });
+
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        if (result) {
+          this.imageUrl = result.imageUrl;
+          this.recipeForm.get('imageUrl').setValue(this.imageUrl);
+        }
+      },
+    );
   }
 }

@@ -1,3 +1,4 @@
+import { ImgDialogComponent } from './img-dialog/img-dialog.component';
 import { FoodGroupsResolverService } from './services/foodGroups.resolver.service';
 import { FoodGroupsService } from './services/foodGroups.service';
 import { NgModule } from '@angular/core';
@@ -18,7 +19,9 @@ import { ProductsService } from './services/products.service';
     ItemsSearchDetailsComponent,
     CreateSearchResultComponent,
     CreateRecipeDetailsComponent,
+    ImgDialogComponent
   ],
+  entryComponents: [ImgDialogComponent],
   imports: [
     SharedModule,
     CreateRecipeRoutingModule

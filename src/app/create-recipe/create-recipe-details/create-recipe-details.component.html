@@ -1,6 +1,6 @@
 <form action="" class="form-container" [formGroup]="recipeForm" (ngSubmit)="saveRecipe(recipeForm.value)" [style.fontSize.px]="14">
-  <div class="main-info" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="28px">
-    <div class="img-container" fxFlexAlign="start">
+  <div class="main-info" fxLayout="row" fxLayoutAlign="start center">
+    <div class="img-container" (click)="openImgDialog()" fxFlex="125px">
       <div class="center">
         <mat-icon>add</mat-icon>
       </div>
@@ -11,11 +11,11 @@
         title="Add image"
       />
     </div>
-    <div fxFlex>
-      <div fxLayout="column" fxLayoutAlign="start" class="info-container">
+    <div class="input-container" fxFlex>
+      <div fxLayout="column" fxLayoutAlign="start stretch" class="info-container">
         <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="24px">
-          <mat-form-field fxFlex="75">
-            <input matInput type="text" placeholder="Title" formControlName="title" #title class="title-input" />
+          <mat-form-field class="title-input">
+            <input matInput type="text" placeholder="Title" formControlName="title" #title/>
             <mat-error *ngIf="recipeForm.controls.title.hasError('minlength') || recipeForm.controls.title.hasError('required')">
               Title must be at least 5 characters
             </mat-error>
@@ -23,9 +23,9 @@
               <mat-icon>close</mat-icon>
             </button>
           </mat-form-field>
-          <mat-form-field fxFlex="25">
+          <mat-form-field  class="category">
             <mat-label>Category</mat-label>
-            <mat-select formControlName="category" #category class="category">
+            <mat-select formControlName="category" #category>
               <mat-option>None</mat-option>
               <mat-option *ngFor="let category of recipeCategories" [value]="category">{{ category }}</mat-option>
             </mat-select>
@@ -75,7 +75,7 @@
                 Please add qty
               </mat-error>
             </mat-form-field>
-            <button mat-icon-button type="button" color="warn" class="itm-delete" (click)="triggerDeleteProduct(i)">
+            <button mat-icon-button type="button" color="warn" class="itm-delete" (click)="triggerDeleteProduct({index: i, item: 'product'})">
               <mat-icon>close</mat-icon>
             </button>
           </div>
@@ -115,7 +115,7 @@
                 Please add qty
               </mat-error>
             </mat-form-field>
-            <button mat-icon-button type="button" color="warn" class="itm-delete" (click)="triggerDeleteRecipe(i)">
+            <button mat-icon-button type="button" color="warn" class="itm-delete" (click)="triggerDeleteRecipe({index: i, item: 'recipe'})">
               <mat-icon>close</mat-icon>
             </button>
           </div>
@@ -135,4 +135,3 @@
     </button>
   </div>
 </form>
-<app-nutrition [nutrition]="nutrition" [measure]="measure"></app-nutrition>

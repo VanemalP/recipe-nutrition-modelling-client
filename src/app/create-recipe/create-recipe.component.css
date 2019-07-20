@@ -1,4 +1,6 @@
-.container {
+.create-container {
+  width: (100vw - 56px);
+  margin: 0 28px;
   padding: 10px 0;
   min-height: calc(100vh - 64px);
 }
@@ -6,16 +8,31 @@
 .recipe {
   padding-top: 14px;
   padding-left: 28px;
+  padding-right: 28px;
 }
 
 .search {
   position: relative;
+  width: 25%;
+}
+
+.nutrition {
+  width: 20%;
+}
+
+.recipe {
+  width: 55%;
 }
 
 .search-details {
   position: fixed;
   top: 64px;
-  left: 5%;
-  width: 27%;
+  width: 23%;
 }
 
+.nutrition-facts {
+  position: fixed;
+  top: 78px;
+  right: 28px;
+  width: 19%;
+}

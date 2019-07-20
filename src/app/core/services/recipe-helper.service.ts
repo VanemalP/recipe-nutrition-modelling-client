@@ -146,7 +146,9 @@ export class RecipeHelperService {
   }
 
   removeProductFromRecipe(index: number): void {
+    console.log(this.ingredientsArr);
     this.ingredientsArr.splice(index, 1);
+    console.log(this.ingredientsArr)
   }
 
   removeRecipeFromRecipe(index: number): void {

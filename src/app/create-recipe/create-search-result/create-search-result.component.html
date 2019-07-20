@@ -5,7 +5,7 @@
         <mat-list-item>
           <div fxLayout="row" fxLayoutAlign="space-between center" class="item">
             <span>{{product.description}}</span>
-            <button mat-icon-button color="primary" title="Add to recipe" class="add-btn" (click)="triggerAddItem(product)">
+            <button mat-icon-button color="primary" title="Add to recipe" [ngClass]="{'add-btn': true, 'disabled': isProductInRecipe(product)}" (click)="triggerAddItem(product)" [disabled]="isProductInRecipe(product)">
               <mat-icon>add_box</mat-icon>
             </button>
           </div>
@@ -15,10 +15,10 @@
     </div>
     <div *ngIf="searchedItem === 'recipes'">
       <div *ngFor="let recipe of foundItems?.recipes">
-        <mat-list-item>
+        <mat-list-item *ngIf=!isSelf(recipe)>
           <div fxLayout="row" fxLayoutAlign="space-between center" class="item">
             <span>{{recipe.title}}</span>
-            <button mat-icon-button color="primary" title="Add to recipe" class="add-btn" (click)="triggerAddItem(recipe)">
+            <button mat-icon-button color="primary" title="Add to recipe" [ngClass]="{'add-btn': true, 'disabled': isRecipeInRecipe(recipe)}" (click)="triggerAddItem(recipe)" [disabled]="isRecipeInRecipe(recipe)">
               <mat-icon>add_box</mat-icon>
             </button>
           </div>

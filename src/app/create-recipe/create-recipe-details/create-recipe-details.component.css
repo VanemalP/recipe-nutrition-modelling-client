@@ -1,7 +1,16 @@
+.main-info {
+  width: 100%;
+}
+
 .img-container {
   position: relative;
   width: 125px;
   height: 125px;
+}
+
+.input-container {
+  width: calc(100% - 152px);
+  padding-left: 28px;
 }
 
 .center {
@@ -18,10 +27,21 @@
   height: 100%;
   cursor: pointer;
   transition: opacity 0.5s ease;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .recipe-img:hover {
   opacity: 0.5;
+}
+
+.title-input {
+  width: 70%;
+}
+
+.category {
+  width: 30%;
 }
 
 .notes {

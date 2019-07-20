@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ProductsData } from '../../common/models/product/productsData';
 import { RecipesData } from '../../common/models/recipe/recipesData';
+import { Recipe } from '../../common/models/recipe/recipe';
 
 @Component({
   selector: 'app-items-search',
@@ -23,6 +24,9 @@ export class ItemsSearchComponent implements OnInit {
 
   @Input()
   recipeCategories: string[];
+
+  @Input()
+  recipeToEdit: Recipe;
 
   @Output()
   searchItems: EventEmitter<{inputValue: string, selectedValue: string}> = new EventEmitter();

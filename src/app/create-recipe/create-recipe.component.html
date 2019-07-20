@@ -1,17 +1,21 @@
-<div class="container" fxLayout="row" fxLayoutAlign="center stretch">
-  <aside fxFlex="30" class="search">
+<div class="create-container" fxLayout="row" fxLayoutAlign="center stretch">
+  <aside class="search">
     <app-items-search
       class="search-details"
       [recipeCategories]="recipeCategories"
       [productFoodGroups]="productFoodGroups"
       (searchItems)="findItems($event)"
-      [foundProducts]="getFoundProducts()"
-      [foundRecipes]="getFoundRecipes()"
+      [foundProducts]="foundProducts"
+      [foundRecipes]="foundRecipes"
       (add)="addToRecipe($event)"
+      [recipeToEdit]="this.recipeToEdit"
     ></app-items-search>
   </aside>
   <mat-divider [vertical]="true"></mat-divider>
-  <main fxFlex="70" class="recipe">
-    <app-create-recipe-details [recipeCategories]="recipeCategories" [recipeToEdit]="recipeToEdit" [nutrition]="nutrition" [measure]="measure" (delete)="deleteItem($event)" (create)="createRecipe($event)" (update)="updateRecipe($event)" (changeRecipeItemValue)="changedValue($event)"></app-create-recipe-details>
+  <main class="recipe">
+    <app-create-recipe-details [recipeCategories]="recipeCategories" [recipeToEdit]="recipeToEdit"(delete)="deleteItem($event)" (create)="createRecipe($event)" (update)="updateRecipe($event)" (changeRecipeItemValue)="changedValue($event)"></app-create-recipe-details>
   </main>
+  <aside class="nutrition">
+    <app-nutrition [nutrition]="nutrition" [measure]="measure" class="nutrition-facts"></app-nutrition>
+  </aside>
 </div>

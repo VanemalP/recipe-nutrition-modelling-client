@@ -20,7 +20,6 @@ cdk-virtual-scroll-viewport::-webkit-scrollbar-thumb {
 
 .item {
   width: 100%;
-  margin-right: 28px;
 }
 
 mat-divider {
@@ -43,4 +42,8 @@ mat-list .mat-list-item {
 
 .add-btn mat-icon {
   color: #85c446;
+}
+
+.disabled mat-icon{
+  color: #767779;
 }
