@@ -3,6 +3,8 @@ import { RecipesData } from './../common/models/recipe/recipesData';
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material';
 import { Recipe } from '../common/models/recipe/recipe';
+import { Nutrition } from '../common/models/nutrition';
+import { RecipeHelperService } from '../core/services/recipe-helper.service';
 
 @Component({
   selector: 'app-all-recipes',
@@ -12,6 +14,7 @@ import { Recipe } from '../common/models/recipe/recipe';
 export class AllRecipesComponent implements OnInit {
   allRecipesData: RecipesData;
   allRecipes: Recipe[];
+  allNutrition: Nutrition[] = [];
 
   itemsPerPage = [6, 12, 18, 24];
   limit = this.itemsPerPage[0];
@@ -20,6 +23,7 @@ export class AllRecipesComponent implements OnInit {
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
+    private readonly recipeHelperService: RecipeHelperService,
   ) { }
 
   ngOnInit() {
@@ -28,6 +32,11 @@ export class AllRecipesComponent implements OnInit {
         this.allRecipesData = res.recipes;
         this.allRecipes = this.allRecipesData.recipes;
         this.totalRecipes = this.allRecipesData.totalRecipes;
+        this.allRecipes.forEach(recipe => {
+          const totalNutrition = this.recipeHelperService.calculateTotalRecipeNutrition(recipe);
+          this.allNutrition.push(totalNutrition);
+        });
+        console.log(this.allNutrition);
       },
     );
 
@@ -38,7 +47,7 @@ export class AllRecipesComponent implements OnInit {
       limit: pageEvent.pageSize.toString(),
       page: (pageEvent.pageIndex + 1).toString(),
     };
-    // this.paginate.emit(paginationOptions);
+
   }
 
 }
