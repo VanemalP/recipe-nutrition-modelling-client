@@ -11,5 +11,5 @@
       (delete)="deleteRecipe($event)"
     ></app-single-recipe>
   </div>
-  <mat-paginator [length]="totalRecipes" [pageSize]="limit" [pageSizeOptions]="itemsPerPage" (page)="changePagination($event)"> </mat-paginator>
+  <mat-paginator [length]="totalRecipes" [pageSize]="limit" [pageSizeOptions]="itemsPerPage" (page)="changePagination($event)" #paginator> </mat-paginator>
 </div>

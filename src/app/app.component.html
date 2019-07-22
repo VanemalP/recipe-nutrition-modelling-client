@@ -1,5 +1,5 @@
-<app-navbar *ngIf="isLogged" (logout)="logout()" (toggle)="toggleSearchField()" class="navbar" [isSearchVisible]="isVisible"></app-navbar>
-<app-searchbar [ngClass]="{'search-field': true, 'show': isVisible}" (search)="searchRecipe($event)"></app-searchbar>
-<main [ngClass]="{'fade': isVisible}">
+<app-navbar *ngIf="isLogged" (logout)="logout()" (toggle)="toggleSearchField()" class="navbar" [isSearchVisible]="isVisible" (showRecipes)="showRecipes()"></app-navbar>
+<app-searchbar [ngClass]="{ 'search-field': true, show: isVisible }" (search)="searchRecipe($event)"></app-searchbar>
+<main [ngClass]="{ fade: isVisible }">
   <router-outlet></router-outlet>
 </main>

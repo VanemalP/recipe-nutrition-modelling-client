@@ -1,9 +1,7 @@
 <mat-toolbar [class.mat-elevation-z1]="isActive">
   <div class="logo">
-    <a routerLink="/recipes">
      <!-- Recipe nutrition modelling -->
      <img src="../../../assets/logo-with-text.png" alt="Logo">
-    </a>
   </div>
   <div class="container">
     <button mat-icon-button title="Search" class="nav-btn" (click)="toggleSearchField()">
@@ -19,7 +17,7 @@
             </button>
           </li>
           <li>
-            <button mat-icon-button routerLink="/recipes" title="Recipes" class="nav-btn">
+            <button mat-icon-button routerLink="/recipes" title="Recipes" class="nav-btn" (click)="triggerAllRecipes()">
               <mat-icon>library_books</mat-icon>
             </button>
           </li>

@@ -1,3 +1,4 @@
+import { RecipeHelperService } from './../../core/services/recipe-helper.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Recipe } from '../../common/models/recipe/recipe';
 import { Nutrition } from '../../common/models/nutrition';
@@ -34,7 +35,9 @@ export class SingleRecipeComponent implements OnInit {
   total: number;
   data: any;
 
-  constructor() { }
+  constructor(
+    private readonly recipeHelperService: RecipeHelperService,
+  ) { }
 
   ngOnInit() {
     this.calories = this.nutrition.ENERC_KCAL;
@@ -51,9 +54,7 @@ export class SingleRecipeComponent implements OnInit {
   }
 
   calcPercentage(nutrient, total, coef): number {
-    const percent = Math.round(nutrient * coef * 100 / total);
-
-    return percent;
+    return this.recipeHelperService.calcPercentage(nutrient, total, coef);
   }
 
   triggerViewDetails(recipeId: string) {

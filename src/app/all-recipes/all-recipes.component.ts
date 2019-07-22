@@ -1,23 +1,25 @@
+import { SearchbarService } from './../searchbar/services/searchbar.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipesData } from './../common/models/recipe/recipesData';
-import { Component, OnInit } from '@angular/core';
-import { PageEvent } from '@angular/material';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { PageEvent, MatPaginator } from '@angular/material';
 import { Recipe } from '../common/models/recipe/recipe';
 import { Nutrition } from '../common/models/nutrition';
 import { RecipeHelperService } from '../core/services/recipe-helper.service';
 import { RecipesService } from '../core/services/recipes.service';
 import { NotificatorService } from '../core/services/notificator.service';
 import { RecipeQuery } from '../common/models/recipe/recipe-query';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-all-recipes',
   templateUrl: './all-recipes.component.html',
   styleUrls: ['./all-recipes.component.css']
 })
-export class AllRecipesComponent implements OnInit {
+export class AllRecipesComponent implements OnInit, OnDestroy {
   allRecipesData: RecipesData;
   allRecipes: Recipe[];
-  allNutrition: Nutrition[] = [];
+  allNutrition: Nutrition[];
 
   itemsPerPage = [6, 12, 18, 24];
   limit = this.itemsPerPage[0];
@@ -25,7 +27,10 @@ export class AllRecipesComponent implements OnInit {
   totalRecipes: number;
 
   private query: RecipeQuery;
-  private isFirstLoad = false;
+  private searchSubscription: Subscription;
+  private allRecipesClickedSubscription : Subscription;
+
+  @ViewChild('paginator', {static: true}) paginator: MatPaginator;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -33,62 +38,54 @@ export class AllRecipesComponent implements OnInit {
     private readonly recipesService: RecipesService,
     private readonly router: Router,
     private readonly notificator: NotificatorService,
+    private readonly searchService: SearchbarService,
   ) { }
 
   ngOnInit() {
-    this.activatedRoute.data.subscribe(
-      (res) => {
-        this.allRecipesData = res.recipes;
-        this.allRecipes = this.allRecipesData.recipes;
-        this.totalRecipes = this.allRecipesData.totalRecipes;
-        this.allRecipes.forEach(recipe => {
-          const totalNutrition = this.recipeHelperService.calculateTotalRecipeNutrition(recipe);
-          this.allNutrition.push(totalNutrition);
-        });
-      },
-    );
+    this.getResolvedData();
 
-    //not to be called on first come to all recipes 
-
-    this.activatedRoute.queryParams.subscribe(
+    this.searchSubscription = this.searchService.searchQuery$.subscribe(
       (query) => {
-        this.query = {...query};
-        if (Object.keys(this.query).length > 0) {
-          this.query.limit = this.itemsPerPage[0].toString();
+        if (query) {
+          this.currPage = 1;
+          this.paginator.firstPage();
+          this.query = {...query};
+          const queryCall = {...this.query , limit: this.limit.toString(), page: this.currPage.toString()}
+          this.recipesService.getRecipes(queryCall).subscribe(
+            (data) => {
+              this.updateData(data);
+            }
+          );
         }
-        this.recipesService.getRecipes(this.query).subscribe(
-          (data) => {
-            this.allRecipesData = data;
-            this.allRecipes = this.allRecipesData.recipes;
-            this.totalRecipes = this.allRecipesData.totalRecipes;
-            this.allNutrition = [];
-            this.allRecipes.forEach(recipe => {
-              const totalNutrition = this.recipeHelperService.calculateTotalRecipeNutrition(recipe);
-              this.allNutrition.push(totalNutrition);
-            });
-          }
-        );
       },
     );
 
+    this.allRecipesClickedSubscription = this.recipeHelperService.allRecipesObs$.subscribe(
+      () => {
+        this.searchService.clearSearch();
+        this.getResolvedData();
+      },
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.searchService.clearSearch();
+    this.searchSubscription.unsubscribe();
+    this.allRecipesClickedSubscription.unsubscribe();
   }
 
   changePagination(pageEvent: PageEvent) {
+    this.limit = pageEvent.pageSize;
     const paginationOptions = {
-      limit: pageEvent.pageSize.toString(),
+      limit: this.limit.toString(),
       page: (pageEvent.pageIndex + 1).toString(),
+      ...this.query,
     };
     this.recipesService.getRecipes(paginationOptions).subscribe(
       (data) => {
-        this.allRecipesData = data;
-        this.allRecipes = this.allRecipesData.recipes;
-        this.totalRecipes = this.allRecipesData.totalRecipes;
-        this.allNutrition = [];
-        this.allRecipes.forEach(recipe => {
-          const totalNutrition = this.recipeHelperService.calculateTotalRecipeNutrition(recipe);
-          this.allNutrition.push(totalNutrition);
-        });
-      }
+        this.updateData(data);
+        window.scrollTo(0, 0);
+       }
     );
   }
 
@@ -115,5 +112,26 @@ export class AllRecipesComponent implements OnInit {
         this.notificator.success('Recipe successfully deleted.');
       },
     );
+  }
+
+  private getResolvedData() {
+    this.activatedRoute.data.subscribe(
+      (res) => {
+        if (!this.searchService.isSearched) {
+          this.updateData(res.recipes);
+        }
+      },
+    );
+  }
+
+  private updateData(recipesData: RecipesData) {
+    this.allRecipesData = recipesData;
+    this.allRecipes = this.allRecipesData.recipes;
+    this.totalRecipes = this.allRecipesData.totalRecipes;
+    this.allNutrition = [];
+    this.allRecipes.forEach(recipe => {
+      const totalNutrition = this.recipeHelperService.calculateTotalRecipeNutrition(recipe);
+      this.allNutrition.push(totalNutrition);
+    });
   }
 }

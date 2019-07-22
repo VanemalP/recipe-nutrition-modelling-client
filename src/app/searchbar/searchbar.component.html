@@ -62,8 +62,8 @@
         </mat-form-field>
       </div>
       <div class="buttons" fxLayout="row" fxLayoutAlign="end center">
-        <button mat-raised-button type="reset" class="clear">Clear</button>
-        <button mat-raised-button color="primary">Search</button>
+        <button mat-raised-button type="reset" class="clear" [disabled]="!formDirective.valid">Clear</button>
+        <button mat-raised-button color="primary" [disabled]="!formDirective.valid">Search</button>
       </div>
     </form>
   </div>

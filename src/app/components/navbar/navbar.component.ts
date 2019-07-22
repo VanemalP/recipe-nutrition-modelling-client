@@ -23,16 +23,23 @@ export class NavbarComponent implements OnInit {
   @Output()
   logout: EventEmitter<undefined> = new EventEmitter();
 
+  @Output()
+  showRecipes: EventEmitter<undefined> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
   }
 
   toggleSearchField() {
-    return this.toggle.emit();
+    this.toggle.emit();
   }
 
   triggerLogout() {
-    return this.logout.emit();
+    this.logout.emit();
+  }
+
+  triggerAllRecipes() {
+    this.showRecipes.emit();
   }
 }

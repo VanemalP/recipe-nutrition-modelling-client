@@ -21,6 +21,18 @@ export class RecipesService {
       queryStr = queryStr.concat(`category=${query.category}&`);
     }
 
+    if (query.nutrient) {
+      queryStr = queryStr.concat(`nutrient=${query.nutrient}&`);
+    }
+
+    if (query.min) {
+      queryStr = queryStr.concat(`min=${query.min}&`);
+    }
+
+    if (query.max) {
+      queryStr = queryStr.concat(`max=${query.max}&`);
+    }
+
     if (query.limit) {
       queryStr = queryStr.concat(`limit=${query.limit}&`);
     }

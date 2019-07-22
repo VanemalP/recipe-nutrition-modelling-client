@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { NotificatorService } from './core/services/notificator.service';
 import { Subscription } from 'rxjs';
 import { RecipeQuery } from './common/models/recipe/recipe-query';
+import { SearchbarService } from './searchbar/services/searchbar.service';
+import { RecipeHelperService } from './core/services/recipe-helper.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +20,9 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private readonly authService: AuthService,
     private readonly router: Router,
-    private readonly notificator: NotificatorService
+    private readonly notificator: NotificatorService,
+    private readonly searchService: SearchbarService,
+    private readonly recipeHelperService: RecipeHelperService,
   ) { }
 
   ngOnInit(): void {
@@ -64,7 +68,13 @@ export class AppComponent implements OnInit, OnDestroy {
     if (searchQuery.max) {
       queryParams.max = searchQuery.max;
     }
-    this.router.navigate(['/recipes'], {queryParams});
+
+    this.searchService.search(queryParams);
+    this.router.navigate(['/recipes']);
     this.isVisible = false;
+  }
+
+  showRecipes() {
+    this.recipeHelperService.allRecipesClicked();
   }
 }

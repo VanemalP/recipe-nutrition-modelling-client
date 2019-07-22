@@ -14,7 +14,6 @@ const routes: Routes = [
   { path: 'users', loadChildren: './users/users.module#UsersModule' },
   { path: 'recipes', loadChildren: './all-recipes/all-recipes.module#AllRecipesModule' },
   { path: 'recipes/create', loadChildren: './create-recipe/create-recipe.module#CreateRecipeModule' },
-  // { path: 'recipes/search', resolve: {categories: CategoriesResolverService} },
   { path: 'recipes/:id', loadChildren: './recipe-detailed-view/recipe-detailed-view.module#RecipeDetailedViewModule' },
   { path: 'not-found', component: NotFoundComponent },
   { path: 'server-error', component: ServerErrorComponent },
@@ -22,7 +21,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, scrollPositionRestoration: 'enabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -52,8 +52,9 @@ export class SearchbarComponent implements OnInit {
     'FE'
   ];
 
-  constructor(private readonly categoriesService: CategoriesService,
-              private readonly formBuilder: FormBuilder,
+  constructor(
+    private readonly categoriesService: CategoriesService,
+    private readonly formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
