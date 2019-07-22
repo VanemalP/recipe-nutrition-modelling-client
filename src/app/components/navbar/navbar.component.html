@@ -1,13 +1,12 @@
 <mat-toolbar [class.mat-elevation-z1]="isActive">
   <div class="logo">
-    <a routerLink="/recipes">
      <!-- Recipe nutrition modelling -->
      <img src="../../../assets/logo-with-text.png" alt="Logo">
-    </a>
   </div>
   <div class="container">
     <button mat-icon-button title="Search" class="nav-btn" (click)="toggleSearchField()">
-      <mat-icon>search</mat-icon>
+      <mat-icon *ngIf="!isSearchVisible">search</mat-icon>
+      <mat-icon *ngIf="isSearchVisible">close</mat-icon>
     </button>
     <div fxFlex fxLayout fxLayoutAlign="flex-end">
       <ul fxLayout fxLayoutGap="8px">
@@ -18,7 +17,7 @@
             </button>
           </li>
           <li>
-            <button mat-icon-button routerLink="/recipes" title="Recipes" class="nav-btn">
+            <button mat-icon-button routerLink="/recipes" title="Recipes" class="nav-btn" (click)="triggerAllRecipes()">
               <mat-icon>library_books</mat-icon>
             </button>
           </li>

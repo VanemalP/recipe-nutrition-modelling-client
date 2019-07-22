@@ -12,6 +12,8 @@ export class RecipeHelperService {
   public productObs$ = this.productObs.asObservable();
   private recipeObs = new Subject();
   public recipeObs$ = this.recipeObs.asObservable();
+  private allRecipesObs = new Subject();
+  public allRecipesObs$ = this.allRecipesObs.asObservable();
 
   private ingrNutrition: Nutrition;
   private emptyNutrition: Nutrition = {
@@ -676,5 +678,15 @@ export class RecipeHelperService {
   }
   changedNutritionValue(nutr, measure) {
     this.nutritionObs.next({nutr, measure});
+  }
+
+  calcPercentage(nutrient, total, coef): number {
+    const percent = Math.round(nutrient * coef * 100 / total);
+
+    return percent;
+  }
+
+  allRecipesClicked() {
+    this.allRecipesObs.next('clicked');
   }
 }

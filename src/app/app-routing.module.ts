@@ -6,15 +6,14 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ServerErrorComponent } from './components/server-error/server-error.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { NoAuthGuard } from './auth/no-auth.guard';
-import { CategoriesResolverService } from './core/services/categories.resolver.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [NoAuthGuard] },
   { path: 'users', loadChildren: './users/users.module#UsersModule' },
+  { path: 'recipes', loadChildren: './all-recipes/all-recipes.module#AllRecipesModule' },
   { path: 'recipes/create', loadChildren: './create-recipe/create-recipe.module#CreateRecipeModule' },
-  // { path: 'recipes/search', resolve: {categories: CategoriesResolverService} },
   { path: 'recipes/:id', loadChildren: './recipe-detailed-view/recipe-detailed-view.module#RecipeDetailedViewModule' },
   { path: 'not-found', component: NotFoundComponent },
   { path: 'server-error', component: ServerErrorComponent },
@@ -22,7 +21,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, scrollPositionRestoration: 'enabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
