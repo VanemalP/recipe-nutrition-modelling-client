@@ -1,3 +1,4 @@
+import { SearchbarService } from './services/searchbar.service';
 import { CategoriesService } from './services/categories.service';
 import { RecipesService } from './services/recipes.service';
 
@@ -26,7 +27,8 @@ import { RecipeHelperService } from './services/recipe-helper.service';
     RecipesService,
     CategoriesService,
     CategoriesResolverService,
-    RecipeHelperService
+    RecipeHelperService,
+    SearchbarService,
   ]
 })
 export class CoreModule {

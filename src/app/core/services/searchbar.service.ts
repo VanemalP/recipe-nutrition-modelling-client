@@ -17,7 +17,6 @@ export class SearchbarService {
 
   search(query: RecipeQuery) {
     this.searchQueryObs$.next(query);
-    console.log('search service', query);
     this.isSearched = true;
   }
 

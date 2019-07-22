@@ -1,4 +1,6 @@
 <div class="container">
+  <p *ngIf="!isSearchResult && allRecipes.length === 0">You have not created any recipes yet...</p>
+  <p *ngIf="isSearchResult && allRecipes.length === 0">No recipes found</p>
   <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="30px grid">
     <app-single-recipe
       *ngFor="let recipe of allRecipes; let i = index"
@@ -11,5 +13,7 @@
       (delete)="deleteRecipe($event)"
     ></app-single-recipe>
   </div>
-  <mat-paginator [length]="totalRecipes" [pageSize]="limit" [pageSizeOptions]="itemsPerPage" (page)="changePagination($event)" #paginator> </mat-paginator>
+  <div *ngIf="allRecipes.length > 0">
+    <mat-paginator  [length]="totalRecipes" [pageSize]="limit" [pageSizeOptions]="itemsPerPage" (page)="changePagination($event)" #paginator> </mat-paginator>
+  </div>
 </div>

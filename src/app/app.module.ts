@@ -18,7 +18,6 @@ import { SharedModule } from './shared/shared.module';
 import { UsersModule } from './users/users.module';
 import { CreateRecipeModule } from './create-recipe/create-recipe.module';
 import { TokenInterceptorService } from './interceptors/token-interceptor';
-// import { RecipeDetailedViewModule } from './recipe-detailed-view/recipe-detailed-view.module';
 import { SearchbarComponent } from './searchbar/searchbar.component';
 import { AllRecipesModule } from './all-recipes/all-recipes.module';
 
@@ -39,7 +38,6 @@ import { AllRecipesModule } from './all-recipes/all-recipes.module';
     AuthModule,
     UsersModule,
     CreateRecipeModule,
-    // RecipeDetailedViewModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {

@@ -1,4 +1,4 @@
-import { SearchbarService } from './../searchbar/services/searchbar.service';
+import { SearchbarService } from '../core/services/searchbar.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipesData } from './../common/models/recipe/recipesData';
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
@@ -29,10 +29,9 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
   private query: RecipeQuery;
   private searchSubscription: Subscription;
   private allRecipesClickedSubscription : Subscription;
+  isSearchResult = false;
 
   @ViewChild('paginator', {static: true}) paginator: MatPaginator;
-
-  recipeToEdit: Recipe;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -49,13 +48,16 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
     this.searchSubscription = this.searchService.searchQuery$.subscribe(
       (query) => {
         if (query) {
+          this.isSearchResult = true;
           this.currPage = 1;
-          this.paginator.firstPage();
           this.query = {...query};
           const queryCall = {...this.query , limit: this.limit.toString(), page: this.currPage.toString()}
           this.recipesService.getRecipes(queryCall).subscribe(
             (data) => {
               this.updateData(data);
+              if (this.allRecipes.length > 0) {
+                this.paginator.firstPage();
+              }
             }
           );
         }
@@ -66,6 +68,7 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
       () => {
         this.searchService.clearSearch();
         this.getResolvedData();
+        this.isSearchResult = false;
       },
     );
   }
@@ -92,7 +95,7 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
   }
 
   filterByCategory(category: string) {
-
+    this.searchService.search({category});
   }
 
   viewDetails(recipeId: string) {
