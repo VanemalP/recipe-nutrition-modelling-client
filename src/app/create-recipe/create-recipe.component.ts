@@ -108,6 +108,15 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     }
   }
 
+  clearSearchResults(items) {
+    if (items === 'products') {
+      this.foundProducts = null;
+    }
+    if (items === 'recipes') {
+      this.foundRecipes = null;
+    }
+  }
+
   addToRecipe(item) {
     if (item.itemType === 'products') {
       this.addedProducts.push(item.item);

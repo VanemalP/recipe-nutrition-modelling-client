@@ -5,6 +5,7 @@
       [recipeCategories]="recipeCategories"
       [productFoodGroups]="productFoodGroups"
       (searchItems)="findItems($event)"
+      (clearSearch)="clearSearchResults($event)"
       [foundProducts]="foundProducts"
       [foundRecipes]="foundRecipes"
       (add)="addToRecipe($event)"

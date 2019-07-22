@@ -1,19 +1,19 @@
-<form [style.fontSize.px]="14">
+<form [style.fontSize.px]="14" [formGroup]="searchForm">
   <mat-form-field class="input">
-    <input matInput type="text" [placeholder]="inputPlaceholder" [(ngModel)]="inputValue" name="input">
-    <button mat-button type="button" *ngIf="inputValue" matSuffix mat-icon-button aria-label="Clear" (click)="inputValue=''">
+    <input matInput type="text" [placeholder]="inputPlaceholder" #input formControlName="inputValue">
+    <button mat-button type="button" *ngIf="input.value" matSuffix mat-icon-button aria-label="Clear" (click)="input.value=''; searchForm.controls.inputValue.setValue('')">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
   
   <mat-form-field>
     <mat-label>{{this.selectLabel}}</mat-label>
-    <mat-select [(ngModel)]="selectedValue" name="select">
+    <mat-select #select formControlName="selectedValue">
       <mat-option>None</mat-option>
       <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
     </mat-select>
   </mat-form-field>
 </form>
 <div  fxLayout="row" fxLayoutAlign="end center">
-  <button mat-raised-button color="primary" class="search-btn" [disabled]="!inputValue && !selectedValue" (click)="triggerSearchItems()">Search</button>
+  <!-- <button mat-raised-button color="primary" class="search-btn" [disabled]="!inputValue.value && !selectedValue.value" (click)="triggerSearchItems()">Search</button> -->
 </div>

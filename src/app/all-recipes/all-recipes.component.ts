@@ -18,7 +18,7 @@ import { Subscription } from 'rxjs';
 })
 export class AllRecipesComponent implements OnInit, OnDestroy {
   allRecipesData: RecipesData;
-  allRecipes: Recipe[];
+  allRecipes: Recipe[] = [];
   allNutrition: Nutrition[];
 
   itemsPerPage = [6, 12, 18, 24];
@@ -28,10 +28,10 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
 
   private query: RecipeQuery;
   private searchSubscription: Subscription;
-  private allRecipesClickedSubscription : Subscription;
+  private allRecipesClickedSubscription: Subscription;
   isSearchResult = false;
 
-  @ViewChild('paginator', {static: true}) paginator: MatPaginator;
+  @ViewChild('paginator', {static: false}) paginator: MatPaginator;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -48,16 +48,14 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
     this.searchSubscription = this.searchService.searchQuery$.subscribe(
       (query) => {
         if (query) {
-          this.isSearchResult = true;
           this.currPage = 1;
           this.query = {...query};
           const queryCall = {...this.query , limit: this.limit.toString(), page: this.currPage.toString()}
           this.recipesService.getRecipes(queryCall).subscribe(
             (data) => {
               this.updateData(data);
-              if (this.allRecipes.length > 0) {
-                this.paginator.firstPage();
-              }
+              this.isSearchResult = true;
+              this.paginator.firstPage();
             }
           );
         }
@@ -67,6 +65,7 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
     this.allRecipesClickedSubscription = this.recipeHelperService.allRecipesObs$.subscribe(
       () => {
         this.searchService.clearSearch();
+        this.query = null;
         this.getResolvedData();
         this.isSearchResult = false;
       },
