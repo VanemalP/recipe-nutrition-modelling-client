@@ -181,4 +181,8 @@ export class SearchbarComponent implements OnInit {
       }
     });
   }
+
+  close(e) {
+    console.log(e);
+  }
 }

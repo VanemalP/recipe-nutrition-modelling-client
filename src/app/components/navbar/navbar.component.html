@@ -7,7 +7,8 @@
   </div>
   <div class="container">
     <button mat-icon-button title="Search" class="nav-btn" (click)="toggleSearchField()">
-      <mat-icon>search</mat-icon>
+      <mat-icon *ngIf="!isSearchVisible">search</mat-icon>
+      <mat-icon *ngIf="isSearchVisible">close</mat-icon>
     </button>
     <div fxFlex fxLayout fxLayoutAlign="flex-end">
       <ul fxLayout fxLayoutGap="8px">

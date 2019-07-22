@@ -3,6 +3,7 @@ import { AuthService } from './core/services/auth.service';
 import { Router } from '@angular/router';
 import { NotificatorService } from './core/services/notificator.service';
 import { Subscription } from 'rxjs';
+import { RecipeQuery } from './common/models/recipe/recipe-query';
 
 @Component({
   selector: 'app-root',
@@ -47,7 +48,23 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   searchRecipe(searchQuery) {
-    this.router.navigate(['/recipes'], {queryParams: searchQuery});
+    const queryParams: RecipeQuery = {};
+    if (searchQuery.title) {
+      queryParams.title = searchQuery.title;
+    }
+    if (searchQuery.category) {
+      queryParams.category = searchQuery.category;
+    }
+    if (searchQuery.nutrient) {
+      queryParams.nutrient = searchQuery.nutrient;
+    }
+    if (searchQuery.min) {
+      queryParams.min = searchQuery.min;
+    }
+    if (searchQuery.max) {
+      queryParams.max = searchQuery.max;
+    }
+    this.router.navigate(['/recipes'], {queryParams});
     this.isVisible = false;
   }
 }

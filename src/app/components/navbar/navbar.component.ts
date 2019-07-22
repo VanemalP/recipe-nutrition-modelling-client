@@ -14,6 +14,9 @@ export class NavbarComponent implements OnInit {
   @Input()
   loggedIn = true;
 
+  @Input()
+  isSearchVisible: boolean;
+
   @Output()
   toggle: EventEmitter<undefined> = new EventEmitter();
 
