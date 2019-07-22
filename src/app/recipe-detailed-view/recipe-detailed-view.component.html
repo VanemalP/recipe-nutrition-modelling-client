@@ -11,12 +11,12 @@
           <div>
             <h2 class="title">{{ recipe.title }} <span class="measure">({{ recipe.measure }})</span></h2>
           </div>
-          <h4 class="cat">Category: {{ recipe.category }}</h4>
-          <div *ngIf="recipe.notes.length > 0" class="notes">
-            <span class="notes-txt">Notes:</span> {{recipe.notes}}
-          </div>
+          <p class="created">Created on: {{ recipe.created | date: 'MMM d, y'}}</p>
+          <span class="category">{{ recipe.category }}
+            <span class="white-triangle"></span>
+          </span>
         </div>
-        <div fxFlex="15" fxLayout="row" fxLayoutAlign="end start" class="button-container">
+        <!-- <div fxFlex="15" fxLayout="row" fxLayoutAlign="end start" class="button-container">
           <a mat-icon-button color="primary" title="Edit recipe" (click)="updateRecipe()"
             [routerLink]="['/recipes/create']">
             <mat-icon>edit</mat-icon>
@@ -24,7 +24,27 @@
           <a mat-icon-button color="warn" title="Delete recipe" (click)="deleteRecipe()" [routerLink]="['/recipes']">
             <mat-icon>delete</mat-icon>
           </a>
+        </div> -->
+        <div fxFlex="15" fxLayout="row" fxLayoutAlign="end start" class="button-container">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <a mat-menu-item color="primary" (click)="updateRecipe()" [routerLink]="['/recipes/create']">
+              <mat-icon class="button">edit</mat-icon>
+              <span>Edit</span>
+            </a>
+            <a mat-menu-item color="warn" (click)="deleteRecipe()" [routerLink]="['/recipes']">
+              <mat-icon class="button">delete</mat-icon>
+              <span>Delete</span>
+            </a>
+          </mat-menu>
         </div>
+      </div>
+      <div class="notes rounded" fxFlexAlign="end">
+        <p class="notes-txt">Notes:</p>
+        <p class="notes-p" *ngIf="recipe.notes.length > 0">{{recipe.notes}}</p>
+        <p class="notes-p" *ngIf="recipe.notes.length === 0">You don't have any notes yet...</p>
       </div>
     </div>
   </div>
@@ -47,7 +67,8 @@
         <mat-expansion-panel *ngFor="let ingredient of recipe.ingredients;" #exp>
           <mat-expansion-panel-header class="ingr-tbl">
             <mat-panel-title class="title-ingr">
-              <p [ngClass]="{'panelOpen': exp._expanded}">{{ ingredient.product }}</p>
+              <p [ngClass]="{'panelOpen': exp._expanded}">{{ ingredient.product }} ({{ calcIngrMeasure(ingredient) }})
+              </p>
             </mat-panel-title>
             <mat-panel-description>
               <p class="unit-ingr">{{ ingredient.unit }}</p>
@@ -75,7 +96,8 @@
         <mat-expansion-panel *ngFor="let subrecipe of recipe.subrecipes" #exp>
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <p [ngClass]="{'panelOpen': exp._expanded}">{{ subrecipe.recipe }}</p>
+              <p [ngClass]="{'panelOpen': exp._expanded}">{{ subrecipe.recipe }} ({{ calcSubrecMeasure(subrecipe) }})
+              </p>
             </mat-panel-title>
             <mat-panel-description>
               <p class="unit-ingr">{{ subrecipe.unit }}</p>

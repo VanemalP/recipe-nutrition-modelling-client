@@ -10,16 +10,9 @@ th {
   text-align: left;
 }
 
-table, th{
+table,
+th {
   border-bottom: 1px solid black;
-}
-
-.color {
-  background-color: whitesmoke;
-}
-
-.bold {
-  font-weight: 600;
 }
 
 th.txt-align {
@@ -31,4 +24,14 @@ th.txt-align2 {
   text-align: right;
 }
 
+.color {
+  background-color: rgba(245, 245, 245, 0.25);
+}
 
+.bold {
+  font-weight: 600;
+}
+
+.cal {
+  font-size: 16px;
+}
