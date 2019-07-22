@@ -27,6 +27,8 @@ export class AllRecipesComponent implements OnInit {
   private query: RecipeQuery;
   private isFirstLoad = false;
 
+  recipeToEdit: Recipe;
+
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly recipeHelperService: RecipeHelperService,
@@ -100,9 +102,11 @@ export class AllRecipesComponent implements OnInit {
     this.router.navigate([`recipes/${recipeId}`]);
   }
 
-  editRecipe(recipe: Recipe) {
-    console.log(recipe);
-    // this.recipeHelperService.editRecipe(recipe);
+  editRecipe(recipeId: string) {
+    this.recipesService.getRecipe(recipeId).subscribe((res) => {
+      this.recipeHelperService.editRecipe(res);
+      this.router.navigate(['recipes/create']);
+    });
   }
 
   deleteRecipe(recipeId: string) {
