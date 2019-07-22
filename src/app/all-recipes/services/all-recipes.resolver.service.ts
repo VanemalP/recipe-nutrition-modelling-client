@@ -1,3 +1,4 @@
+import { RecipeQuery } from './../../common/models/recipe/recipe-query';
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { catchError } from 'rxjs/operators';
@@ -18,7 +19,8 @@ export class AllRecipesResolverService implements Resolve<RecipesData> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ) {
-    const recipesQuery = route.queryParams;
+    const recipesQuery: RecipeQuery = {...route.queryParams};
+    recipesQuery.limit = '6';
 
     return this.recipesService.getRecipes(recipesQuery)
       .pipe(catchError(

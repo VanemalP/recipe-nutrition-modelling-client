@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Recipe } from '../../common/models/recipe/recipe';
 import { Nutrition } from '../../common/models/nutrition';
 import { Nutrient } from '../../common/models/nutrient';
@@ -14,6 +14,18 @@ export class SingleRecipeComponent implements OnInit {
 
   @Input()
   nutrition: Nutrition;
+
+  @Output()
+  view: EventEmitter<string> = new EventEmitter();
+
+  @Output()
+  edit: EventEmitter<string> = new EventEmitter();
+
+  @Output()
+  delete: EventEmitter<string> = new EventEmitter();
+
+  @Output()
+  filter: EventEmitter<string> = new EventEmitter();
 
   calories: Nutrient;
   carbs: Nutrient;
@@ -36,12 +48,27 @@ export class SingleRecipeComponent implements OnInit {
       fat: this.fat.value,
       protein: this.protein.value
     };
-    console.log(this.carbs.value * 4 , this.fat.value * 9 , this.protein.value * 4, this.total);
   }
 
   calcPercentage(nutrient, total, coef): number {
     const percent = Math.round(nutrient * coef * 100 / total);
 
     return percent;
+  }
+
+  triggerViewDetails(recipeId: string) {
+    this.view.emit(recipeId);
+  }
+
+  triggerFilterByCategory(category: string) {
+    this.filter.emit(category);
+  }
+
+  triggerEdit(recipeId: string) {
+    this.edit.emit(recipeId);
+  }
+
+  triggerDelete(recipeId: string) {
+    this.delete.emit(recipeId);
   }
 }

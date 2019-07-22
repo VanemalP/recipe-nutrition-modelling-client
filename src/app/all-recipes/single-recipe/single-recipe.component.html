@@ -1,30 +1,42 @@
 <mat-card class="recipe-card">
   <div [ngStyle]="{ 'background-image': 'url(' + recipe.imageUrl + ')' }" class="recipe-header">
-    <h3 class="title">{{ recipe.title }}</h3>
+    <h3 class="title" (click)="triggerViewDetails(recipe.id)">{{ recipe.title }}</h3>
   </div>
   <div class="chart-bg"></div>
   <app-nutrition-chart class="chart" [data]="data"></app-nutrition-chart>
   <mat-card-content>
-  <div fxLayout="row" fxLayoutAlign="space-around center" class="legend">
-    <div fxLayout="column" fxLayoutAlign="space-between center" fxFlex="30" class="col carbs">
-      <p class="nutrient">Carbs</p>
-      <p class="value">{{carbs.value}} {{carbs.unit}}</p>
-      <p class="percent">{{calcPercentage(carbs.value, total, 4)}}%</p>
+    <div fxLayout="row" fxLayoutAlign="space-around center" class="legend">
+      <div fxLayout="column" fxLayoutAlign="space-between center" fxFlex="30" class="col carbs">
+        <p class="nutrient">Carbs</p>
+        <p class="value">{{ carbs.value }} {{ carbs.unit }}</p>
+        <p class="percent">{{ calcPercentage(carbs.value, total, 4) }}%</p>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="space-between center" fxFlex="30" class="col fat">
+        <p class="nutrient">Fat</p>
+        <p class="value">{{ fat.value }} {{ fat.unit }}</p>
+        <p class="percent">{{ calcPercentage(fat.value, total, 9) }}%</p>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="space-between center" fxFlex="30" class="col protein">
+        <p class="nutrient">Protein</p>
+        <p class="value">{{ protein.value }} {{ protein.unit }}</p>
+        <p class="percent">{{ calcPercentage(protein.value, total, 4) }}%</p>
+      </div>
     </div>
-    <div fxLayout="column" fxLayoutAlign="space-between center"  fxFlex="30" class="col fat">
-      <p class="nutrient">Fat</p>
-      <p class="value">{{fat.value}} {{fat.unit}}</p>
-      <p class="percent">{{calcPercentage(fat.value, total, 9)}}%</p>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="category"
+        (click)="triggerFilterByCategory(recipe.category)"
+        title="Show all {{ recipe.category }}"
+        >{{ recipe.category }}
+        <span class="white-triangle"></span>
+      </span>
+      <div class="action-btns">
+        <button mat-icon-button (click)="triggerEdit(recipe)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="triggerDelete(recipe.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
     </div>
-    <div fxLayout="column" fxLayoutAlign="space-between center" fxFlex="30" class="col protein">
-      <p class="nutrient">Protein</p>
-      <p class="value">{{protein.value}} {{protein.unit}}</p>
-      <p class="percent">{{calcPercentage(protein.value, total, 4)}}%</p>
-    </div>
-  </div>
   </mat-card-content>
-  <mat-card-actions>
-    <button mat-button>Edit</button>
-    <button mat-button>Delete</button>
-  </mat-card-actions>
 </mat-card>
