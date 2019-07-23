@@ -6,4 +6,4 @@
     <app-items-search-details [inputPlaceholder]="setInputPlacehlder(tab)" [selectLabel]="setSelectLabel(tab)" [options]="setSelectOptions(tab)" (searchItems)="triggerSearchItems($event)" (clearSearch)="clearSearchResults()"></app-items-search-details>
   </mat-tab>
 </mat-tab-group>
-<app-create-search-result [recipeToEdit]="recipeToEdit" [foundItems]="getFoundItems()" [searchedItem]="selectedTabName" (add)="triggerAddItem($event)"></app-create-search-result>
+<app-create-search-result [recipeToEdit]="recipeToEdit" [foundItems]="getFoundItems()" [searchedItem]="selectedTabName" (add)="triggerAddItem($event)" [loading]="loading"></app-create-search-result>

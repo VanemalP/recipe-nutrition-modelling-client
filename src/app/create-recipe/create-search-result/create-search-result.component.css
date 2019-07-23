@@ -1,5 +1,5 @@
 cdk-virtual-scroll-viewport {
-  height: calc(100vh - 302px);
+  height: calc(100vh - 286px);
 }
 
 cdk-virtual-scroll-viewport::-webkit-scrollbar {
@@ -26,10 +26,6 @@ mat-divider {
   margin: 0 28px 0 0;
 }
 
-mat-list {
-margin-top: 10px;
-}
-
 mat-list .mat-list-item {
   height: auto;
   padding: 8px 0;
@@ -46,4 +42,12 @@ mat-list .mat-list-item {
 
 .disabled mat-icon{
   color: #767779;
+}
+
+.hidden {
+  display: none;
+}
+
+.spinner {
+  height: 24px;
 }

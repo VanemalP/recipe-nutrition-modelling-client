@@ -20,6 +20,9 @@ export class CreateSearchResultComponent implements OnInit {
   @Output()
   add: EventEmitter<any> = new EventEmitter();
 
+  @Input()
+  loading: boolean;
+
   constructor(
     private readonly recipeHelperService: RecipeHelperService,
   ) { }

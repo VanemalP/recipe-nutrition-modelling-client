@@ -37,6 +37,8 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
 
   nutritionSubscription: Subscription;
 
+  loading: boolean;
+
   constructor(
     private readonly productsService: ProductsService,
     private readonly recipesService: RecipesService,
@@ -74,6 +76,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
   }
 
   findItems(search: {items: string, inputValue: string, selectedValue: string}) {
+    this.loading = true;
     let query;
     if (search.items === 'products') {
       query = {
@@ -87,6 +90,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         (productsData) => {
           this.foundProducts = productsData;
           this.searchedItems = search.items;
+          this.loading = false;
         },
       );
 
@@ -103,6 +107,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         (recipesData) => {
           this.foundRecipes = recipesData;
           this.searchedItems = search.items;
+          this.loading = false;
         },
       );
     }
