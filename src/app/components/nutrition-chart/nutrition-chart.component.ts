@@ -58,12 +58,6 @@ export class NutritionChartComponent implements OnInit {
             const stringWidth = ctx.measureText(txt).width;
             const elementWidth = (chart.innerRadius * 2) - sidePaddingCalculated;
 
-            // Find out how much the font can grow in width.
-            // const widthRatio = elementWidth / stringWidth;
-            // const newFontSize = Math.floor(16 * widthRatio);
-            // const elementHeight = (chart.innerRadius * 2);
-            // const fontSizeToUse = Math.min(newFontSize, elementHeight);
-            // const fontSizeToUse1 = fontSizeToUse / 2;
             const fontSizeToUse = 26;
             const fontSizeToUse1 = 18;
 

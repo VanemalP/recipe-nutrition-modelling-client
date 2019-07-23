@@ -104,7 +104,7 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
   editRecipe(recipeId: string) {
     this.recipesService.getRecipe(recipeId).subscribe((res) => {
       this.recipeHelperService.editRecipe(res);
-      this.router.navigate(['recipes/create']);
+      this.router.navigate(['recipes/create-edit']);
     });
   }
 

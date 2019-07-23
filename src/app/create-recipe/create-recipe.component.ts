@@ -12,6 +12,7 @@ import { NotificatorService } from '../core/services/notificator.service';
 import { Ingredient } from '../common/models/ingredient';
 import { Subrecipe } from '../common/models/subrecipe';
 import { Nutrition } from '../common/models/nutrition';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-create-recipe',
@@ -46,6 +47,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     private readonly activatedRoute: ActivatedRoute,
     private readonly notificator: NotificatorService,
     private readonly router: Router,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -627,5 +629,13 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
       },
     });
     this.recipeHelperService.changedNutritionValue(totalNutr, `${weight.toFixed(1)} g`);
+  }
+
+  cancelAction() {
+    if (this.recipeToEdit) { 
+      this.router.navigate(['recipes', this.recipeToEdit.id]);
+    } else {
+      this.router.navigate(['recipes']);
+    }
   }
 }

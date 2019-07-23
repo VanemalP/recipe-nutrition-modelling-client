@@ -2,18 +2,19 @@
   <p *ngIf="!isSearchResult && allRecipes.length === 0">You have not created any recipes yet...</p>
   <p *ngIf="isSearchResult && allRecipes.length === 0">No recipes found</p>
   <div fxLayout="row wrap" fxLayoutAlign="space-around center" fxLayoutGap="30px grid">
-    <app-single-recipe
-      *ngFor="let recipe of allRecipes; let i = index"
-      [recipe]="recipe"
-      class="recipe-card"
-      [nutrition]="allNutrition[i]"
-      (filter)="filterByCategory($event)"
-      (view)="viewDetails($event)"
-      (edit)="editRecipe($event)"
-      (delete)="deleteRecipe($event)"
-    ></app-single-recipe>
+    <div fxFlex="30" *ngFor="let recipe of allRecipes; let i = index" class="card-container" fxLayout="row" fxLayoutAlign="space-around center">
+      <app-single-recipe
+        [recipe]="recipe"
+        class="recipe-card"
+        [nutrition]="allNutrition[i]"
+        (filter)="filterByCategory($event)"
+        (view)="viewDetails($event)"
+        (edit)="editRecipe($event)"
+        (delete)="deleteRecipe($event)"
+      ></app-single-recipe>
+    </div>
   </div>
   <div *ngIf="allRecipes.length > 0">
-    <mat-paginator  [length]="totalRecipes" [pageSize]="limit" [pageSizeOptions]="itemsPerPage" (page)="changePagination($event)" #paginator> </mat-paginator>
+    <mat-paginator class="paginator"  [length]="totalRecipes" [pageSize]="limit" [pageSizeOptions]="itemsPerPage" (page)="changePagination($event)" #paginator> </mat-paginator>
   </div>
 </div>

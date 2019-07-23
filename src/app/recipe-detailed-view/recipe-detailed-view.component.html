@@ -16,21 +16,12 @@
             <span class="white-triangle"></span>
           </span>
         </div>
-        <!-- <div fxFlex="15" fxLayout="row" fxLayoutAlign="end start" class="button-container">
-          <a mat-icon-button color="primary" title="Edit recipe" (click)="updateRecipe()"
-            [routerLink]="['/recipes/create']">
-            <mat-icon>edit</mat-icon>
-          </a>
-          <a mat-icon-button color="warn" title="Delete recipe" (click)="deleteRecipe()" [routerLink]="['/recipes']">
-            <mat-icon>delete</mat-icon>
-          </a>
-        </div> -->
         <div fxFlex="15" fxLayout="row" fxLayoutAlign="end start" class="button-container">
           <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="icon-button with a menu">
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <a mat-menu-item color="primary" (click)="updateRecipe()" [routerLink]="['/recipes/create']">
+            <a mat-menu-item color="primary" (click)="updateRecipe()" [routerLink]="['/recipes/create-edit']">
               <mat-icon class="button">edit</mat-icon>
               <span>Edit</span>
             </a>

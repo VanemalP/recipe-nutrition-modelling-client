@@ -1,9 +1,9 @@
 <mat-card class="recipe-card">
-  <div [ngStyle]="{ 'background-image': 'url(' + recipe.imageUrl + ')' }" class="recipe-header">
+  <div [ngStyle]="{ 'background-image': 'url(' + recipe.imageUrl + ')' }" class="recipe-header" (click)="triggerViewDetails(recipe.id)">
     <h3 class="title" (click)="triggerViewDetails(recipe.id)">{{ recipe.title }}</h3>
   </div>
   <div class="chart-bg"></div>
-  <app-nutrition-chart class="chart" [data]="data"></app-nutrition-chart>
+  <app-nutrition-chart class="chart" [data]="data" (click)="triggerViewDetails(recipe.id)"></app-nutrition-chart>
   <mat-card-content>
     <div fxLayout="row" fxLayoutAlign="space-around center" class="legend">
       <div fxLayout="column" fxLayoutAlign="space-between center" fxFlex="30" class="col carbs">

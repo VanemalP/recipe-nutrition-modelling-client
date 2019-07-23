@@ -15,7 +15,15 @@
   </aside>
   <mat-divider [vertical]="true"></mat-divider>
   <main class="recipe">
-    <app-create-recipe-details [recipeCategories]="recipeCategories" [recipeToEdit]="recipeToEdit"(delete)="deleteItem($event)" (create)="createRecipe($event)" (update)="updateRecipe($event)" (changeRecipeItemValue)="changedValue($event)"></app-create-recipe-details>
+    <app-create-recipe-details
+      [recipeCategories]="recipeCategories"
+      [recipeToEdit]="recipeToEdit"
+      (delete)="deleteItem($event)"
+      (create)="createRecipe($event)"
+      (update)="updateRecipe($event)"
+      (changeRecipeItemValue)="changedValue($event)"
+      (cancel)="cancelAction()"
+    ></app-create-recipe-details>
   </main>
   <aside class="nutrition">
     <app-nutrition [nutrition]="nutrition" [measure]="measure" class="nutrition-facts"></app-nutrition>
