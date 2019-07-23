@@ -4,6 +4,8 @@ export interface RecipeQuery {
   min?: string;
   max?: string;
   nutrient?: string;
+  orderBy?: string;
+  order?: string;
   page?: string;
   limit?: string;
 }

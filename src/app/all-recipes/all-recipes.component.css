@@ -1,7 +1,16 @@
 .container {
-  padding-top: 28px;
+  padding-top: 16px;
 }
 
 .paginator {
   margin: 16px 0;
+}
+
+.select-order{
+  margin-bottom: 24px;
+}
+
+.oreder-by {
+  width: 200px;
+  margin-left: 16px;
 }

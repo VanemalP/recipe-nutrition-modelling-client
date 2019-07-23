@@ -1,3 +1,4 @@
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { SearchbarService } from '../core/services/searchbar.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipesData } from './../common/models/recipe/recipesData';
@@ -26,6 +27,14 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
   currPage = 1;
   totalRecipes: number;
 
+  sortForm: FormGroup;
+  sortQuery = [
+    {orderBy: 'recipe.title', order: 'ASC'},
+    {orderBy: 'recipe.title', order: 'DESC'},
+    {orderBy: 'recipe.created', order: 'DESC'},
+    {orderBy: 'recipe.created', order: 'ASC'},
+  ]
+
   private query: RecipeQuery;
   private searchSubscription: Subscription;
   private allRecipesClickedSubscription: Subscription;
@@ -40,9 +49,14 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
     private readonly router: Router,
     private readonly notificator: NotificatorService,
     private readonly searchService: SearchbarService,
+    private readonly formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
+    this.sortForm = this.formBuilder.group({
+      sort: [this.sortQuery[2]]
+    });
+
     this.getResolvedData();
 
     this.searchSubscription = this.searchService.searchQuery$.subscribe(
@@ -56,6 +70,7 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
               this.updateData(data);
               this.isSearchResult = true;
               this.paginator.firstPage();
+              this.currPage = 1;
             }
           );
         }
@@ -70,6 +85,18 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
         this.isSearchResult = false;
       },
     );
+
+    this.sortForm.valueChanges.subscribe(
+      (sort) =>{
+        this.query = {...this.query, ...sort.sort};
+        console.log(this.query);
+        this.recipesService.getRecipes({...this.query, limit: this.limit.toString(), page: this.currPage.toString()}).subscribe(
+          (data) => {
+            this.updateData(data);
+          }
+        );
+      },
+    );
   }
 
   ngOnDestroy(): void {
@@ -80,9 +107,10 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
 
   changePagination(pageEvent: PageEvent) {
     this.limit = pageEvent.pageSize;
+    this.currPage = pageEvent.pageIndex + 1
     const paginationOptions = {
       limit: this.limit.toString(),
-      page: (pageEvent.pageIndex + 1).toString(),
+      page: (this.currPage).toString(),
       ...this.query,
     };
     this.recipesService.getRecipes(paginationOptions).subscribe(

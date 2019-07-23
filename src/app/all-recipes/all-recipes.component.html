@@ -1,6 +1,23 @@
 <div class="container">
   <p *ngIf="!isSearchResult && allRecipes.length === 0">You have not created any recipes yet...</p>
   <p *ngIf="isSearchResult && allRecipes.length === 0">No recipes found</p>
+  <form class="select-order" fxLayout="row" fxLayoutAlign="center center" [formGroup]="sortForm">
+      <p>Sort by:</p>
+      <mat-select class="oreder-by" formControlName="sort">
+      <mat-option [value]="sortQuery[0]">
+        Title (A to Z)
+      </mat-option>
+      <mat-option [value]="sortQuery[1]">
+        Title (Z to A)
+      </mat-option>
+      <mat-option [value]="sortQuery[2]">
+        Date (Newest first)
+      </mat-option>
+      <mat-option [value]="sortQuery[3]">
+        Date (Oldest first)
+      </mat-option>
+    </mat-select>
+  </form>
   <div fxLayout="row wrap" fxLayoutAlign="space-around center" fxLayoutGap="30px grid">
     <div fxFlex="30" *ngFor="let recipe of allRecipes; let i = index" class="card-container" fxLayout="row" fxLayoutAlign="space-around center">
       <app-single-recipe
