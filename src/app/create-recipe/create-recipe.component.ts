@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 import { ProductsData } from './../common/models/product/productsData';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { ProductsService } from './services/products.service';
 import { RecipesData } from '../common/models/recipe/recipesData';
 import { Product } from '../common/models/product/product';
@@ -39,6 +39,9 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
   nutritionSubscription: Subscription;
 
   loading: boolean;
+
+  @ViewChild('container', {static: false})
+  container: ElementRef;
 
   constructor(
     private readonly productsService: ProductsService,
@@ -128,10 +131,12 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     if (item.itemType === 'products') {
       this.addedProducts.push(item.item);
       this.recipeHelperService.addProductToRecipe(item.item);
+      window.scrollTo(0, this.container.nativeElement.scrollHeight);
     }
     if (item.itemType === 'recipes') {
       this.addedRecipes.push(item.item);
       this.recipeHelperService.addRecipeToRecipe(item.item);
+      window.scrollTo(0, this.container.nativeElement.scrollHeight);
     }
   }
 
