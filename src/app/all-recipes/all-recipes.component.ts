@@ -83,11 +83,12 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
         this.query = null;
         this.getResolvedData();
         this.isSearchResult = false;
+        window.scrollTo(0, 0);
       },
     );
 
     this.sortForm.valueChanges.subscribe(
-      (sort) =>{
+      (sort) => {
         this.query = {...this.query, ...sort.sort};
         this.recipesService.getRecipes({...this.query, limit: this.limit.toString(), page: this.currPage.toString()}).subscribe(
           (data) => {
@@ -122,6 +123,7 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
 
   filterByCategory(category: string) {
     this.searchService.search({category});
+    window.scrollTo(0, 0);
   }
 
   viewDetails(recipeId: string) {
