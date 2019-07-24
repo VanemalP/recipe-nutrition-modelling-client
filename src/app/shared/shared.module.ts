@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ChartsModule } from 'ng2-charts';
+import { HalfCircleSpinnerModule } from 'angular-epic-spinners';
 
 import { MaterialModule } from './modules/material.module';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
@@ -21,7 +22,8 @@ import { NutritionComponent } from '../components/nutrition/nutrition.component'
     ReactiveFormsModule,
     MaterialModule,
     ScrollingModule,
-    RouterModule
+    RouterModule,
+    HalfCircleSpinnerModule
   ],
   exports: [
     CommonModule,
@@ -35,7 +37,8 @@ import { NutritionComponent } from '../components/nutrition/nutrition.component'
     RouterModule,
     ConfirmDialogComponent,
     ChartsModule,
-    NutritionComponent
+    NutritionComponent,
+    HalfCircleSpinnerModule
   ],
   entryComponents: [ConfirmDialogComponent],
 })

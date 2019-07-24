@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent, canActivate: [NoAuthGuard] },
   { path: 'users', loadChildren: './users/users.module#UsersModule' },
   { path: 'recipes', loadChildren: './all-recipes/all-recipes.module#AllRecipesModule' },
-  { path: 'recipes/create', loadChildren: './create-recipe/create-recipe.module#CreateRecipeModule' },
+  { path: 'recipes/create-edit', loadChildren: './create-recipe/create-recipe.module#CreateRecipeModule' },
   { path: 'recipes/:id', loadChildren: './recipe-detailed-view/recipe-detailed-view.module#RecipeDetailedViewModule' },
   { path: 'not-found', component: NotFoundComponent },
   { path: 'server-error', component: ServerErrorComponent },

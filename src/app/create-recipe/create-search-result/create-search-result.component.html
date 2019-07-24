@@ -1,3 +1,30 @@
+<div fxLayout="row" fxLayoutAlign="center" class="spinner">
+    <app-half-circle-spinner
+    [ngClass]="{ 'hidden': !loading }"
+    [animationDuration]="2000"
+    [size]="24"
+    [color]="'#85C446'"
+  ></app-half-circle-spinner>
+  <app-half-circle-spinner
+  [ngClass]="{ 'hidden': !loading }"
+  [animationDuration]="2500"
+  [size]="24"
+  [color]="'#F7941E'"
+></app-half-circle-spinner>
+<app-half-circle-spinner
+  [ngClass]="{ 'hidden': !loading }"
+  [animationDuration]="2000"
+  [size]="24"
+  [color]="'#00B0DB'"
+></app-half-circle-spinner>
+<app-half-circle-spinner
+  [ngClass]="{ 'hidden': !loading }"
+  [animationDuration]="2500"
+  [size]="24"
+  [color]="'#BB1654'"
+></app-half-circle-spinner>
+</div>
+
 <mat-list>
   <cdk-virtual-scroll-viewport itemSize="autosize">
     <div *ngIf="searchedItem === 'products'">

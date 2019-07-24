@@ -32,6 +32,9 @@ export class CreateRecipeDetailsComponent implements OnInit, OnDestroy {
   @Output()
   changeRecipeItemValue: EventEmitter<any> = new EventEmitter();
 
+  @Output()
+  cancel: EventEmitter<any> = new EventEmitter();
+
   selected = '1 g';
   imageUrl = 'https://images.all-free-download.com/images/graphiclarge/healthy_meal_background_vegetables_eggs_bacon_icons_6836169.jpg';
 
@@ -160,5 +163,9 @@ export class CreateRecipeDetailsComponent implements OnInit, OnDestroy {
         }
       },
     );
+  }
+
+  triggerCancel() {
+    this.cancel.emit();
   }
 }

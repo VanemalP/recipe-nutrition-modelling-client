@@ -42,7 +42,6 @@ section.container {
   flex-grow: 0;
   justify-content: space-between;
   width: 25%;
-  color: rgba(0, 0, 0, 0.87);
 }
 
 p.unit-ingr {
@@ -116,7 +115,6 @@ span.measure {
   height: 90%;
   padding: 10px 8px;
   margin: 24px 0 16px 0;
-  color: black;
   background: rgba(245, 245, 245, 0.5);
   overflow: hidden;
   box-shadow: 0 2px rgba(0, 0, 0, 0.2), -1px 1px 1px rgba(0, 0, 0, 0.2);

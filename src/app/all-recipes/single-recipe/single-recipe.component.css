@@ -10,6 +10,7 @@
   background-size: cover;
   margin: 0 auto;
   position: relative;
+  cursor: pointer;
 }
 
 .recipe-card.mat-card {
@@ -17,13 +18,11 @@
 }
 
 h3.title {
-  color: rgba(0,0,0,0.87);
   padding-bottom: 8px;
   max-height: 32px;
   white-space: nowrap; 
   overflow: hidden;
   text-overflow: ellipsis;
-  /* text-transform: uppercase; */
   font-weight: 600;
   background-color: whitesmoke;
   cursor: pointer;
@@ -45,7 +44,8 @@ h3.title:hover {
   position: absolute;
   top: 135px;
   right: 0;
-  width: 100%
+  width: 100%;
+  cursor: pointer;
 }
 
 .chart-bg {

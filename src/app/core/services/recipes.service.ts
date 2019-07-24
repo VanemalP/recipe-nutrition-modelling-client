@@ -33,10 +33,18 @@ export class RecipesService {
       queryStr = queryStr.concat(`max=${query.max}&`);
     }
 
+    if (query.orderBy) {
+      queryStr = queryStr.concat(`orderBy=${query.orderBy}&`);
+    }
+
+    if (query.order) {
+      queryStr = queryStr.concat(`order=${query.order}&`);
+    }
+    
     if (query.limit) {
       queryStr = queryStr.concat(`limit=${query.limit}&`);
     }
-
+    
     if (query.page) {
       queryStr = queryStr.concat(`page=${query.page}`);
     }

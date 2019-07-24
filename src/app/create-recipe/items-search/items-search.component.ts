@@ -28,6 +28,9 @@ export class ItemsSearchComponent implements OnInit {
   @Input()
   recipeToEdit: Recipe;
 
+  @Input()
+  loading: boolean;
+
   @Output()
   searchItems: EventEmitter<{inputValue: string, selectedValue: string}> = new EventEmitter();
   

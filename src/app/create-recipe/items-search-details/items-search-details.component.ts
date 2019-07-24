@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
@@ -42,14 +42,14 @@ export class ItemsSearchDetailsComponent implements OnInit {
     });
 
     this.searchForm.valueChanges.pipe(
-      debounceTime(200),
+      filter(search => (!search.inputValue && !search.selectedValue) || (search.inputValue.length > 1 || search.selectedValue)),
+      debounceTime(300),
       distinctUntilChanged()
     ).subscribe((search) => {
-      if (search.inputValue || search.selectedValue) {
-        this.searchItems.emit(search);
-      }
       if (!search.inputValue && !search.selectedValue) {
         this.clearSearch.emit();
+      } else {
+        this.searchItems.emit(search);
       }
     });
   }

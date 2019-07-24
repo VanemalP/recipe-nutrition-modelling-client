@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 import { ProductsData } from './../common/models/product/productsData';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { ProductsService } from './services/products.service';
 import { RecipesData } from '../common/models/recipe/recipesData';
 import { Product } from '../common/models/product/product';
@@ -36,6 +36,11 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
   measure: string;
 
   nutritionSubscription: Subscription;
+
+  loading: boolean;
+
+  @ViewChild('container', {static: false})
+  container: ElementRef;
 
   constructor(
     private readonly productsService: ProductsService,
@@ -74,6 +79,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
   }
 
   findItems(search: {items: string, inputValue: string, selectedValue: string}) {
+    this.loading = true;
     let query;
     if (search.items === 'products') {
       query = {
@@ -87,6 +93,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         (productsData) => {
           this.foundProducts = productsData;
           this.searchedItems = search.items;
+          this.loading = false;
         },
       );
 
@@ -103,6 +110,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         (recipesData) => {
           this.foundRecipes = recipesData;
           this.searchedItems = search.items;
+          this.loading = false;
         },
       );
     }
@@ -121,10 +129,12 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     if (item.itemType === 'products') {
       this.addedProducts.push(item.item);
       this.recipeHelperService.addProductToRecipe(item.item);
+      window.scrollTo(0, this.container.nativeElement.scrollHeight);
     }
     if (item.itemType === 'recipes') {
       this.addedRecipes.push(item.item);
       this.recipeHelperService.addRecipeToRecipe(item.item);
+      window.scrollTo(0, this.container.nativeElement.scrollHeight);
     }
   }
 
@@ -134,8 +144,8 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     let itemIndex: number;
 
     if (data.item === 'product') {
-      productToDelete = this.recipeHelperService.recipeProducts[data.index];
-      this.recipeHelperService.removeProductFromRecipe(data.index);
+      productToDelete = this.recipeHelperService.recipeIngredients[data.index];
+      this.recipeHelperService.removeIngredientFromRecipe(data.index);
       if (this.addedProducts.length > 0) {
         itemIndex = this.addedProducts.findIndex((itm) => itm.code === productToDelete.code);
         if (itemIndex > -1) {
@@ -152,8 +162,8 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     }
 
     if (data.item === 'recipe') {
-      recipeToDelete = this.recipeHelperService.recipeRecipes[data.index];
-      this.recipeHelperService.removeRecipeFromRecipe(data.index);
+      recipeToDelete = this.recipeHelperService.recipeSubrecipes[data.index];
+      this.recipeHelperService.removeSubrecipeFromRecipe(data.index);
       if (this.addedRecipes.length > 0) {
         itemIndex = this.addedRecipes.findIndex((itm) => itm.id === recipeToDelete.id);
         if (itemIndex > -1) {
@@ -258,123 +268,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
           this.oldProducts.find((prod) => ingr.recipeItem === prod.id);
         const gramsPerMeasure = +ingr.unitOptions.find((unit) => unit.measure === ingr.unit).gramsPerMeasure;
         weight += gramsPerMeasure * ingr.quantity;
-        const nutrientNames = Object.keys(product.nutrition);
-        const totalProductNutr = {
-          PROCNT: {
-            description: 'Protein',
-            unit: 'g',
-            value: 0,
-          },
-          FAT: {
-            description: 'Total lipid (fat)',
-            unit: 'g',
-            value: 0,
-          },
-          CHOCDF: {
-            description: 'Carbohydrate, by difference',
-            unit: 'g',
-            value: 0,
-          },
-          ENERC_KCAL: {
-            description: 'Energy',
-            unit: 'kcal',
-            value: 0,
-          },
-          SUGAR: {
-            description: 'Sugars, total',
-            unit: 'g',
-            value: 0,
-          },
-          FIBTG: {
-            description: 'Fiber, total dietary',
-            unit: 'g',
-            value: 0,
-          },
-          CA: {
-            description: 'Calcium, Ca',
-            unit: 'mg',
-            value: 0,
-          },
-          FE: {
-            description: 'Iron, Fe',
-            unit: 'mg',
-            value: 0,
-          },
-          P: {
-            description: 'Phosphorus, P',
-            unit: 'mg',
-            value: 0,
-          },
-          K: {
-            description: 'Potassium, K',
-            unit: 'mg',
-            value: 0,
-          },
-          NA: {
-            description: 'Sodium, Na',
-            unit: 'mg',
-            value: 0,
-          },
-          VITA_IU: {
-            description: 'Vitamin A, IU',
-            unit: 'IU',
-            value: 0,
-          },
-          TOCPHA: {
-            description: 'Vitamin E (alpha-tocopherol)',
-            unit: 'mg',
-            value: 0,
-          },
-          VITD: {
-            description: 'Vitamin D',
-            unit: 'IU',
-            value: 0,
-          },
-          VITC: {
-            description: 'Vitamin C, total ascorbic acid',
-            unit: 'mg',
-            value: 0,
-          },
-          VITB12: {
-            description: 'Vitamin B-12',
-            unit: 'µg',
-            value: 0,
-          },
-          FOLAC: {
-            description: 'Folic acid',
-            unit: 'µg',
-            value: 0,
-          },
-          CHOLE: {
-            description: 'Cholesterol',
-            unit: 'mg',
-            value: 0,
-          },
-          FATRN: {
-            description: 'Fatty acids, total trans',
-            unit: 'g',
-            value: 0,
-          },
-          FASAT: {
-            description: 'Fatty acids, total saturated',
-            unit: 'g',
-            value: 0,
-          },
-          FAMS: {
-            description: 'Fatty acids, total monounsaturated',
-            unit: 'g',
-            value: 0,
-          },
-          FAPU: {
-            description: 'Fatty acids, total polyunsaturated',
-            unit: 'g',
-            value: 0,
-          },
-        };
-        nutrientNames.forEach((nutrientName: string) => {
-          const nutrValue = product.nutrition[nutrientName].value / 100 * ingr.quantity * gramsPerMeasure;
-          totalProductNutr[nutrientName].value = nutrValue;
-        });
+        const totalProductNutr = this.recipeHelperService.calculateTotalNutrition(product.nutrition, ingr.quantity, gramsPerMeasure);
         nutrArr.push(totalProductNutr);
       });
     }
@@ -383,123 +277,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         const recipe = this.addedRecipes.find((rec) => subrec.recipeItem === rec.id) ||
           this.oldRecipes.find((rec) => subrec.recipeItem === rec.id);
         weight += recipe.gramsPerMeasure * subrec.quantity;
-        const nutrientNames = Object.keys(recipe.nutrition);
-        const totalRecipeNutr = {
-          PROCNT: {
-            description: 'Protein',
-            unit: 'g',
-            value: 0,
-          },
-          FAT: {
-            description: 'Total lipid (fat)',
-            unit: 'g',
-            value: 0,
-          },
-          CHOCDF: {
-            description: 'Carbohydrate, by difference',
-            unit: 'g',
-            value: 0,
-          },
-          ENERC_KCAL: {
-            description: 'Energy',
-            unit: 'kcal',
-            value: 0,
-          },
-          SUGAR: {
-            description: 'Sugars, total',
-            unit: 'g',
-            value: 0,
-          },
-          FIBTG: {
-            description: 'Fiber, total dietary',
-            unit: 'g',
-            value: 0,
-          },
-          CA: {
-            description: 'Calcium, Ca',
-            unit: 'mg',
-            value: 0,
-          },
-          FE: {
-            description: 'Iron, Fe',
-            unit: 'mg',
-            value: 0,
-          },
-          P: {
-            description: 'Phosphorus, P',
-            unit: 'mg',
-            value: 0,
-          },
-          K: {
-            description: 'Potassium, K',
-            unit: 'mg',
-            value: 0,
-          },
-          NA: {
-            description: 'Sodium, Na',
-            unit: 'mg',
-            value: 0,
-          },
-          VITA_IU: {
-            description: 'Vitamin A, IU',
-            unit: 'IU',
-            value: 0,
-          },
-          TOCPHA: {
-            description: 'Vitamin E (alpha-tocopherol)',
-            unit: 'mg',
-            value: 0,
-          },
-          VITD: {
-            description: 'Vitamin D',
-            unit: 'IU',
-            value: 0,
-          },
-          VITC: {
-            description: 'Vitamin C, total ascorbic acid',
-            unit: 'mg',
-            value: 0,
-          },
-          VITB12: {
-            description: 'Vitamin B-12',
-            unit: 'µg',
-            value: 0,
-          },
-          FOLAC: {
-            description: 'Folic acid',
-            unit: 'µg',
-            value: 0,
-          },
-          CHOLE: {
-            description: 'Cholesterol',
-            unit: 'mg',
-            value: 0,
-          },
-          FATRN: {
-            description: 'Fatty acids, total trans',
-            unit: 'g',
-            value: 0,
-          },
-          FASAT: {
-            description: 'Fatty acids, total saturated',
-            unit: 'g',
-            value: 0,
-          },
-          FAMS: {
-            description: 'Fatty acids, total monounsaturated',
-            unit: 'g',
-            value: 0,
-          },
-          FAPU: {
-            description: 'Fatty acids, total polyunsaturated',
-            unit: 'g',
-            value: 0,
-          },
-        };
-        nutrientNames.forEach((nutrientName: string) => {
-          const nutrValue = recipe.nutrition[nutrientName].value / 100 * subrec.quantity * recipe.gramsPerMeasure;
-          totalRecipeNutr[nutrientName].value = nutrValue;
-        });
+        const totalRecipeNutr = this.recipeHelperService.calculateTotalNutrition(recipe.nutrition, subrec.quantity, recipe.gramsPerMeasure);
         nutrArr.push(totalRecipeNutr);
       });
     }
@@ -509,118 +287,15 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
         acc[nutrientName].value = +(acc[nutrientName].value + curr[nutrientName].value).toFixed(3);
         });
       return acc;
-    }, {
-      PROCNT: {
-        description: 'Protein',
-        unit: 'g',
-        value: 0,
-      },
-      FAT: {
-        description: 'Total lipid (fat)',
-        unit: 'g',
-        value: 0,
-      },
-      CHOCDF: {
-        description: 'Carbohydrate, by difference',
-        unit: 'g',
-        value: 0,
-      },
-      ENERC_KCAL: {
-        description: 'Energy',
-        unit: 'kcal',
-        value: 0,
-      },
-      SUGAR: {
-        description: 'Sugars, total',
-        unit: 'g',
-        value: 0,
-      },
-      FIBTG: {
-        description: 'Fiber, total dietary',
-        unit: 'g',
-        value: 0,
-      },
-      CA: {
-        description: 'Calcium, Ca',
-        unit: 'mg',
-        value: 0,
-      },
-      FE: {
-        description: 'Iron, Fe',
-        unit: 'mg',
-        value: 0,
-      },
-      P: {
-        description: 'Phosphorus, P',
-        unit: 'mg',
-        value: 0,
-      },
-      K: {
-        description: 'Potassium, K',
-        unit: 'mg',
-        value: 0,
-      },
-      NA: {
-        description: 'Sodium, Na',
-        unit: 'mg',
-        value: 0,
-      },
-      VITA_IU: {
-        description: 'Vitamin A, IU',
-        unit: 'IU',
-        value: 0,
-      },
-      TOCPHA: {
-        description: 'Vitamin E (alpha-tocopherol)',
-        unit: 'mg',
-        value: 0,
-      },
-      VITD: {
-        description: 'Vitamin D',
-        unit: 'IU',
-        value: 0,
-      },
-      VITC: {
-        description: 'Vitamin C, total ascorbic acid',
-        unit: 'mg',
-        value: 0,
-      },
-      VITB12: {
-        description: 'Vitamin B-12',
-        unit: 'µg',
-        value: 0,
-      },
-      FOLAC: {
-        description: 'Folic acid',
-        unit: 'µg',
-        value: 0,
-      },
-      CHOLE: {
-        description: 'Cholesterol',
-        unit: 'mg',
-        value: 0,
-      },
-      FATRN: {
-        description: 'Fatty acids, total trans',
-        unit: 'g',
-        value: 0,
-      },
-      FASAT: {
-        description: 'Fatty acids, total saturated',
-        unit: 'g',
-        value: 0,
-      },
-      FAMS: {
-        description: 'Fatty acids, total monounsaturated',
-        unit: 'g',
-        value: 0,
-      },
-      FAPU: {
-        description: 'Fatty acids, total polyunsaturated',
-        unit: 'g',
-        value: 0,
-      },
-    });
+    }, this.recipeHelperService.createEmptyNutrition());
     this.recipeHelperService.changedNutritionValue(totalNutr, `${weight.toFixed(1)} g`);
+  }
+
+  cancelAction() {
+    if (this.recipeToEdit) {
+      this.router.navigate(['recipes', this.recipeToEdit.id]);
+    } else {
+      this.router.navigate(['recipes']);
+    }
   }
 }

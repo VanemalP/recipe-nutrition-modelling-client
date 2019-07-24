@@ -1,13 +1,22 @@
 <div class="container">
-  <div class="user-profile">
-    <div class="main-info" fxLayout="row wrap" fxLayoutGap="30px" fxLayoutAlign="start center" fxLayout.xs="column">
-      <button mat-icon-button class="profile-img" disabled>
-        <mat-icon>account_circle</mat-icon>
-      </button>
-      <div fxLayout.xs="column">
-        <!-- <h1>{{ user.username }}</h1>
-        <h5>Joined: {{ user.joined | date: 'dd LLL yyyy, HH:mm'}}</h5> -->
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar class="img-container">
+        <mat-icon class="profile-img">account_circle</mat-icon>
       </div>
-    </div>
-  </div>
+      <mat-card-title class="name">{{ user.firstName }} {{ user.lastName }}</mat-card-title>
+      <mat-card-subtitle>Joined: {{ user.joined | date: 'MMM d, y' }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="16px">
+      <p fxFlex="80px">About me:</p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel erat vulputate, pharetra erat at, gravida orci. Nullam at lorem ac odio
+        pulvinar consectetur. Aliquam blandit consectetur porttitor. Nullam sodales volutpat tellus vitae ultrices. Pellentesque sit amet justo et
+        ligula sollicitudin ullamcorper. Pellentesque blandit lorem eget est pharetra, in maximus nibh vestibulum. Integer in eros ullamcorper,
+        pellentesque orci sit amet, tincidunt est. Aenean nulla elit, accumsan nec felis ac, pellentesque mattis risus. In fringilla molestie maximus.
+        Morbi viverra tincidunt dolor eu convallis. Donec quis orci quis quam cursus iaculis iaculis ut urna. Orci varius natoque penatibus et magnis
+        dis parturient montes, nascetur ridiculus mus. Ut ac consequat mauris, sit amet ullamcorper erat.
+      </p>
+    </mat-card-content>
+  </mat-card>
 </div>

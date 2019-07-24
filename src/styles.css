@@ -9,17 +9,20 @@
 }
 
 .toast-container .toast-success {
-	/* background-color: #5cdb95; */
 	font-family: "Montserrat", sans-serif;
 }
 .toast-container .toast-error {
-	/* background-color: #ff5722; */
 	font-family: "Montserrat", sans-serif;
+}
+
+html {
+	scroll-behavior: smooth;
 }
 
 html, body, material-app, mat-sidenav-container {
   height: 100%;
-  width: 100%;
+	width: 100%;
+	color: rgba(0, 0, 0, 0.87);
 }
 
 body .material-icons {
