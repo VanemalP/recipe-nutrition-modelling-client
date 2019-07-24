@@ -42,13 +42,17 @@ export class CreateSearchResultComponent implements OnInit {
   }
 
   isProductInRecipe(item): boolean {
-    const productInRecipe = this.recipeHelperService.recipeProducts.find((product) => product.code === item.code || product.product === item.description);
+    const productInRecipe = this.recipeHelperService.recipeIngredients.find(
+      (product) => product.code === item.code || product.product === item.description
+    );
 
     return !!productInRecipe;
   }
 
   isRecipeInRecipe(item): boolean {
-    const recipeInRecipe = this.recipeHelperService.recipeRecipes.find((recipe) => recipe.id === item.id || recipe.recipe === item.title);
+    const recipeInRecipe = this.recipeHelperService.recipeSubrecipes.find(
+      (recipe) => recipe.id === item.id || recipe.recipe === item.title
+    );
 
     return !!recipeInRecipe;
   }
