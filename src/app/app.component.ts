@@ -29,7 +29,9 @@ export class AppComponent implements OnInit, OnDestroy {
     this.loggedUserSubscripton = this.authService.user$.subscribe(
       (res) => {
         this.isLogged = !!res;
-        this.username = res.username;
+        if (res) {
+          this.username = res.username;
+        }
       },
     );
   }
