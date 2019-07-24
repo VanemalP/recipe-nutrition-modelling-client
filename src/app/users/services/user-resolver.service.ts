@@ -22,12 +22,13 @@ export class UserResolverService implements Resolve<User> {
     state: RouterStateSnapshot,
   ) {
     const username = route.params.username;
+
     return this.usersService.getUser(username)
       .pipe(catchError(
         res => {
           this.notificator.error(res.error.message);
           if (res.error.code === 401) {
-            this.router.navigate(['/home']);
+            this.router.navigate(['/recipes']);
           }
           if (res.error.code === 404) {
             this.router.navigate(['/not-found']);

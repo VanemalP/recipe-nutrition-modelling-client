@@ -49,7 +49,6 @@ export class RecipesService {
       queryStr = queryStr.concat(`page=${query.page}`);
     }
 
-    console.log(queryStr);
     return this.http.get<RecipesData>(`http://localhost:3000/api/recipes?${queryStr}`);
   }
 

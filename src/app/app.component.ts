@@ -3,7 +3,6 @@ import { AuthService } from './core/services/auth.service';
 import { Router } from '@angular/router';
 import { NotificatorService } from './core/services/notificator.service';
 import { Subscription } from 'rxjs';
-import { RecipeQuery } from './common/models/recipe/recipe-query';
 import { SearchbarService } from './core/services/searchbar.service';
 import { RecipeHelperService } from './core/services/recipe-helper.service';
 
@@ -13,6 +12,7 @@ import { RecipeHelperService } from './core/services/recipe-helper.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit, OnDestroy {
+  username: string;
   public isLogged: boolean;
   isVisible = false;
   private loggedUserSubscripton: Subscription;
@@ -27,7 +27,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loggedUserSubscripton = this.authService.user$.subscribe(
-      (res) => this.isLogged = !!res,
+      (res) => {
+        this.isLogged = !!res;
+        this.username = res.username;
+      },
     );
   }
 
