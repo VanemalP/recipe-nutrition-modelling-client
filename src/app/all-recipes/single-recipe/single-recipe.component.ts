@@ -1,3 +1,6 @@
+import { MatDialog } from '@angular/material';
+
+import { ConfirmDialogComponent } from './../../shared/components/confirm-dialog/confirm-dialog.component';
 import { RecipeHelperService } from './../../core/services/recipe-helper.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Recipe } from '../../common/models/recipe/recipe';
@@ -37,6 +40,7 @@ export class SingleRecipeComponent implements OnInit {
 
   constructor(
     private readonly recipeHelperService: RecipeHelperService,
+    private readonly dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -71,5 +75,22 @@ export class SingleRecipeComponent implements OnInit {
 
   triggerDelete(recipeId: string) {
     this.delete.emit(recipeId);
+  }
+
+  openDialog() {
+    const title = 'Delete recipe';
+    const message = 'Are you sure you want to delete this recipe?';
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      minWidth: '400px',
+      data: { title, message },
+      autoFocus: false
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.triggerDelete(this.recipe.id);
+      }
+    });
   }
 }

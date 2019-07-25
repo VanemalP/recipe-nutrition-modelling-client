@@ -1,7 +1,10 @@
-import { Subrecipe } from './../common/models/subrecipe';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
+
+import { ConfirmDialogComponent } from './../shared/components/confirm-dialog/confirm-dialog.component';
+import { Subrecipe } from './../common/models/subrecipe';
 import { Recipe } from '../common/models/recipe/recipe';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeHelperService } from '../core/services/recipe-helper.service';
 import { Nutrition } from '../common/models/nutrition';
 import { Ingredient } from '../common/models/ingredient';
@@ -22,7 +25,9 @@ export class RecipeDetailedViewComponent implements OnInit {
     private route: ActivatedRoute,
     private readonly recipeHelperService: RecipeHelperService,
     private readonly recipeService: RecipesService,
-    private readonly notificator: NotificatorService
+    private readonly notificator: NotificatorService,
+    private readonly router: Router,
+    private readonly dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -60,7 +65,26 @@ export class RecipeDetailedViewComponent implements OnInit {
   deleteRecipe() {
     const id = this.route.snapshot.paramMap.get('id');
     return this.recipeService.deleteRecipe(id).subscribe(() => {
-      this.notificator.success('Recipe successfully deleted');
+      this.notificator.success('Recipe successfully deleted'),
+        this.router.navigate(['/recipes']);
+    });
+  }
+
+  openDialog() {
+    const title = 'Delete recipe';
+    const message = 'Are you sure you want to delete this recipe?';
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      minWidth: '400px',
+      data: { title, message },
+      autoFocus: false
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteRecipe();
+      }
     });
   }
 }
+
