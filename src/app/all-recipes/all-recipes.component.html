@@ -1,7 +1,7 @@
 <div class="container">
   <p *ngIf="!isSearchResult && allRecipes.length === 0">You have not created any recipes yet...</p>
   <p *ngIf="isSearchResult && allRecipes.length === 0">No recipes found</p>
-  <form class="select-order" fxLayout="row" fxLayoutAlign="center center" [formGroup]="sortForm">
+  <form class="select-order" fxLayout="row" fxLayoutAlign="center center" [formGroup]="sortForm"  *ngIf="!allRecipes.length === 0">
       <p>Sort by:</p>
       <mat-select class="oreder-by" formControlName="sort">
       <mat-option [value]="sortQuery[0]">
