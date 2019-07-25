@@ -42,6 +42,7 @@ section.container {
   flex-grow: 0;
   justify-content: space-between;
   width: 25%;
+  color: #2e2e2e;
 }
 
 p.unit-ingr {
@@ -105,8 +106,8 @@ span.measure {
   margin-top: 4px;
 }
 
-.subrecipes {
-  margin-top: 24px;
+.ingredients {
+  margin-bottom: 24px;
 }
 
 .notes {
