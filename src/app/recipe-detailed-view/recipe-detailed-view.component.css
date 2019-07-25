@@ -163,17 +163,13 @@ h2 span {
 }
 
 .all-nutrition {
-  width: 250px;
-  margin-right: 14px;
+  width: 264px;
+  padding-right: 14px;
 }
 
 .panelOpen {
   font-weight: 700;
 }
-
-/* .button {
-  text-transform: uppercase;
-} */
 
 .button {
   font-size: 20px;
