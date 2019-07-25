@@ -33,7 +33,7 @@
         <button mat-icon-button (click)="triggerEdit(recipe.id)">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button color="warn" (click)="triggerDelete(recipe.id)">
+        <button mat-icon-button color="warn" (click)="openDialog()" onClick="this.blur()">
           <mat-icon>delete</mat-icon>
         </button>
       </div>
