@@ -151,7 +151,7 @@ export class CreateRecipeDetailsComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(ImgDialogComponent, {
       minWidth: '400px',
       autoFocus: false,
-      disableClose: true,
+      disableClose: false,
       data: {imageUrl: this.imageUrl}
     });
 
