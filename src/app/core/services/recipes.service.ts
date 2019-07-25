@@ -40,11 +40,11 @@ export class RecipesService {
     if (query.order) {
       queryStr = queryStr.concat(`order=${query.order}&`);
     }
-    
+
     if (query.limit) {
       queryStr = queryStr.concat(`limit=${query.limit}&`);
     }
-    
+
     if (query.page) {
       queryStr = queryStr.concat(`page=${query.page}`);
     }

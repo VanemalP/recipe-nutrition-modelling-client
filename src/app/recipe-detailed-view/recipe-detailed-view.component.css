@@ -106,7 +106,7 @@ span.measure {
   margin-top: 4px;
 }
 
-.ingredients {
+.ingredients:last-child {
   margin-bottom: 24px;
 }
 
