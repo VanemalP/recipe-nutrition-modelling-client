@@ -21,6 +21,7 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
   allRecipesData: RecipesData;
   allRecipes: Recipe[] = [];
   allNutrition: Nutrition[];
+  isResolved = false;
 
   itemsPerPage = [6, 12, 18, 24];
   limit = this.itemsPerPage[0];
@@ -33,7 +34,7 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
     {orderBy: 'recipe.title', order: 'DESC'},
     {orderBy: 'recipe.created', order: 'DESC'},
     {orderBy: 'recipe.created', order: 'ASC'},
-  ]
+  ];
 
   private query: RecipeQuery;
   private searchSubscription: Subscription;
@@ -71,6 +72,7 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
               this.isSearchResult = true;
               this.paginator.firstPage();
               this.currPage = 1;
+              this.isResolved = true;
             }
           );
         }
@@ -79,11 +81,7 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
 
     this.allRecipesClickedSubscription = this.recipeHelperService.allRecipesObs$.subscribe(
       () => {
-        this.searchService.clearSearch();
-        this.query = null;
-        this.getResolvedData();
-        this.isSearchResult = false;
-        window.scrollTo(0, 0);
+       this.clearSearch();
       },
     );
 
@@ -93,6 +91,7 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
         this.recipesService.getRecipes({...this.query, limit: this.limit.toString(), page: this.currPage.toString()}).subscribe(
           (data) => {
             this.updateData(data);
+            this.isResolved = true;
           }
         );
       },
@@ -107,7 +106,7 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
 
   changePagination(pageEvent: PageEvent) {
     this.limit = pageEvent.pageSize;
-    this.currPage = pageEvent.pageIndex + 1
+    this.currPage = pageEvent.pageIndex + 1;
     const paginationOptions = {
       limit: this.limit.toString(),
       page: (this.currPage).toString(),
@@ -123,6 +122,17 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
 
   filterByCategory(category: string) {
     this.searchService.search({category});
+    window.scrollTo(0, 0);
+  }
+
+  clearSearch() {
+    this.searchService.clearSearch();
+    this.query = null;
+    this.getResolvedData();
+    this.isResolved = true;
+    this.isSearchResult = false;
+    this.paginator.firstPage();
+    this.currPage = 1;
     window.scrollTo(0, 0);
   }
 
