@@ -26,7 +26,7 @@ export class RecipeDetailedViewComponent implements OnInit {
   @ViewChild('content', { static: false }) content: ElementRef;
 
   constructor(
-    private route: ActivatedRoute,
+    private readonly route: ActivatedRoute,
     private readonly recipeHelperService: RecipeHelperService,
     private readonly recipeService: RecipesService,
     private readonly notificator: NotificatorService,

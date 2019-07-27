@@ -6,7 +6,9 @@ import { Observable } from 'rxjs';
 import { RecipeQuery } from '../../common/models/recipe/recipe-query';
 import { Recipe } from '../../common/models/recipe/recipe';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RecipesService {
 
   constructor(private readonly http: HttpClient) { }
