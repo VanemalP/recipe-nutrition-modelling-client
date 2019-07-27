@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>
+  Detailed Nutrition
+</h1>
+ 
+<div mat-dialog-content class="nutrition">
+  <app-nutrition-table [nutrition]="data.nutrition" [measure]="data.measure"></app-nutrition-table>
+</div>
+ 
+<div mat-dialog-actions align="end" class="action-btns">
+  <button mat-raised-button (click)="onDismiss()" type="button">Close</button>
+</div>

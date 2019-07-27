@@ -10,10 +10,11 @@ import { HalfCircleSpinnerModule } from 'angular-epic-spinners';
 
 import { MaterialModule } from './modules/material.module';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
-import { NutritionComponent } from '../components/nutrition/nutrition.component';
+import { NutritionComponent } from './components/nutrition/nutrition.component';
+import { NutritionTableComponent } from './components/nutrition-table/nutrition-table.component';
 
 @NgModule({
-  declarations: [ConfirmDialogComponent, NutritionComponent],
+  declarations: [ConfirmDialogComponent, NutritionComponent, NutritionTableComponent],
   imports: [
     CommonModule,
     LayoutModule,
@@ -38,7 +39,8 @@ import { NutritionComponent } from '../components/nutrition/nutrition.component'
     ConfirmDialogComponent,
     ChartsModule,
     NutritionComponent,
-    HalfCircleSpinnerModule
+    HalfCircleSpinnerModule,
+    NutritionTableComponent
   ],
   entryComponents: [ConfirmDialogComponent],
 })

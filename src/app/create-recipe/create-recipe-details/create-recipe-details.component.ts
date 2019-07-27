@@ -5,6 +5,8 @@ import { Recipe } from '../../common/models/recipe/recipe';
 import { Subscription } from 'rxjs';
 import { RecipeHelperService } from '../../core/services/recipe-helper.service';
 import { MatDialog } from '@angular/material';
+import { NutrDialogComponent } from '../nutr-dialog/nutr-dialog.component';
+import { Nutrition } from '../../common/models/nutrition';
 
 @Component({
   selector: 'app-create-recipe-details',
@@ -164,6 +166,37 @@ export class CreateRecipeDetailsComponent implements OnInit, OnDestroy {
       },
     );
   }
+  
+
+  openNutrDialog(item: string, index: number): void {
+    console.log(item, index);
+    // to calc nutrition based on qty and measure
+    let nutrition: Nutrition;
+    let quantity: number;
+    let unit: string;
+    let measure: number;
+    if (item === 'ingr') {
+      const nutrPer100grams = this.recipeHelperService.recipeIngredients[index].nutrition;
+      quantity = +this.ingredientsArr.value[index].quantity;
+      unit = this.ingredientsArr.value[index].unit;
+      const gramsPerMeasure = +this.recipeHelperService.recipeIngredients[index].measures.find((measure) => measure.measure === unit).gramsPerMeasure;
+      measure = gramsPerMeasure * quantity;
+      nutrition = this.recipeHelperService.calculateTotalNutrition(nutrPer100grams, quantity, gramsPerMeasure);
+    } else if (item === 'subrec') {
+      const nutrPer100grams = this.recipeHelperService.recipeSubrecipes[index].nutrition;
+      quantity = +this.subrecipesArr.value[index].quantity;
+      unit = this.subrecipesArr.value[index].unit;
+      measure += this.recipeHelperService.recipeSubrecipes[index].gramsPerMeasure * quantity;
+      nutrition = this.recipeHelperService.calculateTotalNutrition(nutrPer100grams, quantity, this.recipeHelperService.recipeSubrecipes[index].gramsPerMeasure);
+    }
+    const dialogRef = this.dialog.open(NutrDialogComponent, {
+      minWidth: '800px',
+      autoFocus: false,
+      disableClose: false,
+      data: {nutrition, measure}
+    });
+  }
+
 
   triggerCancel() {
     this.cancel.emit();

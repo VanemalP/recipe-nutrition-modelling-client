@@ -11,6 +11,7 @@ import { ItemsSearchDetailsComponent } from './items-search-details/items-search
 import { CreateSearchResultComponent } from './create-search-result/create-search-result.component';
 import { CreateRecipeDetailsComponent } from './create-recipe-details/create-recipe-details.component';
 import { ProductsService } from './services/products.service';
+import { NutrDialogComponent } from './nutr-dialog/nutr-dialog.component';
 
 @NgModule({
   declarations: [
@@ -19,9 +20,10 @@ import { ProductsService } from './services/products.service';
     ItemsSearchDetailsComponent,
     CreateSearchResultComponent,
     CreateRecipeDetailsComponent,
-    ImgDialogComponent
+    ImgDialogComponent,
+    NutrDialogComponent,
   ],
-  entryComponents: [ImgDialogComponent],
+  entryComponents: [ImgDialogComponent, NutrDialogComponent],
   imports: [
     SharedModule,
     CreateRecipeRoutingModule

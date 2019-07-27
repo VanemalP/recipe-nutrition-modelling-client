@@ -70,7 +70,9 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
             (data) => {
               this.updateData(data);
               this.isSearchResult = true;
-              this.paginator.firstPage();
+              if (this.paginator) {
+                this.paginator.firstPage();
+              }
               this.currPage = 1;
               this.isResolved = true;
             }

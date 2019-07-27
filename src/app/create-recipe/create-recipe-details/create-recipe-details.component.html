@@ -58,7 +58,7 @@
       <div [formGroupName]="i">
         <mat-list-item class="ingredientsData">
           <div fxLayout="row" fxLayoutAlign="start center" class="ingredient">
-            <span class="ingr-name">{{ item.value.name }}</span>
+            <span class="ingr-name" (click)="openNutrDialog('ingr', i)">{{ item.value.name }}</span>
             <mat-form-field class="unit">
               <mat-select formControlName="unit" #unit>
                 <mat-option *ngFor="let unit of item.value.unitOptions" [value]="unit.measure">{{ unit.measure }}</mat-option>
@@ -97,7 +97,7 @@
       <div [formGroupName]="i">
         <mat-list-item class="ingredientsData">
           <div fxLayout="row" fxLayoutAlign="start center" class="subrecipe">
-            <span class="ingr-name">{{ item.value.name }}</span>
+            <span class="ingr-name" (click)="openNutrDialog('subrec', i)">{{ item.value.name }}</span>
             <mat-form-field class="unit">
               <mat-select formControlName="unit" #unit>
                 <mat-option [value]="item.value.unit">{{ item.value.unit }}</mat-option>
