@@ -1,6 +1,4 @@
 import { User } from '../../common/models/user/user';
-import { ActivityData } from './../../common/models/activity-data';
-import { Activity } from './../../common/models/activity';
 import { TestBed } from '@angular/core/testing';
 
 import { HttpClient } from '@angular/common/http';
@@ -45,16 +43,6 @@ describe('UsersService', () => {
       firstName: 'firstName',
       lastName: 'lastName',
       joined: date,
-      following: ['username1'],
-      followers: [],
-      role: 'admin',
-      banStatus: {
-        isBanned: false,
-        description: null,
-        expDate: null,
-        id: 'id',
-        user: 'user',
-      },
     };
 
     http.get.and.returnValue(of(user));
