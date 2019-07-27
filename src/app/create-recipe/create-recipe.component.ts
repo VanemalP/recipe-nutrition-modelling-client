@@ -8,6 +8,7 @@ import { Recipe } from '../common/models/recipe/recipe';
 import { RecipeHelperService } from '../core/services/recipe-helper.service';
 import { RecipesService } from '../core/services/recipes.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { NotificatorService } from '../core/services/notificator.service';
 import { Ingredient } from '../common/models/ingredient';
 import { Subrecipe } from '../common/models/subrecipe';
@@ -49,6 +50,7 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
     private readonly activatedRoute: ActivatedRoute,
     private readonly notificator: NotificatorService,
     private readonly router: Router,
+    private readonly location: Location,
   ) { }
 
   ngOnInit() {
@@ -292,10 +294,6 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
   }
 
   cancelAction() {
-    if (this.recipeToEdit) {
-      this.router.navigate(['recipes', this.recipeToEdit.id]);
-    } else {
-      this.router.navigate(['recipes']);
-    }
+    this.location.back();
   }
 }

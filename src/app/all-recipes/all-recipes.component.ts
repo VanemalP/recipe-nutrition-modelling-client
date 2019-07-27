@@ -64,7 +64,7 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
       (query) => {
         if (query) {
           this.currPage = 1;
-          this.query = {...query};
+          this.query = {...query, ...this.sortForm.value.sort};
           const queryCall = {...this.query , limit: this.limit.toString(), page: this.currPage.toString()}
           this.recipesService.getRecipes(queryCall).subscribe(
             (data) => {
@@ -123,18 +123,23 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
   }
 
   filterByCategory(category: string) {
-    this.searchService.search({category});
+    this.query = {category, ...this.sortForm.value.sort};
+    this.searchService.search(this.query);
     window.scrollTo(0, 0);
   }
 
   clearSearch() {
     this.searchService.clearSearch();
-    this.query = null;
-    this.getResolvedData();
-    this.isResolved = true;
+    this.query = {...this.sortForm.value.sort};
     this.isSearchResult = false;
     this.paginator.firstPage();
     this.currPage = 1;
+    this.recipesService.getRecipes({...this.query, limit: this.limit.toString(), page: this.currPage.toString()}).subscribe(
+      (data) => {
+        this.updateData(data);
+        this.isResolved = true;
+      }
+    );
     window.scrollTo(0, 0);
   }
 
