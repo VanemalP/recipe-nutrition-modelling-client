@@ -40,9 +40,7 @@ import { AllRecipesModule } from './all-recipes/all-recipes.module';
     CreateRecipeModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return localStorage.getItem('token');
-        },
+        tokenGetter: jwtTokenGetter,
         whitelistedDomains: ['http://localhost:3000'],
         blacklistedRoutes: ['http://localhost:3000/login']
       }
@@ -66,3 +64,7 @@ import { AllRecipesModule } from './all-recipes/all-recipes.module';
   bootstrap: [AppComponent],
 })
 export class AppModule { }
+
+export function jwtTokenGetter() {
+  return localStorage.getItem('token');
+ }

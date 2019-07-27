@@ -8,12 +8,12 @@ import { RecipeHelperService } from '../core/services/recipe-helper.service';
 import { RecipesService } from '../core/services/recipes.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
-import { NutritionTableComponent } from '../components/nutrition-table/nutrition-table.component';
 import { of } from 'rxjs';
 import { Ingredient } from '../common/models/ingredient';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Recipe } from '../common/models/recipe/recipe';
 import { RecipeDetailedViewRoutingModule } from './recipe-detailed-view-routing.module';
+import { NutritionTableComponent } from '../shared/components/nutrition-table/nutrition-table.component';
 
 describe('RecipeDetailedViewComponent', () => {
   let fixture: ComponentFixture<RecipeDetailedViewComponent>;
