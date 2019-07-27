@@ -18,7 +18,7 @@ import { SharedModule } from './shared/shared.module';
 import { UsersModule } from './users/users.module';
 import { CreateRecipeModule } from './create-recipe/create-recipe.module';
 import { TokenInterceptorService } from './interceptors/token-interceptor';
-import { SearchbarComponent } from './searchbar/searchbar.component';
+import { SearchbarComponent } from './components/searchbar/searchbar.component';
 import { AllRecipesModule } from './all-recipes/all-recipes.module';
 
 @NgModule({

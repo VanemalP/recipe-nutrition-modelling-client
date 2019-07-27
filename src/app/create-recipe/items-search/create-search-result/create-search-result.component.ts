@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { RecipeHelperService } from '../../core/services/recipe-helper.service';
-import { Recipe } from '../../common/models/recipe/recipe';
+import { RecipeHelperService } from '../../../core/services/recipe-helper.service';
+import { Recipe } from '../../../common/models/recipe/recipe';
 
 @Component({
   selector: 'app-create-search-result',

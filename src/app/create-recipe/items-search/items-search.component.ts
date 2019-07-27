@@ -33,7 +33,7 @@ export class ItemsSearchComponent implements OnInit {
 
   @Output()
   searchItems: EventEmitter<{inputValue: string, selectedValue: string}> = new EventEmitter();
-  
+
   @Output()
   clearSearch: EventEmitter<string> = new EventEmitter();
 

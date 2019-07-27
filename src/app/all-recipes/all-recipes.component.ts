@@ -65,7 +65,7 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
         if (query) {
           this.currPage = 1;
           this.query = {...query, ...this.sortForm.value.sort};
-          const queryCall = {...this.query , limit: this.limit.toString(), page: this.currPage.toString()}
+          const queryCall = {...this.query , limit: this.limit.toString(), page: this.currPage.toString()};
           this.recipesService.getRecipes(queryCall).subscribe(
             (data) => {
               this.updateData(data);

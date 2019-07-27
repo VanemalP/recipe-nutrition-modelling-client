@@ -251,7 +251,10 @@ export class CreateRecipeComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.recipesService.updateRecipe(this.recipeToEdit.id, {title, imageUrl, category, notes, newIngredientsData, newSubrecipesData, updateIngredientsData, updateSubrecipesData}).subscribe(
+    this.recipesService.updateRecipe(
+      this.recipeToEdit.id,
+      {title, imageUrl, category, notes, newIngredientsData, newSubrecipesData, updateIngredientsData, updateSubrecipesData}
+    ).subscribe(
       (res: any) => {
         this.notificator.success('Recipe successfully updated');
         this.recipeHelperService.clearRecipeItems();
