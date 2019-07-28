@@ -157,10 +157,18 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
   deleteRecipe(recipeId: string) {
     this.recipesService.deleteRecipe(recipeId).subscribe(
       () => {
-        const recIndex = this.allRecipes.findIndex(recipe => recipe.id === recipeId);
-        this.allRecipes.splice(recIndex, 1);
-        this.allNutrition.splice(recIndex, 1);
-        this.totalRecipes -= 1;
+        if (this.limit < this.totalRecipes) {
+          this.recipesService.getRecipes({...this.query, limit: this.limit.toString(), page: this.currPage.toString()}).subscribe(
+            (data) => {
+              this.updateData(data);
+            }
+          );
+        } else {
+          const recIndex = this.allRecipes.findIndex(recipe => recipe.id === recipeId);
+          this.allRecipes.splice(recIndex, 1);
+          this.allNutrition.splice(recIndex, 1);
+          this.totalRecipes -= 1;
+        }
         this.notificator.success('Recipe successfully deleted.');
       },
     );
