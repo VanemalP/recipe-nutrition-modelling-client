@@ -60,11 +60,11 @@ export class RecipeDetailedViewComponent implements OnInit {
 
   calcIngrMeasure(item: Ingredient) {
     const gramsPerMeasure = item.measures.find((m) => m.measure === item.unit).gramsPerMeasure;
-    return gramsPerMeasure * item.quantity + ' g';
+    return (gramsPerMeasure * item.quantity).toFixed(2) + ' g';
   }
 
   calcSubrecMeasure(item: Subrecipe) {
-    return item.gramsPerMeasure * item.quantity + ' g';
+    return (item.gramsPerMeasure * item.quantity).toFixed(2) + ' g';
   }
 
   deleteRecipe() {

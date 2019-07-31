@@ -65,7 +65,7 @@
               </mat-select>
             </mat-form-field>
             <mat-form-field class="quantity">
-              <input matInput type="number" min="0.1" step="0.1" formControlName="quantity" #quantity />
+              <input matInput type="number" min="0" step="1" formControlName="quantity" #quantity />
               <mat-error *ngIf="item.get('quantity').hasError('required')">
                 Please add qty
               </mat-error>
