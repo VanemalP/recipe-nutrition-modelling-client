@@ -70,6 +70,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
   <img src="./screenshots/register.JPG" width="280" alt="Image" />
 </a>
 <br />
+
 - All recipes page (URL: /#/recipes)
     - List of all recipes, created by the logged user
     - Chart for the main nutritions for each recipe
@@ -81,6 +82,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
   <img src="./screenshots/all-recipes.JPG" width="280" alt="Image" />
 </a>
 <br />
+
 - Single recipe page (URL: /#/recipes/:recipeId)
     - Detailed view of the recipe
     - Delete, edit and saveAsPDF buttons
@@ -89,6 +91,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
   <img src="./screenshots/register.JPG" width="280" alt="Image" />
 </a>
 <br />
+
 - Editor page to create/edit recipes (URL: /#/create-edit)
     - Searching and adding Products and Recipes to the recipe
     - Nutrition facts for the recipe
@@ -101,6 +104,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
   <img src="./screenshots/create-edit-item-nutrition.JPG" width="280" alt="Image" />
 </a>
 <br />
+
 - Search recipe by name, category, nutrition values (availabe at each page)
 <br />
 <a href="./screenshots/search.JPG" target="_blank">
@@ -110,6 +114,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
   <img src="./screenshots/search-result.JPG" width="280" alt="Image" />
 </a>
 <br />
+
 - Profile page (URL: /#/profile/:username, /#/profile/:username/favorites)
     - Show basic user info
 <br />
