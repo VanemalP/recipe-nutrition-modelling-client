@@ -1,4 +1,4 @@
-# Recipe Nutrition Modelling API
+# Recipe Nutrition Modelling Client
 
 <p align="center">
   <a href="https://angular.io/" target="blank"><img src="https://angular.io/assets/images/logos/angular/angular.svg" width="320" alt="Angular Logo" /></a>
