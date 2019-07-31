@@ -87,8 +87,8 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
     - Detailed view of the recipe
     - Delete, edit and saveAsPDF buttons
 <br />
-<a href="./screenshots/register.JPG" target="_blank">
-  <img src="./screenshots/register.JPG" width="280" alt="Image" />
+<a href="./screenshots/recipe-detailed-view.JPG" target="_blank">
+  <img src="./screenshots/recipe-detailed-view.JPG" width="280" alt="Image" />
 </a>
 <br />
 
