@@ -159,7 +159,7 @@ export class CreateRecipeDetailsComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(
       (result) => {
-        if (result) {
+        if (result.imageUrl) {
           this.imageUrl = result.imageUrl;
           this.recipeForm.get('imageUrl').setValue(this.imageUrl);
         }
@@ -168,13 +168,15 @@ export class CreateRecipeDetailsComponent implements OnInit, OnDestroy {
   }
 
   openNutrDialog(item: string, index: number): void {
+    let title: string;
     let nutrition: Nutrition;
     let quantity: number;
     let unit: string;
     let itmMeasure: number;
     if (item === 'ingr') {
       const nutrPer100grams = this.recipeHelperService.recipeIngredients[index].nutrition;
-      quantity = +this.ingredientsArr.value[index].quantity;
+      title = this.ingredientsArr.value[index].name;
+      quantity = this.ingredientsArr.value[index].quantity ? +this.ingredientsArr.value[index].quantity : 0;
       unit = this.ingredientsArr.value[index].unit;
       const gramsPerMeasure = +this.recipeHelperService.recipeIngredients[index].measures
         .find((measure) => measure.measure === unit).gramsPerMeasure;
@@ -182,7 +184,8 @@ export class CreateRecipeDetailsComponent implements OnInit, OnDestroy {
       nutrition = this.recipeHelperService.calculateTotalNutrition(nutrPer100grams, quantity, gramsPerMeasure);
     } else if (item === 'subrec') {
       const nutrPer100grams = this.recipeHelperService.recipeSubrecipes[index].nutrition;
-      quantity = +this.subrecipesArr.value[index].quantity;
+      title = this.subrecipesArr.value[index].name;
+      quantity = this.subrecipesArr.value[index].quantity ? +this.subrecipesArr.value[index].quantity : 0;
       unit = this.subrecipesArr.value[index].unit;
       itmMeasure += this.recipeHelperService.recipeSubrecipes[index].gramsPerMeasure * quantity;
       nutrition = this.recipeHelperService.calculateTotalNutrition(
@@ -193,7 +196,7 @@ export class CreateRecipeDetailsComponent implements OnInit, OnDestroy {
       minWidth: '800px',
       autoFocus: false,
       disableClose: false,
-      data: {nutrition, measure: itmMeasure}
+      data: {title, nutrition, measure: itmMeasure}
     });
   }
 

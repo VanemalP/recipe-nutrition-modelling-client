@@ -129,10 +129,13 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
   }
 
   clearSearch() {
+    this.isResolved = false;
     this.searchService.clearSearch();
     this.query = {...this.sortForm.value.sort};
     this.isSearchResult = false;
-    this.paginator.firstPage();
+    if (this.paginator) {
+      this.paginator.firstPage();
+    }
     this.currPage = 1;
     this.recipesService.getRecipes({...this.query, limit: this.limit.toString(), page: this.currPage.toString()}).subscribe(
       (data) => {
@@ -186,6 +189,7 @@ export class AllRecipesComponent implements OnInit, OnDestroy {
       (res) => {
         if (!this.searchService.isSearched) {
           this.updateData(res.recipes);
+          this.isResolved = true;
         }
       },
     );

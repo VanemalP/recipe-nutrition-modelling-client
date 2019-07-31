@@ -1,6 +1,6 @@
 <div class="container">
-  <p *ngIf="!isSearchResult && allRecipes.length === 0 && isResolved">You have not created any recipes yet...</p>
-  <p *ngIf="isSearchResult && allRecipes.length === 0 && isResolved">No recipes found</p>
+  <p *ngIf="!isSearchResult && allRecipes.length === 0 && isResolved" class="text-center">You have not created any recipes yet...</p>
+  <p *ngIf="isSearchResult && allRecipes.length === 0 && isResolved" class="text-center">No recipes found</p>
   <button mat-button class="clear-search" *ngIf="isSearchResult" (click)="clearSearch()"><mat-icon>cancel</mat-icon> Clear search</button>
   <form class="select-order" fxLayout="row" fxLayoutAlign="center center" [formGroup]="sortForm"  *ngIf="allRecipes.length > 0">
     <p>Sort by:</p>
