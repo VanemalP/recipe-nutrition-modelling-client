@@ -62,47 +62,58 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 - Sign in/Sign up pages (URL: /#/login, /#/register) 
     - Uses JWT (store the token in localStorage)
+<br />
 <a href="./screenshots/login.JPG" target="_blank">
   <img src="./screenshots/login.JPG" width="280" alt="Image" />
 </a>
 <a href="./screenshots/register.JPG" target="_blank">
   <img src="./screenshots/register.JPG" width="280" alt="Image" />
 </a>
-
+<br />
 - All recipes page (URL: /#/recipes)
     - List of all recipes, created by the logged user
     - Chart for the main nutritions for each recipe
     - Delete and edit buttons for each recipe
     - Sorting by name and date
     - Pagination for the list of recipes
+<br />
 <a href="./screenshots/all-recipes.JPG" target="_blank">
   <img src="./screenshots/all-recipes.JPG" width="280" alt="Image" />
 </a>
+<br />
 - Single recipe page (URL: /#/recipes/:recipeId)
     - Detailed view of the recipe
     - Delete, edit and saveAsPDF buttons
+<br />
 <a href="./screenshots/register.JPG" target="_blank">
   <img src="./screenshots/register.JPG" width="280" alt="Image" />
 </a>
+<br />
 - Editor page to create/edit recipes (URL: /#/create-edit)
     - Searching and adding Products and Recipes to the recipe
     - Nutrition facts for the recipe
     - Nutrition facts for each recipe item (shown after click on the item's name)
+<br />
 <a href="./screenshots/create-edit.JPG" target="_blank">
   <img src="./screenshots/create-edit.JPG" width="280" alt="Image" />
 </a>
 <a href="./screenshots/create-edit-item-nutrition.JPG" target="_blank">
   <img src="./screenshots/create-edit-item-nutrition.JPG" width="280" alt="Image" />
 </a>
+<br />
 - Search recipe by name, category, nutrition values (availabe at each page)
+<br />
 <a href="./screenshots/search.JPG" target="_blank">
   <img src="./screenshots/search.JPG" width="280" alt="Image" />
 </a>
 <a href="./screenshots/search-result.JPG" target="_blank">
   <img src="./screenshots/search-result.JPG" width="280" alt="Image" />
 </a>
+<br />
 - Profile page (URL: /#/profile/:username, /#/profile/:username/favorites)
     - Show basic user info
+<br />
 <a href="./screenshots/profile.JPG" target="_blank">
   <img src="./screenshots/profile.JPG" width="280" alt="Image" />
 </a>
+<br />
